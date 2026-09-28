@@ -1,0 +1,20 @@
+Seu link para entrar no Biblup
+
+FALTA UM TOQUE PARA GUARDAR SEU PROGRESSO
+
+Olá! Você terminou a Lição demo e ganhou 35 XP. Toque no botão abaixo para criar sua conta no Biblup e levar esse progresso com você.
+
+O link vale por 1 hora e funciona uma única vez. Abra no mesmo aparelho em que você fez a demo para o progresso migrar sozinho.
+
+Criar minha conta: {magic_link_url}
+
+Ou digite o código na tela de acesso
+482 913
+
+Se você não pediu este link, pode ignorar este e-mail: nenhuma conta será criada. O código é só seu e ninguém do Biblup vai pedir por ele. Se o link expirar, é só pedir outro na tela de acesso.
+
+Com carinho,
+Time do Biblup
+
+--
+Biblup <conta@biblup.com> · Categoria: Transacional

@@ -1,0 +1,20 @@
+Confirme seu novo e-mail no Biblup
+
+CONFIRME SEU NOVO E-MAIL
+
+Ana, você pediu para trocar o e-mail de acesso da sua conta para ana.nova@email.com. Toque no botão para confirmar. O link vale por 1 hora.
+
+Até confirmar, o e-mail antigo continua valendo.
+
+Confirmar novo e-mail: {verify_url}
+
+Ou digite o código na tela de acesso
+190 466
+
+Não foi você? Ignore este e-mail; nada muda sem esta confirmação.
+
+Com carinho,
+Time do Biblup
+
+--
+Biblup <conta@biblup.com> · Categoria: Transacional

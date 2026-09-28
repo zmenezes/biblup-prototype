@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central de Ajuda · Biblup</title>
+<meta name="description" content="Central de Ajuda do Biblup: conta e cadastro, aprendizado e progresso, Grupos, notificações, privacidade e idiomas.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg"><link rel="icon" type="image/x-icon" href="../favicon.ico"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="../shared/site.css">
+<link rel="stylesheet" href="../shared/public.css">
+<style>
+.help-search{max-width:560px;margin:0 auto}
+.help-search .input{min-height:54px;padding:0 18px;border-radius:var(--r-xl);box-shadow:var(--sh-2)}
+.help-search .input input{font-size:15px}
+.help-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.help-cat{display:grid;gap:10px;padding:20px;border-radius:var(--r-lg);background:var(--surface);border:2px solid var(--border);box-shadow:0 4px 0 var(--border);text-decoration:none;color:inherit;transition:border-color var(--t-fast),transform var(--t-press),box-shadow var(--t-press)}
+.help-cat:hover{border-color:var(--primary-bright)}
+.help-cat:active{transform:translateY(3px);box-shadow:none}
+.help-cat .cat-head{display:flex;align-items:center;gap:10px}
+.help-cat .cat-head svg{color:var(--primary-ink-soft);flex:none}
+.help-cat h3{font-family:var(--f-display);font-size:17px;font-weight:700}
+.help-cat p{font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.help-cat .art-count{font-size:12px;color:var(--ink-3);font-weight:700}
+.help-popular{display:grid;gap:8px;max-width:680px;margin:0 auto}
+.help-popular a{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 16px;border-radius:var(--r-lg);background:var(--surface);border:2px solid var(--border);color:var(--ink);text-decoration:none;font-weight:600;font-size:14px}
+.help-popular a:hover{border-color:var(--primary-bright)}
+.help-popular a .ic{color:var(--ink-3);margin-inline-start:auto;flex:none}
+</style>
+<script>try{if(localStorage.getItem('biblup-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+</head>
+<body>
+<a href="#main" class="skip">Pular para o conteúdo</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="logo" viewBox="0 0 925 471"><path fill="var(--logo-text)" fill-rule="evenodd" d="M760 244q0 .2-.3 0c-.8.3-5.4 6-6.4 7-9.6 10.2-21.9 18.3-36.4 17.9a30 30 0 0 1-19.8-8 39 39 0 0 1-8.3-11.8c-.3-.7-1.7-4-2.1-4.4l-.5-.2-.4.2-5.2 7.3a96 96 0 0 1-15 14.6c-18 14.3-44.8 18.6-63.4 3-6.6-5.4-8.2-9.3-13-15.5q-.3 0-.5.2s-6.5 10.2-8 12c-13.3 17.2-32.1 33.2-55.6 26.8-14.3-3.9-23.5-15.5-27.9-29.3q-2.8-9.1-3.7-18.5c-1.5-18.8-.5-37.7.7-56.5q2-29.1 4.9-58.2 4.1-42 8.5-84c.8-7 2.4-26.7 4.6-32.1 8.4-21 41-17.1 39.3 10.5q-.6 6.9-1.6 13.9l-2.2 18.8-4 36.3q-1.8 18.6-3.4 37.3c-1 11-2.3 21.9-2.9 32.8-1 18.2-5.7 64.9-2.2 80.4 1 4 2.6 8.7 6.7 10.4 14 6 34.3-28.8 37.4-39.5 1.5-5.4.8-17 1.4-23.4q2.1-26.4 4.5-52.8c.7-7.8 1.1-15.7 2.4-23.4q.4-2.7 1.6-5.2a22.7 22.7 0 0 1 28.4-11.8c6 2.3 10 7.3 11.2 13.5 1.3 6.9-1 20-2 27.4q-2 16.3-3.7 32.7l-1.8 20.4c-.9 12-3 39.4 9.9 45.6a14 14 0 0 0 11.5-.3c6.8-3 12.4-8.8 17.2-14.2 23.4-26.7 26-70 29.2-103.9.7-7 .3-15 2.8-21.7 2-5.6 6.9-10 12.5-12a23 23 0 0 1 16.6.2 19 19 0 0 1 11 13.7c1.6 7-.6 18.5-1.3 25.9q-2.9 27.7-5.5 55.7c-.8 9.4-2 18.9-2 28.4q-.2 6.5 1.4 12.9 1.3 4.7 5.5 7.1c7 .2 12.2-6 16.3-11 7-8.5 13-19 15.7-29.7 1.6-6.4 1.2-13.4 1.7-19.9l3.4-53.9c.5-7.6.6-16 1.5-23.4q.3-3.5 1.6-6.8A22 22 0 0 1 795 73c7 1.6 12.4 7 13.2 14.3 0 1 0 6.5.3 7l.3.2q3-3.7 6.5-7.4a65 65 0 0 1 51.8-18.4c15 1.4 29.2 10 38.6 21.5a83 83 0 0 1 17 39.8c6.9 44.6-15.7 96-56.5 117-13.4 6.9-29 10-44 7.2q-8.3-1.4-16-5.3-2.5-1.5-5.2-2.8 0 .2-.3.4c-.3.7-1.1 24-1.2 26.9-.7 18.8-1.9 37.6-2.7 56.4l-.3 13.5q0 4.3-.2 8.5-.5 4-2 7.7a21 21 0 0 1-20 12.2 20 20 0 0 1-18-13.4q-1.1-3.9-1.2-7.9 0-6.5.3-13 .7-19.5 1.8-39c1-18 1.5-36.2 2.9-54.3m-399.3-98.3.4.1c.4-.1 5.5-4.8 6.3-5.5a77 77 0 0 1 32.2-16 64 64 0 0 1 37.8 2.4 59 59 0 0 1 33.2 36.3 99 99 0 0 1 5 36.9c-1.6 41-24.3 82.9-60.2 103.8a98 98 0 0 1-40.7 13.8c-24 2-45.5-5.8-55.8-29.2a74 74 0 0 1-5.1-26.7q-.4-12.7.4-25.5 1.1-21.4 2.8-43 2.8-42.7 7-85.6l1.6-17.4 2.5-25.4c.8-8.5 1.4-19 3-27.3q.5-3.5 2.1-6.6c7-13.3 28.1-15.3 35.9-1.5 2.1 3.8 2.5 8.2 2.1 12.5q-1.6 16.2-3.5 32.3l-3 30.9q-1.2 10.6-2.2 21.3-.8 9.8-1.8 19.4M30.6 105.7c-1.5.2.5-.5-1 0-6 2-11.3 10.9-19 9.8-4-.6-6.7-4.3-8-7.9C-6.9 83.8 31 53.2 56.8 65.3a27 27 0 0 1 10.4 8.4c2.6 3.5 3.8 7.7 5.2 11.7h.5c.5-.2 1-1.5 1.5-2L81 76a126 126 0 0 1 34-24.8 92 92 0 0 1 31.3-9.7c17.4-1.7 36.8 3.7 48.3 17.5a53 53 0 0 1 10.6 22.8c3.2 14.9.3 30.5-6.2 44.1a161 161 0 0 1-33 44.8c-3.6 3.6-7.8 6.7-11.2 10.5l.3.2c.5.2 6.2.9 7.4 1.2a76 76 0 0 1 20.9 7.9 57 57 0 0 1 30 43.3 82 82 0 0 1-.3 26.3c-7 37.9-41.3 72.6-72.8 92.3a187 187 0 0 1-61.7 25.3c-17.1 3.4-45.3 6-57.3-9.6-4.2-5.4-6-12.2-6.6-19-.4-4.8.2-9.6.4-14.5l2-28.9 4-52.3q2.1-29.7 4.5-59.3 2.8-29.7 4.9-59.3c.4-6.8 1.2-13.6 1.3-20.5 0-2.5 0-5.4-.8-7.8-.4-1.5.2.5-.5-.8m238 14.7c-4.8.3-9.7-.9-13.8-3.4-20.7-13-9.4-49.3 16.4-48 30.3 1.3 27.7 49.6-2.6 51.4m-199 69.4c3.4-1 6.9-3 10.3-4.5a181 181 0 0 0 24-12c21.4-13.5 57.7-45.3 60.6-71.8.6-6-.2-12.8-5-17-5.4-4.4-13.4-4-19.6-2.1a68 68 0 0 0-21 11 125 125 0 0 0-47.2 76.2c-.6 2.7-2.8 18-2.4 19.8zM830.3 218a42 42 0 0 0 18.9-5.7c27.1-15.2 42-57.8 30.2-86.5-3.4-8.3-8.8-15-17.7-17.5a29 29 0 0 0-20.8 2.3c-7.1 3.5-12.6 9-17.3 15.4a107 107 0 0 0-18.3 53 49 49 0 0 0 1.7 25.2c4 9.3 13.4 14 23.3 13.8m-561 115.2a27 27 0 0 1-26.3-11.8q-4.2-5.3-6.4-11.7c-3-8.7-3.7-18.4-3.8-27.6-.4-25.6 3.1-51.3 5.5-76.7q1.2-14.5 2.7-28.9.4-5.3 1-10.4.7-4.5 2.6-8.6c3.5-7.2 11-11.4 19-11.6 4-.1 8.4.9 11.8 3.2 4.2 2.9 7 7.9 7.8 12.9q.5 3.4.3 7c-.3 6.3-1.3 12.6-1.8 18.8l-5.2 57.8c-1 11.2-4 33.2-1.2 43.3 3.7 13.6 15.1 2.4 19.4 15.8q1.6 5.1.6 10.4c-2.1 11.2-15.7 17.2-26 18.1M374.8 279a53 53 0 0 0 31.3-17.2 104 104 0 0 0 20.4-28.1c8.1-16.7 11.8-38.6 4.9-56.2a26 26 0 0 0-14.3-15.7 30 30 0 0 0-24.5 3.1c-27.5 16-36.3 53-38 82.3-.6 8.6-1.8 19.4 3.8 26.7 3.8 4.8 10.7 5.6 16.4 5m-310-39.4c-1.8 14.4-2.5 29-3.6 43.4-1.2 16.4-3.9 38.9-2.8 54.8 0 1.6 0-.5.4.9 9.3 1.6 26-3.7 34.7-7.3q13-5.2 24.8-12.7c23.7-15 53.9-43 52.7-73.5-.4-11-4.9-18-14.9-22.6a56 56 0 0 0-26.2-4.8q-8.5.6-16.8 2.7c-10.5 2.7-40.5 13-48.4 19"/><path fill="var(--logo-stroke)" fill-rule="evenodd" d="M213.3 469.7q-4.3.6-8.3-.6a19 19 0 0 1-12.7-14.2 19 19 0 0 1 6.4-17q2.4-2.1 5.3-3.6c7.2-3.8 16.2-7.1 23.8-10.2l20.4-8.3c47-18.1 95.4-32.5 144.3-44.6q29-7.3 58.4-13.5a1402 1402 0 0 1 213.5-27.1c10-.5 48-3 55.4-1a18 18 0 0 1 11.7 12.6 18.3 18.3 0 0 1-17.4 22.9c-4.6.4-9.3.2-14 .3l-25.5.8a1403 1403 0 0 0-363.6 66q-32.8 10.7-64.5 23.9c-6.2 2.6-28.5 13-33.2 13.6"/></symbol>
+<symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V5.5M8 7h7"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M17.5 13.5a6.5 6.5 0 0 1 4 6.5"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15zM10 21h4"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></symbol>
+<symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+</svg>
+<div class="devbar" aria-label="Nota do protótipo"><b>Protótipo</b><span>URL pública: biblup.com<b style="color:#fff">/pt/ajuda</b></span><span class="sp"></span><a href="../index.html">Índice dos protótipos</a></div>
+<nav class="md-nav" aria-label="Menu principal">
+  <a href="landing.html" aria-label="Biblup, início"><svg style="height:34px;width:auto;display:block" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></a>
+  <div class="lk">
+    <a href="landing.html#como-funciona">Como funciona</a>
+    <a href="landing.html#idiomas">No seu idioma</a>
+    <a href="landing.html#igreja">Estude com sua igreja</a>
+    <a href="historias.html">Histórias</a>
+    <a href="contato.html">Contato</a>
+  </div>
+  <div class="acts">
+    <button class="menu-btn" type="button" aria-label="Abrir menu" onclick="openOverlay('mobileNav')"><svg class="ic"><use href="#i-menu"/></svg></button>
+    <a class="btn btn-link btn-sm" href="login.html">Já tenho conta</a>
+    <a class="btn btn-primary btn-sm" href="../onboarding/flow.html">Experimente uma lição</a>
+  </div>
+</nav>
+<div class="overlay sheet" id="mobileNav" onclick="if(event.target===this)closeOverlay('mobileNav')">
+  <div class="sheet-s" role="dialog" aria-label="Menu">
+    <div class="grip"></div>
+    <nav class="mobile-lk" aria-label="Menu principal (mobile)">
+      <a href="landing.html#como-funciona">Como funciona</a>
+      <a href="landing.html#idiomas">No seu idioma</a>
+      <a href="landing.html#igreja">Estude com sua igreja</a>
+      <a href="historias.html">Histórias</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </div>
+</div>
+<main id="main">
+
+<section class="md-band soft">
+  <div class="md-wrap">
+    <div class="md-sec-h">
+      <h1 style="font-size:clamp(30px,4vw,44px);font-weight:700;letter-spacing:-.025em">Como podemos ajudar?</h1>
+      <p style="max-width:52ch;margin:14px auto 0">Respostas para as dúvidas mais comuns sobre conta, aprendizado, Grupos, privacidade e mais.</p>
+    </div>
+    <div class="help-search" style="margin-top:24px">
+      <div class="input">
+        <svg class="ic"><use href="#i-search"/></svg>
+        <input type="search" placeholder="Buscar na Central de Ajuda (ex.: senha, Streak, excluir conta)" onkeydown="if(event.key==='Enter'){event.preventDefault();toast('Busca','Resultados de busca ainda não disponíveis neste protótipo')}">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="md-band">
+  <div class="md-wrap">
+    <div class="md-sec-h" style="text-align:start;margin-bottom:18px"><h2 style="font-size:22px">Categorias</h2></div>
+    <div class="help-grid">
+      <a class="help-cat" href="ajuda-categoria.html">
+        <span class="cat-head"><svg class="ic"><use href="#i-user"/></svg><h3>Conta e cadastro</h3></span>
+        <p>Criar conta, recuperar senha, trocar e-mail, excluir conta.</p>
+        <span class="art-count">6 artigos</span>
+      </a>
+      <a class="help-cat" href="#" onclick="event.preventDefault();toast('Em construção','Categoria Aprendizado e progresso ainda não disponível neste protótipo')">
+        <span class="cat-head"><svg class="ic"><use href="#i-book"/></svg><h3>Aprendizado e progresso</h3></span>
+        <p>Lições, Test-out, Level test, Corações, Streak e Revisão.</p>
+        <span class="art-count">8 artigos</span>
+      </a>
+      <a class="help-cat" href="#" onclick="event.preventDefault();toast('Em construção','Categoria Grupos e Indique e ganhe ainda não disponível neste protótipo')">
+        <span class="cat-head"><svg class="ic"><use href="#i-users"/></svg><h3>Grupos e Indique e ganhe</h3></span>
+        <p>Criar um Grupo, convidar pessoas, recompensas de indicação.</p>
+        <span class="art-count">5 artigos</span>
+      </a>
+      <a class="help-cat" href="#" onclick="event.preventDefault();toast('Em construção','Categoria Notificações ainda não disponível neste protótipo')">
+        <span class="cat-head"><svg class="ic"><use href="#i-bell"/></svg><h3>Notificações</h3></span>
+        <p>Avisos push, e-mails que enviamos e como ajustar preferências.</p>
+        <span class="art-count">4 artigos</span>
+      </a>
+      <a class="help-cat" href="#" onclick="event.preventDefault();toast('Em construção','Categoria Privacidade e seus dados ainda não disponível neste protótipo')">
+        <span class="cat-head"><svg class="ic"><use href="#i-shield"/></svg><h3>Privacidade e seus dados</h3></span>
+        <p>Exportar seus dados, LGPD/GDPR, cookies e consentimento.</p>
+        <span class="art-count">5 artigos</span>
+      </a>
+      <a class="help-cat" href="#" onclick="event.preventDefault();toast('Em construção','Categoria Idiomas disponíveis ainda não disponível neste protótipo')">
+        <span class="cat-head"><svg class="ic"><use href="#i-globe"/></svg><h3>Idiomas disponíveis</h3></span>
+        <p>Idiomas ativos no lançamento e como novos idiomas são ativados.</p>
+        <span class="art-count">3 artigos</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="md-band alt">
+  <div class="md-wrap">
+    <div class="md-sec-h" style="text-align:start;margin-bottom:18px"><h2 style="font-size:22px">Perguntas mais buscadas</h2></div>
+    <div class="help-popular">
+      <a href="ajuda-topico.html">Como excluir minha conta e todos os meus dados?<svg class="ic"><use href="#i-chev-r"/></svg></a>
+      <a href="#" onclick="event.preventDefault();toast('Em construção','Artigo ainda não disponível neste protótipo')">Como funcionam o Streak e o Freeze?<svg class="ic"><use href="#i-chev-r"/></svg></a>
+      <a href="#" onclick="event.preventDefault();toast('Em construção','Artigo ainda não disponível neste protótipo')">Por que preciso de 60% no Test-out para pular a Unidade?<svg class="ic"><use href="#i-chev-r"/></svg></a>
+      <a href="#" onclick="event.preventDefault();toast('Em construção','Artigo ainda não disponível neste protótipo')">Como funciona o Indique e ganhe?<svg class="ic"><use href="#i-chev-r"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="md-band deep">
+  <div class="md-wrap"><h3>Não achou o que procurava?</h3><p>Escreva para o time do Biblup, respondemos em até 2 dias úteis.</p><a class="btn btn-lg" href="contato.html">Fale conosco<svg class="ic"><use href="#i-arrow-r"/></svg></a></div>
+</section>
+
+</main>
+<footer class="md-foot">
+  <div class="md-wrap">
+    <div class="cols">
+      <div><svg style="height:32px;width:auto;display:block;margin-bottom:10px" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg><p style="max-width:30ch">A Bíblia como ponte para aprender um novo idioma, com gamificação e prática diária.</p><p style="margin-top:8px">Texto bíblico: World English Bible, domínio público.</p></div>
+      <div><b>Biblup</b><a href="landing.html#como-funciona">Como funciona</a><a href="landing.html#original">Versículo original</a><a href="landing.html#igreja">Estude com sua igreja</a><a href="historias.html">Histórias</a><a href="login.html">Entrar</a></div>
+      <div><b>Legal</b><a href="termos.html">Termos de uso</a><a href="privacidade.html">Política de privacidade</a><a href="cookies.html">Cookies e consentimento</a><a href="mailto:legal@biblup.com">legal@biblup.com</a></div>
+      <div><b>Recursos da Bíblia</b><a href="#versiculo-aleatorio" onclick="event.preventDefault();toast('Em breve','Versículo do Dia ainda não disponível')">Versículo do Dia</a><a href="#proverbio-aleatorio" onclick="event.preventDefault();toast('Em breve','Provérbio do Dia ainda não disponível')">Provérbio do Dia</a><a href="#salmo-aleatorio" onclick="event.preventDefault();toast('Em breve','Salmo do Dia ainda não disponível')">Salmo do Dia</a><a href="#devocional" onclick="event.preventDefault();toast('Em breve','Devocional Diário ainda não disponível')">Devocional Diário</a><a href="#outros-recursos" onclick="event.preventDefault();toast('Em breve','Mais recursos a caminho')">Outros recursos</a></div>
+      <div><b>Suporte</b><a href="central-de-ajuda.html" aria-current="page">Central de Ajuda</a><a href="contato.html">Contato</a></div>
+    </div>
+    <div style="border-top:1px solid var(--border);margin:20px 0 16px;padding-top:16px">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <b style="font-size:13px;margin:0">Idioma do site</b>
+        <nav class="lang-links" aria-label="Idioma do site"><a href="#" hreflang="pt-br" aria-current="true" onclick="event.preventDefault()">Português</a><span aria-hidden="true">·</span><a href="#" hreflang="es" onclick="event.preventDefault();toast('Idioma do site','Mesma página em Español; /es/ (hreflang)')">Español</a><span aria-hidden="true">·</span><a href="#" hreflang="en" onclick="event.preventDefault();toast('Idioma do site','Mesma página em English; /en/ (hreflang)')">English</a></nav>
+      </div>
+    </div>
+    <div class="bottom"><span>© 2026 Biblup · biblup.com/pt/ajuda</span><span>Aprenda inglês com as histórias da Bíblia.</span></div>
+  </div>
+</footer>
+<div class="consent" id="consent" role="region" aria-label="Cookies">
+  <span class="bic"><svg class="ic"><use href="#i-shield"/></svg></span>
+  <div class="tx"><b>Cookies só do necessário, por enquanto.</b> Se você permitir, medimos o uso do site com o Google Analytics. Nada é enviado antes da sua escolha.</div>
+  <div class="cacts"><button class="btn btn-outline btn-sm" type="button" onclick="closeConsent()">Só o necessário</button><button class="btn btn-primary btn-sm" type="button" onclick="closeConsent()">Aceitar cookies</button></div>
+</div>
+<script src="../shared/dialog.js"></script>
+<script>
+function closeConsent(){var c=document.getElementById('consent');c&&c.classList.add('hidden')}
+function toggleDark(e){e&&e.stopPropagation();const r=document.documentElement;const d=r.getAttribute('data-theme')==='dark';r.setAttribute('data-theme',d?'light':'dark');document.querySelectorAll('#darkToggle').forEach(t=>t.classList.toggle('on',!d));try{localStorage.setItem('biblup-theme',d?'light':'dark')}catch(x){}}
+document.addEventListener('DOMContentLoaded',()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';document.querySelectorAll('#darkToggle').forEach(t=>t.classList.toggle('on',d))});
+function toast(title,desc,kind){const h=document.getElementById('toastHost')||(()=>{const x=document.createElement('div');x.id='toastHost';x.className='toast-host';x.setAttribute('role','status');x.setAttribute('aria-live','polite');document.body.appendChild(x);return x})();const t=document.createElement('div');t.className='toast '+(kind||'success');t.innerHTML='<div class="t-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t-body"><div class="t-title"></div><div class="t-desc"></div></div><button class="x" type="button" aria-label="Fechar" onclick="this.closest(\'.toast\').remove()"><svg class="ic sm" aria-hidden="true"><use href="#i-x"/></svg></button>';t.querySelector('.t-title').textContent=title;t.querySelector('.t-desc').textContent=desc||'';h.appendChild(t);setTimeout(()=>t.remove(),3200)}
+</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblup — E-mails v0.1</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#F4F7FC;--surface:#FFFFFF;--surface-2:#E8EEF8;--surface-3:#D9E3F2;
+  --border:#D3DDEC;--border-strong:#AFBFD9;
+  --ink:#101C33;--ink-2:#3D4D6B;--ink-3:#586A88;--ink-inverse:#F4F7FC;
+  --primary:#154194;--primary-soft:#DCEBFA;--primary-bright:#40ABE4;--primary-deep:#154194;
+  --primary-ink-soft:#154194;--primary-shadow:#2380BC;--primary-soft-shadow:#B7D3F0;
+  --secondary:#6BAA1F;--secondary-soft:#E4F5CF;--secondary-text:#3E6B0F;--secondary-shadow:#4F8214;
+  --accent:#FFB020;--accent-soft:#FFEDC2;--accent-text:#8A5A00;--accent-shadow:#C98600;
+  --success:#147A4E;--success-soft:#D3F4E3;--success-text:#0F6B44;
+  --error:#D7343A;--error-soft:#FDE1E2;--error-text:#B32A30;
+  --warning:#E08A0B;--warning-soft:#FFEFD2;--warning-text:#8F5604;
+  --info:#6D5BE0;--info-soft:#EAE6FB;--info-text:#4B3BB5;--info-shadow:#4B3BB5;
+  --hearts:#F2437A;--hearts-soft:#FFE0EA;--hearts-text:#B8235A;
+  --focus:#6D5BE0;--logo-text:#154194;--logo-stroke:#40ABE4;
+  --sh-1:0 1px 2px rgba(18,32,30,.06),0 1px 1px rgba(18,32,30,.04);
+  --sh-2:0 4px 12px rgba(18,32,30,.08),0 1px 3px rgba(18,32,30,.06);
+  --f-display:"Baloo 2","Figtree",system-ui,sans-serif;
+  --f-ui:"Figtree",system-ui,-apple-system,sans-serif;
+  --r-sm:10px;--r-md:14px;--r-lg:20px;--r-xl:28px;--r-pill:999px;
+  --t-press:80ms;--t-fast:120ms;--t-base:200ms;
+  --e-std:cubic-bezier(.2,0,0,1);
+  --skeleton-from:#E8EEF8;--skeleton-to:#D9E3F2;--toggle-bg:#D9E3F2;
+  --e-spring:cubic-bezier(.34,1.45,.64,1);--e-out:cubic-bezier(0,0,.2,1);
+  --t-slow:320ms;--t-press:80ms;--t-celebrate:700ms;
+  --f-read:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --f-ar:"Noto Naskh Arabic","Source Serif 4",serif;--f-zh:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;--f-ja:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;--f-ko:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--f-ru:"Noto Sans","Figtree",system-ui,sans-serif;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0B1426;--surface:#131F38;--surface-2:#1A2A48;--surface-3:#243759;
+  --border:#2B3E61;--border-strong:#3E547C;
+  --ink:#EAF0FA;--ink-2:#AEBCD6;--ink-3:#8494B2;--ink-inverse:#0B1426;
+  --primary:#8CC8F2;--primary-soft:#173456;--primary-bright:#40ABE4;--primary-deep:#1F5BBF;
+  --primary-ink-soft:#8CC8F2;--primary-shadow:#2380BC;--primary-soft-shadow:#0F2340;
+  --secondary:#A9DF52;--secondary-soft:#243A14;--secondary-text:#A9DF52;
+  --accent:#FFBE3D;--accent-soft:#3E2E0D;--accent-text:#FFC85C;
+  --success:#4CD592;--success-soft:#133A2B;--success-text:#5FE0A0;
+  --error:#FF7A7E;--error-soft:#3F1F22;--error-text:#FF8B8F;
+  --warning:#F6AE3A;--warning-soft:#3C2B10;--warning-text:#F9BD5C;
+  --info:#A394FF;--info-soft:#26214A;--info-text:#B8ADFF;
+  --hearts:#FF6F9E;--hearts-soft:#421C2A;--hearts-text:#FF86AE;
+  --focus:#A394FF;--logo-text:#EAF0FA;--logo-stroke:#40ABE4;
+  --sh-1:0 1px 2px rgba(0,0,0,.4);--sh-2:0 4px 12px rgba(0,0,0,.45),0 1px 3px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  --bg:#0B1426;--surface:#131F38;--surface-2:#1A2A48;--surface-3:#243759;
+  --border:#2B3E61;--border-strong:#3E547C;
+  --ink:#EAF0FA;--ink-2:#AEBCD6;--ink-3:#8494B2;--ink-inverse:#0B1426;
+  --primary:#8CC8F2;--primary-soft:#173456;--primary-bright:#40ABE4;--primary-deep:#1F5BBF;
+  --primary-ink-soft:#8CC8F2;--primary-shadow:#2380BC;--primary-soft-shadow:#0F2340;
+  --secondary:#A9DF52;--secondary-soft:#243A14;--secondary-text:#A9DF52;
+  --accent:#FFBE3D;--accent-soft:#3E2E0D;--accent-text:#FFC85C;
+  --success:#4CD592;--success-soft:#133A2B;--success-text:#5FE0A0;
+  --error:#FF7A7E;--error-soft:#3F1F22;--error-text:#FF8B8F;
+  --warning:#F6AE3A;--warning-soft:#3C2B10;--warning-text:#F9BD5C;
+  --info:#A394FF;--info-soft:#26214A;--info-text:#B8ADFF;
+  --hearts:#FF6F9E;--hearts-soft:#421C2A;--hearts-text:#FF86AE;
+  --focus:#A394FF;--logo-text:#EAF0FA;--logo-stroke:#40ABE4;
+  --sh-1:0 1px 2px rgba(0,0,0,.4);--sh-2:0 4px 12px rgba(0,0,0,.45),0 1px 3px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--f-ui);-webkit-font-smoothing:antialiased;padding:0 16px 80px}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:4px solid color-mix(in srgb,var(--focus) 45%,transparent);outline-offset:0}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+.wrap{max-width:1100px;margin:0 auto}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:32px 0 24px;flex-wrap:wrap}
+.header h1{font:800 28px/1.1 var(--f-display);color:var(--primary);letter-spacing:-.02em}
+.header .sub{color:var(--ink-2);font-size:14px;margin-top:2px}
+.header .right{display:flex;gap:8px;align-items:center}
+.toggle-btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:var(--r-pill);border:2px solid var(--border);background:var(--surface);font:700 13px var(--f-ui);color:var(--ink-2);cursor:pointer;box-shadow:0 3px 0 var(--border);transition:transform var(--t-press),box-shadow var(--t-press),background var(--t-fast)}
+.toggle-btn:hover{background:var(--surface-2)}
+.toggle-btn:active{transform:translateY(3px);box-shadow:none}
+
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.stat{display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:var(--r-pill);font:700 13px var(--f-ui)}
+.stat.built{background:var(--success-soft);color:var(--success-text)}
+.stat.planned{background:var(--warning-soft);color:var(--warning-text)}
+.stat.total{background:var(--primary-soft);color:var(--primary-ink-soft)}
+
+.group{margin-bottom:32px}
+.group-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.group-num{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font:800 13px var(--f-display);color:var(--ink-inverse);flex:none}
+.group-title{font:700 17px/1.2 var(--f-display);letter-spacing:-.01em}
+.group-desc{font-size:13px;color:var(--ink-3);margin-left:auto}
+.group-badge{height:22px;padding:0 8px;border-radius:var(--r-pill);font:700 11px/22px var(--f-ui);white-space:nowrap}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+
+.card{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:var(--r-lg);background:var(--surface);border:2px solid var(--border);box-shadow:0 3px 0 var(--border);cursor:pointer;transition:border-color var(--t-fast),transform var(--t-press),box-shadow var(--t-press)}
+.card:hover{border-color:var(--primary-bright)}
+.card:active{transform:translateY(3px);box-shadow:none}
+.card .name{font:700 14px/1.3 var(--f-ui);display:flex;align-items:center;gap:6px}
+.card .desc{font-size:12px;color:var(--ink-3);line-height:1.4}
+.card .tag{height:22px;padding:0 8px;border-radius:var(--r-pill);font:700 11px/22px var(--f-ui);white-space:nowrap;flex:none}
+.tag.built{background:var(--success-soft);color:var(--success-text)}
+.tag.focus{background:var(--info-soft);color:var(--info-text)}
+.tag.shell{background:var(--primary-soft);color:var(--primary-ink-soft)}
+.tag.standalone{background:var(--accent-soft);color:var(--accent-text)}
+
+.card.placeholder{border-style:dashed;border-color:var(--border-strong);background:var(--surface-2);cursor:default;opacity:.7}
+.card.placeholder:hover{border-color:var(--border-strong);transform:none}
+.card.placeholder:active{transform:none;box-shadow:0 3px 0 var(--border)}
+.card.placeholder .name{color:var(--ink-3)}
+.card.placeholder .tag{background:var(--surface-3);color:var(--ink-3)}
+
+.sep{height:1px;background:var(--border);margin:8px 0 24px}
+
+/* Color-coded group badges */
+.g-public{background:var(--primary)}
+.g-onboarding{background:var(--accent)}
+.g-learner{background:var(--primary-bright)}
+.g-exercise{background:var(--info)}
+.g-read{background:var(--secondary)}
+.g-review{background:var(--accent)}
+.g-subscription{background:var(--hearts)}
+.g-social{background:var(--secondary)}
+.g-settings{background:var(--ink-3)}
+.g-admin{background:var(--error)}
+.g-leader{background:var(--secondary)}
+.g-states{background:var(--info)}
+
+.flow{margin:28px 0;padding:20px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--border);box-shadow:var(--sh-1)}
+.flow h3{font:700 15px var(--f-display);margin-bottom:12px;color:var(--ink-2)}
+.flow-path{font-size:13px;color:var(--ink-2);line-height:1.8;font-family:var(--f-ui)}
+.flow-path a{color:var(--primary);font-weight:700;text-decoration:underline;text-decoration-color:var(--primary-soft);text-underline-offset:2px}
+.flow-path .arr{color:var(--border-strong);margin:0 4px}
+</style>
+<style>
+.card .desc code{font-family:var(--f-mono);font-size:11px;color:var(--primary);background:var(--primary-soft);padding:1px 5px;border-radius:6px}
+.back{display:inline-flex;align-items:center;gap:6px;font:700 13px var(--f-ui);color:var(--primary);margin-bottom:8px}
+.rules{margin:0 0 28px;padding:20px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--border);box-shadow:var(--sh-1)}
+.rules h2{font:700 15px var(--f-display);margin-bottom:10px;color:var(--ink-2)}
+.rules ul{padding-left:18px;font-size:13px;color:var(--ink-2);line-height:1.7}
+.rules a{color:var(--primary);font-weight:700;text-decoration:underline;text-decoration-color:var(--primary-soft);text-underline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="../index.html">&larr; Protótipos</a>
+<div class="header">
+  <div>
+    <h1>Biblup E-mails v0.2</h1>
+    <p class="sub">35 e-mails no molde único · Grilling 9, ramo 6 (G9-24) · Design System Travessia Pop 3.4</p>
+  </div>
+  <div class="right">
+    <button class="toggle-btn" onclick="toggleTheme()">🌙 Tema</button>
+  </div>
+</div>
+
+<div class="stats">
+  <span class="stat total">13 transacionais</span>
+  <span class="stat built">20 operacionais</span>
+  <span class="stat planned">2 marketing</span>
+</div>
+
+<div class="rules">
+  <h2>Como ler estes moldes</h2>
+  <ul>
+    <li>Cada HTML é <b>gerado</b> por <code>tools/emails/build_emails.py</code> (molde único em código, DESIGN.md §5 E-mail) a partir de <code>content/emails/&lt;chave&gt;/pt-BR.md</code>; não editar o HTML à mão. Ao lado de cada <code>.html</code> há o <code>.txt</code>, a parte <code>text/plain</code> do mesmo corpo.</li>
+    <li>O comentário no topo de cada arquivo traz a chave, a Categoria, o gatilho e as variáveis. Os valores de exemplo (validade do link, limites, horários) são os padrões das Configurações do Admin (G9-119, G9-121) e mudam lá, não no molde.</li>
+    <li>Tabelas, cores sólidas e fontes de sistema com fallback (Baloo 2 / Figtree como preferência): nada de CSS externo em e-mail. Largura 600 px; funciona em dark mode básico.</li>
+    <li>O mapa completo (gatilho, momento e limite, variáveis, assunto pt-BR e en, decisão G9) está em <a href="../../product/EMAILS.md">docs/product/EMAILS.md</a>.</li>
+  </ul>
+</div>
+
+<!-- ═══ TRANSACIONAIS ═══ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-num g-public">E1</div>
+    <span class="group-title">Transacionais</span>
+    <span class="group-desc">Não podem ser desligados &middot; 13 e-mails</span>
+  </div>
+  <div class="grid">
+    <a href="auth.magic_link_signup.html" class="card"><span class="name">Seu link para entrar no Biblup <span class="tag shell">Transacional</span></span><span class="desc"><code>auth.magic_link_signup</code> &middot; Convidado &middot; signup_requested (magic link)</span></a>
+    <a href="auth.magic_link_login.html" class="card"><span class="name">Seu link de acesso ao Biblup <span class="tag shell">Transacional</span></span><span class="desc"><code>auth.magic_link_login</code> &middot; Aprendiz &middot; login_requested (magic link)</span></a>
+    <a href="account.welcome.html" class="card"><span class="name">Bem-vinda ao Biblup, Ana <span class="tag shell">Transacional</span></span><span class="desc"><code>account.welcome</code> &middot; Aprendiz &middot; signup_completed (conta criada, progresso da demo migrado)</span></a>
+    <a href="account.export_ready.html" class="card"><span class="name">Seus dados estão prontos para baixar <span class="tag shell">Transacional</span></span><span class="desc"><code>account.export_ready</code> &middot; Aprendiz &middot; data_export_ready (F21.4)</span></a>
+    <a href="account.deletion_confirmed.html" class="card"><span class="name">Sua conta no Biblup foi excluída <span class="tag shell">Transacional</span></span><span class="desc"><code>account.deletion_confirmed</code> &middot; Aprendiz &middot; account_deleted (cascata concluída, F21.5)</span></a>
+    <a href="account.terms_updated.html" class="card"><span class="name">Atualizamos os Termos de uso do Biblup <span class="tag shell">Transacional</span></span><span class="desc"><code>account.terms_updated</code> &middot; Aprendiz &middot; legal_document_published (nova versão dos Termos ou da Privacidade, F21.2)</span></a>
+    <a href="account.email_change_verify.html" class="card"><span class="name">Confirme seu novo e-mail no Biblup <span class="tag shell">Transacional</span></span><span class="desc"><code>account.email_change_verify</code> &middot; Aprendiz (novo endereço) &middot; email_change_requested (enviado ao novo endereço)</span></a>
+    <a href="account.email_change_notice.html" class="card"><span class="name">O e-mail da sua conta foi alterado <span class="tag shell">Transacional</span></span><span class="desc"><code>account.email_change_notice</code> &middot; Aprendiz (endereço antigo) &middot; email_changed (enviado ao endereço antigo)</span></a>
+    <a href="content.report_received.html" class="card"><span class="name">Recebemos seu Report <span class="tag shell">Transacional</span></span><span class="desc"><code>content.report_received</code> &middot; Aprendiz &middot; report_created (G9-08)</span></a>
+    <a href="content.report_resolved.html" class="card"><span class="name">Seu Report foi resolvido <span class="tag shell">Transacional</span></span><span class="desc"><code>content.report_resolved</code> &middot; Aprendiz &middot; report_closed (aceito e publicado, ou dispensado)</span></a>
+    <a href="group.invite_received.html" class="card"><span class="name">Marcos te convidou para o Grupo Jovens IBC no Biblup <span class="tag shell">Transacional</span></span><span class="desc"><code>group.invite_received</code> &middot; Convidado ou Aprendiz (e-mail informado pelo Líder) &middot; group_invite_sent (Líder envia o link por e-mail, F9.4)</span></a>
+    <a href="support.contact_received.html" class="card"><span class="name">Nova mensagem de contato: {subject_label} <span class="tag shell">Transacional</span></span><span class="desc"><code>support.contact_received</code> &middot; Suporte Biblup (interno) &middot; contact_form_submitted (F18.23)</span></a>
+    <a href="support.contact_confirmed.html" class="card"><span class="name">Recebemos sua mensagem <span class="tag shell">Transacional</span></span><span class="desc"><code>support.contact_confirmed</code> &middot; Convidado ou Aprendiz &middot; contact_form_submitted (F18.23)</span></a>
+  </div>
+</div>
+
+<!-- ═══ OPERACIONAIS ═══ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-num g-review">E2</div>
+    <span class="group-title">Operacionais</span>
+    <span class="group-desc">Opt-out por tipo em Configurações &middot; 20 e-mails</span>
+  </div>
+  <div class="grid">
+    <a href="learn.unit1_completed.html" class="card"><span class="name">Você leu seu primeiro versículo em inglês <span class="tag built">Operacional</span></span><span class="desc"><code>learn.unit1_completed</code> &middot; Aprendiz &middot; unit_completed (primeira Unidade do primeiro Curso)</span></a>
+    <a href="learn.mission_completed.html" class="card"><span class="name">Missão cumprida: você recontou a história sozinha <span class="tag built">Operacional</span></span><span class="desc"><code>learn.mission_completed</code> &middot; Aprendiz &middot; mission_completed</span></a>
+    <a href="streak.at_risk.html" class="card"><span class="name">Seu Streak de 7 dias termina hoje às 23:59 <span class="tag built">Operacional</span></span><span class="desc"><code>streak.at_risk</code> &middot; Aprendiz &middot; streak_at_risk (20:00 local) sem push entregue</span></a>
+    <a href="streak.freeze_used.html" class="card"><span class="name">Seu Freeze protegeu o Streak <span class="tag built">Operacional</span></span><span class="desc"><code>streak.freeze_used</code> &middot; Aprendiz &middot; freeze_consumed (virada do dia local)</span></a>
+    <a href="streak.lost.html" class="card"><span class="name">O Streak recomeça, e a história continua <span class="tag built">Operacional</span></span><span class="desc"><code>streak.lost</code> &middot; Aprendiz &middot; streak_lost (sem Freeze disponível)</span></a>
+    <a href="review.due_weekly.html" class="card"><span class="name">18 palavras esperam sua Revisão esta semana <span class="tag built">Operacional</span></span><span class="desc"><code>review.due_weekly</code> &middot; Aprendiz &middot; weekly_digest (domingo 09:00 local) com Cards vencidos &gt;= 8</span></a>
+    <a href="reengage.d1.html" class="card"><span class="name">A fuga para o Egito ficou esperando <span class="tag built">Operacional</span></span><span class="desc"><code>reengage.d1</code> &middot; Aprendiz &middot; inactivity D1 (24 h sem atividade) sem push entregue</span></a>
+    <a href="reengage.d3.html" class="card"><span class="name">Três dias sem histórias. Lana sentiu falta <span class="tag built">Operacional</span></span><span class="desc"><code>reengage.d3</code> &middot; Aprendiz &middot; inactivity D3 (push + e-mail, F19.5)</span></a>
+    <a href="reengage.d7.html" class="card"><span class="name">Uma semana depois: 62 palavras ainda são suas <span class="tag built">Operacional</span></span><span class="desc"><code>reengage.d7</code> &middot; Aprendiz &middot; inactivity D7 (e-mail, F19.5)</span></a>
+    <a href="reengage.d30.html" class="card"><span class="name">Um mês. Sem pressa, a porta continua aberta <span class="tag built">Operacional</span></span><span class="desc"><code>reengage.d30</code> &middot; Aprendiz &middot; inactivity D30 (e-mail; último da série)</span></a>
+    <a href="level.test_passed.html" class="card"><span class="name">Ana, você é A1 do Biblup <span class="tag built">Operacional</span></span><span class="desc"><code>level.test_passed</code> &middot; Aprendiz &middot; level_test_passed</span></a>
+    <a href="level.test_failed.html" class="card"><span class="name">Quase lá: nova tentativa liberada amanhã <span class="tag built">Operacional</span></span><span class="desc"><code>level.test_failed</code> &middot; Aprendiz &middot; level_test_failed</span></a>
+    <a href="content.a2_soon.html" class="card"><span class="name">Você terminou tudo o que o Novo Testamento tem no A1 <span class="tag built">Operacional</span></span><span class="desc"><code>content.a2_soon</code> &middot; Aprendiz &middot; unit_completed (última Unidade publicada do Curso)</span></a>
+    <a href="content.a2_available.html" class="card"><span class="name">O A2 do Novo Testamento abriu em português <span class="tag built">Operacional</span></span><span class="desc"><code>content.a2_available</code> &middot; Aprendiz (que pediu avise-me ou terminou o A1) &middot; level_published (A2 no Curso e no Idioma nativo do Aprendiz)</span></a>
+    <a href="interest.tutor_confirmed.html" class="card"><span class="name">Você está na lista do Tutor <span class="tag built">Operacional</span></span><span class="desc"><code>interest.tutor_confirmed</code> &middot; Aprendiz ou Convidado (e-mail informado) &middot; interest_list_joined (origem: menu, dashboard ou erro de exercício)</span></a>
+    <a href="interest.verse_explanation_confirmed.html" class="card"><span class="name">Você está na lista da Explicação de versículo <span class="tag built">Operacional</span></span><span class="desc"><code>interest.verse_explanation_confirmed</code> &middot; Aprendiz &middot; interest_list_joined (origem: verse_explanation, no card de palavra do Read Mode)</span></a>
+    <a href="group.member_joined.html" class="card"><span class="name">Júlia entrou no Grupo Jovens IBC <span class="tag built">Operacional</span></span><span class="desc"><code>group.member_joined</code> &middot; Líder &middot; group_member_joined (resumo: no máximo 1 por dia)</span></a>
+    <a href="referral.link.html" class="card"><span class="name">Seu link do Indique e ganhe <span class="tag built">Operacional</span></span><span class="desc"><code>referral.link</code> &middot; Aprendiz &middot; achievement_unlocked (Streak de 3 dias, primeira vez)</span></a>
+    <a href="referral.joined.html" class="card"><span class="name">Pedro entrou no Biblup pelo seu link <span class="tag built">Operacional</span></span><span class="desc"><code>referral.joined</code> &middot; Aprendiz (quem indicou) &middot; referral_signup (cadastro pelo link de Indicação)</span></a>
+    <a href="referral.reward.html" class="card"><span class="name">Pedro terminou a primeira Unidade: seu Freeze chegou <span class="tag built">Operacional</span></span><span class="desc"><code>referral.reward</code> &middot; Aprendiz (quem indicou) &middot; referral_rewarded (indicado concluiu a Unidade 1)</span></a>
+  </div>
+</div>
+
+<!-- ═══ MARKETING ═══ -->
+<div class="group">
+  <div class="group-header">
+    <div class="group-num g-subscription">E3</div>
+    <span class="group-title">Marketing</span>
+    <span class="group-desc">Só com Consentimento por finalidade, máx. 2/mês &middot; 2 e-mails</span>
+  </div>
+  <div class="grid">
+    <a href="marketing.monthly_news.html" class="card"><span class="name">Novidades do Biblup em outubro <span class="tag standalone">Marketing</span></span><span class="desc"><code>marketing.monthly_news</code> &middot; Aprendiz com consentimento de marketing &middot; campanha manual (no máximo 2 por mês)</span></a>
+    <a href="marketing.launch_offer.html" class="card"><span class="name">O Tutor chegou. Você pediu para saber primeiro <span class="tag standalone">Marketing</span></span><span class="desc"><code>marketing.launch_offer</code> &middot; Aprendiz na Lista de interesse com consentimento de marketing &middot; etapa 1 da monetização (G9-19): abertura do Premium+AI, Lista de interesse primeiro</span></a>
+  </div>
+</div>
+
+</div>
+
+<script>
+function toggleTheme(){
+  const r=document.documentElement;
+  const d=r.getAttribute('data-theme')==='dark';
+  r.setAttribute('data-theme',d?'light':'dark');
+  try{localStorage.setItem('biblup-theme',d?'light':'dark')}catch(e){}
+}
+try{
+  const s=localStorage.getItem('biblup-theme');
+  if(s==='dark')document.documentElement.setAttribute('data-theme','dark');
+}catch(e){}
+</script>
+</body>
+</html>

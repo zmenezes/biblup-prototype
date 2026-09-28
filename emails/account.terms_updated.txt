@@ -1,0 +1,19 @@
+Atualizamos os Termos de uso do Biblup
+
+UMA MUDANÇA NOS TERMOS DE USO
+
+Ana, publicamos a versão 2026-10 dos Termos de uso. Ela vale a partir de 25 de outubro de 2026. Em resumo, o que muda:
+
+- passamos a nomear a Resend como provedora de envio de e-mails;
+- explicamos que o conteúdo das lições é gerado e auditado por IA, com botão de Report;
+- nada muda no que é gratuito nem nos seus dados.
+
+Continuar usando o Biblup depois dessa data significa aceitar a nova versão. Se preferir, você pode exportar seus dados ou excluir a conta em Configurações.
+
+Ler a nova versão: {document_url}
+
+Com carinho,
+Time do Biblup
+
+--
+Biblup <conta@biblup.com> · Categoria: Transacional

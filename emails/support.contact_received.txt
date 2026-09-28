@@ -1,0 +1,17 @@
+Nova mensagem de contato: {subject_label}
+
+NOVA MENSAGEM PELO FORMULÁRIO DE CONTATO
+
+{sender_name} ({sender_email}) escreveu em {submitted_at} sobre {subject_label}:
+
+{message_body}
+
+Responda direto para {sender_email} — o reply-to deste envio já está configurado para o endereço de quem escreveu.
+
+E-mail interno, enviado sempre em português para suporte@biblup.com. Não segue a ordem de fallback de idioma das demais chaves (regra 15): o destinatário é a equipe, não um Aprendiz.
+
+Com carinho,
+Time do Biblup
+
+--
+Biblup <conta@biblup.com> · Categoria: Transacional

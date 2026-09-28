@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Biblup — Estados e componentes</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg"><link rel="icon" type="image/x-icon" href="../favicon.ico"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<link rel="stylesheet" href="app.css">
+<style>
+/* ═══ PÁGINA ═══ */
+
+.plain.wide{max-width:1140px}
+.page-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:8px 0 12px;border-bottom:1px solid var(--border)}
+.page-head h1{font-size:26px;font-weight:700;letter-spacing:-.02em;flex:1}
+.page-head .logo{height:30px}
+.page-head p{width:100%;font-size:13.5px;color:var(--ink-3)}
+.doc{display:grid;gap:28px}
+@media(min-width:1024px){.doc{grid-template-columns:190px minmax(0,1fr);gap:40px}}
+.toc{display:none}
+@media(min-width:1024px){.toc{display:block;position:sticky;top:16px;align-self:start;font-size:13px;max-height:calc(100vh - 32px);overflow-y:auto}.toc a{display:block;padding:5px 10px;color:var(--ink-2);border-inline-start:2px solid var(--border)}.toc a:hover{color:var(--ink);border-color:var(--ink-3)}.toc .h{font-family:var(--f-display);font-weight:600;padding:0 10px 8px;color:var(--ink)}}
+.secs{display:grid;gap:40px;min-width:0}
+.sec{display:grid;gap:14px;scroll-margin-top:16px}
+.sec>h2{font-size:24px;font-weight:700;letter-spacing:-.015em}
+.sec>.lead{font-size:14px;color:var(--ink-2);max-width:70ch;margin-top:-8px}
+.gal{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));align-items:start}
+.gal.narrow{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.gal .toast{max-width:none}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;display:grid;gap:12px;align-content:start}
+.panel.sunken{background:var(--surface-2);border-color:transparent}
+.panel .lbl{margin:0}
+.errpage{display:grid;justify-items:center;text-align:center;gap:8px;padding:24px 16px}
+.errpage .code{font-family:var(--f-display);font-size:44px;font-weight:800;letter-spacing:-.03em;color:var(--primary);line-height:1}
+.errpage h3{font-size:18px}.errpage p{font-size:13.5px;color:var(--ink-3);max-width:32ch}
+.scrimbox{background:var(--scrim);border-radius:var(--r-lg);padding:24px;display:grid;place-items:center}
+.scrimbox.end{align-items:end;padding:24px 16px 16px}
+.scrimbox .sheet-s{max-width:400px;min-width:0}
+.gal>*{min-width:0;max-width:100%}
+.scrimbox .sheet-s .acts .btn,.scrimbox .sheet-s .sheet-acts .btn{white-space:normal;padding-inline:10px}
+.slots{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.slot{display:grid;gap:6px;font-size:12px;color:var(--ink-3);text-align:center}
+.slot .slot-ph{height:96px;min-height:0}
+.slot b{color:var(--ink);font-family:var(--f-mono);font-size:11.5px;font-weight:600}
+.shortcuts{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.shortcut{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface);font-size:13px}
+.shortcut .keys{display:flex;gap:4px;flex:none}
+.type-row{display:grid;grid-template-columns:1fr;gap:4px;padding:10px 0;border-bottom:1px solid var(--border)}
+@media(min-width:720px){.type-row{grid-template-columns:150px 1fr;align-items:baseline}}
+.type-row .spec{font-size:12px;color:var(--ink-3);font-family:var(--f-mono)}
+.mini-lesson{display:grid;gap:10px;padding:14px;border:2px dashed var(--border-strong);border-radius:var(--r-lg);background:var(--surface-2)}
+.mini-lesson .t{font-family:var(--f-display);font-weight:600;font-size:16px;color:var(--ink-3)}
+.so-static{position:relative;height:320px;border-radius:var(--r-lg);overflow:hidden;background:transparent;box-shadow:0 4px 0 var(--border)}
+.so-static .so-backdrop{position:absolute;inset:0;background:var(--scrim)}
+.so-static .so-panel{position:absolute;inset-inline-end:0;top:0;bottom:0;width:min(300px,100%);background:var(--surface);border-inline-start:2px solid var(--border);display:flex;flex-direction:column}
+.so-static .so-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--border);font-weight:700}
+.so-static .so-body{flex:1;padding:14px;display:grid;gap:10px;align-content:start;font-size:13.5px}
+.so-static .so-foot{padding:10px 14px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end}
+.trail.demo{gap:36px;padding:8px 0 40px}
+.trail.demo .node{transform:none}
+.medals{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.node-demo{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;padding:8px 0 36px}
+.node-demo .node{position:relative}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="logo" viewBox="0 0 925 471"><path fill="var(--logo-text)" fill-rule="evenodd" d="M760 244q0 .2-.3 0c-.8.3-5.4 6-6.4 7-9.6 10.2-21.9 18.3-36.4 17.9a30 30 0 0 1-19.8-8 39 39 0 0 1-8.3-11.8c-.3-.7-1.7-4-2.1-4.4l-.5-.2-.4.2-5.2 7.3a96 96 0 0 1-15 14.6c-18 14.3-44.8 18.6-63.4 3-6.6-5.4-8.2-9.3-13-15.5q-.3 0-.5.2s-6.5 10.2-8 12c-13.3 17.2-32.1 33.2-55.6 26.8-14.3-3.9-23.5-15.5-27.9-29.3q-2.8-9.1-3.7-18.5c-1.5-18.8-.5-37.7.7-56.5q2-29.1 4.9-58.2 4.1-42 8.5-84c.8-7 2.4-26.7 4.6-32.1 8.4-21 41-17.1 39.3 10.5q-.6 6.9-1.6 13.9l-2.2 18.8-4 36.3q-1.8 18.6-3.4 37.3c-1 11-2.3 21.9-2.9 32.8-1 18.2-5.7 64.9-2.2 80.4 1 4 2.6 8.7 6.7 10.4 14 6 34.3-28.8 37.4-39.5 1.5-5.4.8-17 1.4-23.4q2.1-26.4 4.5-52.8c.7-7.8 1.1-15.7 2.4-23.4q.4-2.7 1.6-5.2a22.7 22.7 0 0 1 28.4-11.8c6 2.3 10 7.3 11.2 13.5 1.3 6.9-1 20-2 27.4q-2 16.3-3.7 32.7l-1.8 20.4c-.9 12-3 39.4 9.9 45.6a14 14 0 0 0 11.5-.3c6.8-3 12.4-8.8 17.2-14.2 23.4-26.7 26-70 29.2-103.9.7-7 .3-15 2.8-21.7 2-5.6 6.9-10 12.5-12a23 23 0 0 1 16.6.2 19 19 0 0 1 11 13.7c1.6 7-.6 18.5-1.3 25.9q-2.9 27.7-5.5 55.7c-.8 9.4-2 18.9-2 28.4q-.2 6.5 1.4 12.9 1.3 4.7 5.5 7.1c7 .2 12.2-6 16.3-11 7-8.5 13-19 15.7-29.7 1.6-6.4 1.2-13.4 1.7-19.9l3.4-53.9c.5-7.6.6-16 1.5-23.4q.3-3.5 1.6-6.8A22 22 0 0 1 795 73c7 1.6 12.4 7 13.2 14.3 0 1 0 6.5.3 7l.3.2q3-3.7 6.5-7.4a65 65 0 0 1 51.8-18.4c15 1.4 29.2 10 38.6 21.5a83 83 0 0 1 17 39.8c6.9 44.6-15.7 96-56.5 117-13.4 6.9-29 10-44 7.2q-8.3-1.4-16-5.3-2.5-1.5-5.2-2.8 0 .2-.3.4c-.3.7-1.1 24-1.2 26.9-.7 18.8-1.9 37.6-2.7 56.4l-.3 13.5q0 4.3-.2 8.5-.5 4-2 7.7a21 21 0 0 1-20 12.2 20 20 0 0 1-18-13.4q-1.1-3.9-1.2-7.9 0-6.5.3-13 .7-19.5 1.8-39c1-18 1.5-36.2 2.9-54.3m-399.3-98.3.4.1c.4-.1 5.5-4.8 6.3-5.5a77 77 0 0 1 32.2-16 64 64 0 0 1 37.8 2.4 59 59 0 0 1 33.2 36.3 99 99 0 0 1 5 36.9c-1.6 41-24.3 82.9-60.2 103.8a98 98 0 0 1-40.7 13.8c-24 2-45.5-5.8-55.8-29.2a74 74 0 0 1-5.1-26.7q-.4-12.7.4-25.5 1.1-21.4 2.8-43 2.8-42.7 7-85.6l1.6-17.4 2.5-25.4c.8-8.5 1.4-19 3-27.3q.5-3.5 2.1-6.6c7-13.3 28.1-15.3 35.9-1.5 2.1 3.8 2.5 8.2 2.1 12.5q-1.6 16.2-3.5 32.3l-3 30.9q-1.2 10.6-2.2 21.3-.8 9.8-1.8 19.4M30.6 105.7c-1.5.2.5-.5-1 0-6 2-11.3 10.9-19 9.8-4-.6-6.7-4.3-8-7.9C-6.9 83.8 31 53.2 56.8 65.3a27 27 0 0 1 10.4 8.4c2.6 3.5 3.8 7.7 5.2 11.7h.5c.5-.2 1-1.5 1.5-2L81 76a126 126 0 0 1 34-24.8 92 92 0 0 1 31.3-9.7c17.4-1.7 36.8 3.7 48.3 17.5a53 53 0 0 1 10.6 22.8c3.2 14.9.3 30.5-6.2 44.1a161 161 0 0 1-33 44.8c-3.6 3.6-7.8 6.7-11.2 10.5l.3.2c.5.2 6.2.9 7.4 1.2a76 76 0 0 1 20.9 7.9 57 57 0 0 1 30 43.3 82 82 0 0 1-.3 26.3c-7 37.9-41.3 72.6-72.8 92.3a187 187 0 0 1-61.7 25.3c-17.1 3.4-45.3 6-57.3-9.6-4.2-5.4-6-12.2-6.6-19-.4-4.8.2-9.6.4-14.5l2-28.9 4-52.3q2.1-29.7 4.5-59.3 2.8-29.7 4.9-59.3c.4-6.8 1.2-13.6 1.3-20.5 0-2.5 0-5.4-.8-7.8-.4-1.5.2.5-.5-.8m238 14.7c-4.8.3-9.7-.9-13.8-3.4-20.7-13-9.4-49.3 16.4-48 30.3 1.3 27.7 49.6-2.6 51.4m-199 69.4c3.4-1 6.9-3 10.3-4.5a181 181 0 0 0 24-12c21.4-13.5 57.7-45.3 60.6-71.8.6-6-.2-12.8-5-17-5.4-4.4-13.4-4-19.6-2.1a68 68 0 0 0-21 11 125 125 0 0 0-47.2 76.2c-.6 2.7-2.8 18-2.4 19.8zM830.3 218a42 42 0 0 0 18.9-5.7c27.1-15.2 42-57.8 30.2-86.5-3.4-8.3-8.8-15-17.7-17.5a29 29 0 0 0-20.8 2.3c-7.1 3.5-12.6 9-17.3 15.4a107 107 0 0 0-18.3 53 49 49 0 0 0 1.7 25.2c4 9.3 13.4 14 23.3 13.8m-561 115.2a27 27 0 0 1-26.3-11.8q-4.2-5.3-6.4-11.7c-3-8.7-3.7-18.4-3.8-27.6-.4-25.6 3.1-51.3 5.5-76.7q1.2-14.5 2.7-28.9.4-5.3 1-10.4.7-4.5 2.6-8.6c3.5-7.2 11-11.4 19-11.6 4-.1 8.4.9 11.8 3.2 4.2 2.9 7 7.9 7.8 12.9q.5 3.4.3 7c-.3 6.3-1.3 12.6-1.8 18.8l-5.2 57.8c-1 11.2-4 33.2-1.2 43.3 3.7 13.6 15.1 2.4 19.4 15.8q1.6 5.1.6 10.4c-2.1 11.2-15.7 17.2-26 18.1M374.8 279a53 53 0 0 0 31.3-17.2 104 104 0 0 0 20.4-28.1c8.1-16.7 11.8-38.6 4.9-56.2a26 26 0 0 0-14.3-15.7 30 30 0 0 0-24.5 3.1c-27.5 16-36.3 53-38 82.3-.6 8.6-1.8 19.4 3.8 26.7 3.8 4.8 10.7 5.6 16.4 5m-310-39.4c-1.8 14.4-2.5 29-3.6 43.4-1.2 16.4-3.9 38.9-2.8 54.8 0 1.6 0-.5.4.9 9.3 1.6 26-3.7 34.7-7.3q13-5.2 24.8-12.7c23.7-15 53.9-43 52.7-73.5-.4-11-4.9-18-14.9-22.6a56 56 0 0 0-26.2-4.8q-8.5.6-16.8 2.7c-10.5 2.7-40.5 13-48.4 19"/><path fill="var(--logo-stroke)" fill-rule="evenodd" d="M213.3 469.7q-4.3.6-8.3-.6a19 19 0 0 1-12.7-14.2 19 19 0 0 1 6.4-17q2.4-2.1 5.3-3.6c7.2-3.8 16.2-7.1 23.8-10.2l20.4-8.3c47-18.1 95.4-32.5 144.3-44.6q29-7.3 58.4-13.5a1402 1402 0 0 1 213.5-27.1c10-.5 48-3 55.4-1a18 18 0 0 1 11.7 12.6 18.3 18.3 0 0 1-17.4 22.9c-4.6.4-9.3.2-14 .3l-25.5.8a1403 1403 0 0 0-363.6 66q-32.8 10.7-64.5 23.9c-6.2 2.6-28.5 13-33.2 13.6"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1.2 3.2 4.5 5 4.5 9.2A4.5 4.5 0 0 1 7.5 12c0-1.6.6-2.7 1.3-3.5.1 1.6.9 2.4 1.7 2.7C10 9 10.5 6 12 3z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-7.5-10.3A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 7.5 2.6c0 5.7-7.5 10.3-7.5 10.3z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V5.5M8 7h7"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M17.5 13.5a6.5 6.5 0 0 1 4 6.5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L13 19V5L7.5 9.5z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></symbol>
+  <symbol id="i-snail" viewBox="0 0 24 24"><path d="M8 17a5 5 0 1 1 5-5c0 2-1.5 3-3 3s-2-1-2-2"/><path d="M3 17h13c2 0 3-1 3-3V9M19 9l2-3M19 9l-2-3"/></symbol>
+  <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-l" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15zM10 21h4"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6h-6v6H4z"/></symbol>
+  <symbol id="i-freeze" viewBox="0 0 24 24"><path d="M12 3v18M4.5 7.5l15 9M4.5 16.5l15-9"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M4 18h16l1-10-5 3-4-6-4 6-5-3z"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 3 10l7 3 3 7z"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 4h10v4a5 5 0 0 1-10 0zM7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3M12 13v4M8 21h8M9 17h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4-1L19 8l-3-3L5 16z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19c3-4 6-7 10-9"/></symbol>
+  <symbol id="i-boat" viewBox="0 0 24 24"><path d="M3 15l2 4h14l2-4zM5 15V9h14v6M12 9V4M9 6h6"/></symbol>
+  <symbol id="i-tent" viewBox="0 0 24 24"><path d="M12 4 2 20h20zM12 4v16M8 20l4-7 4 7"/></symbol>
+  <symbol id="i-mount" viewBox="0 0 24 24"><path d="M3 20 10 7l4 7 3-4 4 10z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 6.3A10 10 0 0 1 12 6c6.5 0 10 6 10 6a17 17 0 0 1-3.2 3.7M6.6 6.6A16 16 0 0 0 2 12s3.5 6 10 6a10 10 0 0 0 4.4-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0M12 19h.01M3 3l18 18"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 19h16"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-collapse" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M17 10l-2 2 2 2"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H5v16h5M14 8l4 4-4 4M8 12h10"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20h18M6 16v-5M11 16V7M16 16v-3M21 16V9"/></symbol>
+  <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M17 10h.01M7 14h10"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="14" r="4"/><path d="M11 11l9-7M16 6l2 2M13 9l2 2"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M3 14h18M12 10v11M12 10c-3 0-5-1.5-5-3.5S9 3 12 6c3-3 5 .5 5 .5S15 10 12 10z"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-sheep" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><circle cx="9.5" cy="11" r=".8" fill="currentColor"/><circle cx="14.5" cy="11" r=".8" fill="currentColor"/><path d="M6 12a3 3 0 0 1 0-6 3 3 0 0 1 4-2 3 3 0 0 1 4 0 3 3 0 0 1 4 2 3 3 0 0 1 0 6M9 18v3M15 18v3"/></symbol>
+  <symbol id="i-scroll" viewBox="0 0 24 24"><path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V6l11-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-zap-off" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8zM3 3l18 18"/></symbol>
+  <symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.6 1 1.4 1 2.5h6c0-1.1.3-1.9 1-2.5A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-volume-x" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L13 19V5L7.5 9.5z"/><path d="M17 9l4 6M21 9l-4 6"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 12h2l2-5 3 10 3-14 3 12 2-5h3"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 6-4 2 2-6z"/></symbol>
+  <symbol id="i-cross-out" viewBox="0 0 24 24"><path d="M12 5v14M8 9h8"/></symbol>
+  <symbol id="i-star-off" viewBox="0 0 24 24"><path d="M8.5 8.6 3.2 9.5l4.4 4.3-1 6.1L12 17l5.4 2.9-.4-2.4M14.7 8.6 12 3l-1.3 2.7M3 3l18 18"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-meh" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 15h8M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-frown" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 16s-1.5-2-4-2-4 2-4 2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+  <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></symbol>
+  <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V6a1.5 1.5 0 0 1 3 0v6M11 6V4a1.5 1.5 0 0 1 3 0v8M14 6a1.5 1.5 0 0 1 3 0v7M17 9a1.5 1.5 0 0 1 3 0v5a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.5L4 13a1.5 1.5 0 0 1 2.6-1.5L8 13"/></symbol>
+  <symbol id="i-stars" viewBox="0 0 24 24"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5zM5 16l.8 2.2L8 19l-2.2.8L5 22l-.8-2.2L2 19l2.2-.8zM19 15l.6 1.4L21 17l-1.4.6L19 19l-.6-1.4L17 17l1.4-.6z"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 13h5l1.5 3h3L15 13h5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h2l6 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M7 14l1 6h3"/></symbol>
+  <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 13v6H5V6h6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0M12 19h.01"/></symbol>
+</svg>
+<a href="#main" class="skip">Pular para o conteúdo</a>
+<main id="main">
+
+<div class="plain wide">
+  <div class="page-head">
+    <svg class="logo" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg>
+    <h1>Estados e componentes</h1>
+    <button class="theme-btn" type="button" onclick="cycleTheme()"><svg class="ic sm"><use href="#i-moon"/></svg> <span id="themeLbl">Tema</span></button>
+    <p>Galeria transversal do protótipo do Aprendiz sobre o Travessia Pop 3.4: estados vazios, offline com degradação graciosa (G9-18), Despublicação de conteúdo (G9-08), substitutos neutros por Slot (AL-10) e a referência de componentes, incluindo os novos do 3.4.</p>
+  </div>
+  <div class="doc">
+    <nav class="toc" aria-label="Seções">
+      <div class="h">Nesta página</div>
+      <a href="#toasts">Toasts</a><a href="#empty">Estados vazios</a><a href="#skeletons">Skeletons</a><a href="#offline">Offline</a><a href="#errors">Páginas de erro</a><a href="#unpublish">Despublicação</a><a href="#modals">Modais</a><a href="#sheets">Bottom sheets</a><a href="#banners">Banners</a><a href="#consent">Consentimento</a><a href="#slots">Substitutos por Slot</a><a href="#shortcuts">Atalhos</a>
+      <div class="h" style="padding-top:12px">Componentes</div>
+      <a href="#typography">Tipografia</a><a href="#buttons">Botões</a><a href="#badges">Badges e chips</a><a href="#stats">Stat pills</a><a href="#progress">Progresso</a><a href="#exercise">Exercício</a><a href="#cards">Cards</a><a href="#map">Mapa</a><a href="#medals">Medalhas</a><a href="#forms">Formulários</a><a href="#new34">Novos do 3.4</a>
+    </nav>
+    <div class="secs">
+
+      <section class="sec" id="toasts">
+        <h2>Toasts</h2>
+        <p class="lead">Seis variantes. Ícone 38 px, barra de tempo na base, fechar à direita. Sobem do rodapé, acima da bottom nav.</p>
+        <div class="gal">
+          <div class="toast success"><div class="t-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t-body"><div class="t-title">Palavra adicionada aos estudos</div><div class="t-desc"><span class="tg" lang="en">mat</span> entrou na sua Revisão como Card novo.</div></div><button class="x" aria-label="Fechar"><svg class="ic sm"><use href="#i-x"/></svg></button><div class="timer" style="--t:72%"></div></div>
+          <div class="toast error"><div class="t-ic"><svg class="ic"><use href="#i-x"/></svg></div><div class="t-body"><div class="t-title">Não deu para salvar</div><div class="t-desc">Sua resposta ficou guardada aqui. Tentamos de novo quando a conexão voltar.</div></div><button class="x" aria-label="Fechar"><svg class="ic sm"><use href="#i-x"/></svg></button><div class="timer" style="--t:55%"></div></div>
+          <div class="toast warning"><div class="t-ic"><svg class="ic"><use href="#i-wifi-off"/></svg></div><div class="t-body"><div class="t-title">Sem conexão</div><div class="t-desc">Suas respostas ficam guardadas. A Lição continua quando voltar.</div></div><button class="x" aria-label="Fechar"><svg class="ic sm"><use href="#i-x"/></svg></button><div class="timer" style="--t:40%"></div></div>
+          <div class="toast xp"><div class="t-ic"><svg class="ic fill"><use href="#i-bolt"/></svg></div><div class="t-body"><div class="t-title">+35 XP</div><div class="t-desc">Lição concluída. A Meta de hoje está em 35 de 55.</div></div><button class="x" aria-label="Fechar"><svg class="ic sm"><use href="#i-x"/></svg></button><div class="timer" style="--t:65%"></div></div>
+          <div class="toast hearts"><div class="t-ic"><svg class="ic fill"><use href="#i-heart"/></svg></div><div class="t-body"><div class="t-title">Menos 1 Coração</div><div class="t-desc">Erro no Test-out. Restam 2; o próximo volta em 30 min.</div></div><button class="x" aria-label="Fechar"><svg class="ic sm"><use href="#i-x"/></svg></button><div class="timer" style="--t:80%"></div></div>
+          <div class="toast dark"><div class="t-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t-body"><div class="t-title">Link copiado</div></div><button class="x" aria-label="Fechar"><svg class="ic sm"><use href="#i-x"/></svg></button></div>
+        </div>
+      </section>
+
+      <section class="sec" id="empty">
+        <h2>Estados vazios</h2>
+        <p class="lead">Lana (substituto neutro do Slot <code>mascot</code> ou <code>empty_state</code>) em cada tela sem conteúdo. Borda tracejada, texto curto, uma ação no máximo.</p>
+        <div class="gal narrow">
+          <div class="empty"><div class="slot-ph" data-slot="mascot" style="width:88px;height:88px;min-height:0"><svg class="ic lg"><use href="#i-sheep"/></svg><span class="key">mascot.rest</span></div><h3>Revisão em dia</h3><p>Nenhum Card vencido. Os próximos 6 chegam amanhã.</p><a class="btn btn-secondary btn-sm" href="../learner/lesson.html" style="margin-top:4px">Ir para a Lição</a></div>
+          <div class="empty"><div class="slot-ph" data-slot="empty_state" style="width:88px;height:88px;min-height:0"><svg class="ic lg"><use href="#i-users"/></svg><span class="key">empty.group</span></div><h3>Você ainda não tem um Grupo</h3><p>Crie um para a sua igreja ou família e veja o XP da semana de cada pessoa.</p><a class="btn btn-primary btn-sm" href="../learner/groups.html" style="margin-top:4px">Criar Grupo</a></div>
+          <div class="empty"><div class="slot-ph" data-slot="mascot" style="width:88px;height:88px;min-height:0"><svg class="ic lg"><use href="#i-sheep"/></svg><span class="key">mascot.wave</span></div><h3>O Tutor ainda não abriu</h3><p>Entre na Lista de interesse e avisamos por e-mail. Sem posição na fila.</p><a class="btn btn-secondary btn-sm" href="../learner/tutor.html" style="margin-top:4px">Entrar na lista de interesse</a></div>
+          <div class="empty"><div class="slot-ph" data-slot="empty_state" style="width:88px;height:88px;min-height:0"><svg class="ic lg"><use href="#i-search"/></svg><span class="key">empty.search</span></div><h3>Nada com <span class="tg" lang="en">"shepherd"</span></h3><p>Essa palavra ainda não apareceu nas suas Unidades. Ela chega em "Cem ovelhas".</p></div>
+          <div class="empty"><div class="slot-ph" data-slot="empty_state" style="width:88px;height:88px;min-height:0"><svg class="ic lg"><use href="#i-bell"/></svg><span class="key">empty.notifications</span></div><h3>Tudo em dia</h3><p>Nenhuma notificação nova. Volte depois de uma Lição.</p></div>
+          <div class="empty"><div class="slot-ph" data-slot="achievement_badge" style="width:88px;height:88px;min-height:0"><svg class="ic"><use href="#i-trophy"/></svg><span class="key">badge.locked</span></div><h3>Sua primeira Conquista está perto</h3><p>Termine a Unidade 1 e leia o Versículo original.</p></div>
+        </div>
+      </section>
+
+      <section class="sec" id="skeletons">
+        <h2>Skeletons</h2>
+        <p class="lead">Tokens <code>--skeleton-from</code> / <code>--skeleton-to</code> com brilho lento. Formas iguais ao conteúdo que vão substituir.</p>
+        <div class="gal">
+          <div class="panel sunken"><div class="lbl">Dashboard · próxima Lição</div><div class="sk-card" style="background:linear-gradient(135deg,var(--primary-mid),var(--primary-deep));border-color:transparent"><div class="sk sk-t" style="background:rgba(255,255,255,.15);width:40%;animation:none"></div><div class="sk sk-t" style="background:rgba(255,255,255,.2);width:70%;animation:none"></div><div class="sk sk-btn" style="background:rgba(255,255,255,.25);animation:none"></div></div><div class="sk-card"><div class="row" style="flex-wrap:nowrap"><div class="sk sk-av"></div><div style="flex:1;display:grid;gap:8px"><div class="sk sk-t"></div><div class="sk sk-s"></div></div></div></div></div>
+          <div class="panel sunken"><div class="lbl">Lista · membros, Cards, notificações</div><div style="display:grid;gap:8px"><div class="sk-row"><div class="sk sk-av"></div><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-pill"></div></div><div class="sk-row"><div class="sk sk-av"></div><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-pill"></div></div><div class="sk-row"><div class="sk sk-av"></div><div><div class="sk sk-t"></div><div class="sk sk-s"></div></div><div class="sk sk-pill"></div></div></div></div>
+          <div class="panel sunken"><div class="lbl">Mapa · nós</div><div class="sk sk-hero" style="height:56px"></div><div style="display:grid;justify-items:center;gap:24px;padding:8px 0"><div class="sk" style="width:66px;height:66px;border-radius:50%;transform:translateX(56px)"></div><div class="sk" style="width:66px;height:66px;border-radius:50%;transform:translateX(-56px)"></div><div class="sk" style="width:48px;height:48px;border-radius:50%;transform:translateX(56px)"></div></div><div class="row" style="justify-content:center"><div class="spinner"></div></div></div>
+        </div>
+      </section>
+
+      <section class="sec" id="offline">
+        <h2>Offline: degradação graciosa</h2>
+        <p class="lead">G9-18: sem cache de Lição no MVP. Offline, nada quebra: o banner avisa, a leitura já carregada continua, as ações que precisam do servidor ficam desabilitadas e as respostas ficam guardadas até a conexão voltar.</p>
+        <div class="gal">
+          <div class="panel" style="gap:10px">
+            <div class="banner offline"><div class="bic"><svg class="ic"><use href="#i-wifi-off"/></svg></div><div class="btx"><b>Sem conexão</b> · você pode continuar lendo; a Lição e a Revisão esperam a conexão voltar.</div></div>
+            <div class="lbl">Ações desabilitadas enquanto offline</div>
+            <div class="row"><button class="btn btn-primary" type="button" disabled>Começar a Lição</button><button class="btn btn-secondary" type="button" disabled>Revisar 11 Cards</button><button class="btn btn-outline" type="button">Continuar lendo</button></div>
+            <div class="lbl">Indicador de conexão</div>
+            <div class="row"><div class="conn"><span class="cdot ok"></span>Conectado</div><div class="conn"><span class="cdot sync"></span>Sincronizando 3 respostas</div><div class="conn"><span class="cdot err"></span>Sem conexão</div></div>
+          </div>
+          <div class="panel">
+            <div class="lbl">Dentro da Lição, ao perder a conexão</div>
+            <div class="exh" style="max-width:none"><a class="btn btn-ghost btn-icon btn-sm" href="#" aria-label="Sair"><svg class="ic sm"><use href="#i-x"/></svg></a><div class="pbar" role="progressbar" aria-valuenow="40"><i style="--p:0.4"></i></div><span class="badge status err"><span class="dot"></span>offline</span></div>
+            <div class="prompt">Escolha a tradução de <span class="tg" lang="en">mat</span></div>
+            <div class="opts"><button class="opt ok" type="button"><span class="n">1</span>esteira</button><button class="opt" type="button"><span class="n">2</span>telhado</button></div>
+            <div class="md-info warn"><svg class="ic"><use href="#i-info"/></svg> <span>Resposta guardada neste aparelho. Enviamos ao servidor quando a conexão voltar; o XP aparece depois.</span></div>
+            <p style="font-size:12.5px;color:var(--ink-3)">Uma Lição que ainda não foi carregada não abre offline: a tela mostra o estado "Sem conexão" abaixo, nunca uma tela em branco.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="errors">
+        <h2>Páginas de erro</h2>
+        <div class="gal narrow">
+          <div class="panel errpage"><div class="slot-ph" data-slot="mascot" style="width:88px;height:88px;min-height:0"><svg class="ic lg"><use href="#i-sheep"/></svg><span class="key">mascot.lost</span></div><div class="code">404</div><h3>Essa página não existe</h3><p>Talvez o link tenha mudado. Sua trilha continua onde estava.</p><a class="btn btn-primary btn-sm" href="../learner/dashboard.html">Voltar a aprender</a></div>
+          <div class="panel errpage"><div class="slot-ph" data-slot="mascot" style="width:88px;height:88px;min-height:0"><svg class="ic lg"><use href="#i-sheep"/></svg><span class="key">mascot.oops</span></div><div class="code" style="color:var(--error-text)">500</div><h3>Algo deu errado</h3><p>Já fomos avisados. Tente de novo em um minuto; nada do seu progresso se perdeu.</p><button class="btn btn-secondary btn-sm" type="button">Tentar de novo</button></div>
+          <div class="panel errpage"><div class="slot-ph" data-slot="mascot" style="width:88px;height:88px;min-height:0"><svg class="ic lg"><use href="#i-sheep"/></svg><span class="key">mascot.offline</span></div><div class="code" style="color:var(--ink-3)"><svg class="ic xl"><use href="#i-wifi-off"/></svg></div><h3>Sem conexão</h3><p>Esta Lição ainda não foi carregada. Volte quando a internet estiver de volta; o Read Mode do capítulo aberto continua.</p><button class="btn btn-ghost btn-sm" type="button">Tentar de novo</button></div>
+        </div>
+      </section>
+
+      <section class="sec" id="unpublish">
+        <h2>Despublicação de conteúdo</h2>
+        <p class="lead">G9-08: o Editor esconde uma peça num idioma até a correção chegar. É um status, nunca uma edição. O Aprendiz vê "esta lição está em revisão" e segue pela próxima; o Report do Aprendiz é o que alimenta a fila.</p>
+        <div class="gal">
+          <div class="panel" style="gap:10px">
+            <div class="banner review"><div class="bic"><svg class="ic"><use href="#i-flag"/></svg></div><div class="btx"><b>Esta lição está em revisão</b><br>Um trecho desta Unidade foi despublicado no seu idioma até a correção chegar. Você pode continuar pela próxima Lição.</div></div>
+            <div class="mini-lesson">
+              <div class="row" style="justify-content:space-between"><span class="badge warning"><span class="dot"></span>Em revisão</span><span style="font-size:12px;color:var(--ink-3)">Pelo telhado · Lição 4 de 5 · pt-BR</span></div>
+              <div class="t">A porta aberta (Fatia 3)</div>
+              <div class="sk sk-t" style="animation:none;width:80%"></div><div class="sk sk-s" style="animation:none"></div>
+              <div class="row"><button class="btn btn-primary btn-sm" type="button">Ir para a Lição 5</button><button class="btn btn-link btn-sm" type="button">Ler em inglês mesmo assim</button></div>
+            </div>
+            <p style="font-size:12.5px;color:var(--ink-3)">No Mapa o nó fica com o badge "em revisão" e não trava a Unidade: a Lição volta sozinha quando o arquivo corrigido é importado.</p>
+          </div>
+          <div class="scrimbox end">
+            <div class="sheet-s">
+              <div class="grip"></div><h3>Reportar um problema</h3>
+              <div style="display:grid;gap:10px">
+                <div class="field"><label>O que está errado</label><div class="row" style="gap:6px"><button class="chip on" type="button">Tradução</button><button class="chip" type="button">Resposta certa</button><button class="chip" type="button">Áudio</button><button class="chip" type="button">Outro</button></div></div>
+                <div class="field"><label for="repc">Comentário (opcional)</label><div class="input area"><textarea id="repc" rows="2" placeholder="A opção 2 também está certa"></textarea></div></div>
+                <div class="hi-disc"><svg class="ic sm"><use href="#i-info"/></svg> Enviamos a peça (exercício 6 da Lição 3), o idioma (pt-BR) e a versão vista. O conteúdo continua no ar até a triagem.</div>
+              </div>
+              <div class="sheet-acts"><button class="btn btn-ghost" type="button">Cancelar</button><button class="btn btn-primary" type="button">Enviar Report</button></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="modals">
+        <h2>Modais</h2>
+        <p class="lead">Centralizados, para decisões. Ação destrutiva sempre à direita, em vermelho, com o custo explicado.</p>
+        <div class="gal">
+          <div class="scrimbox"><div class="modal-static"><h3>Pular esta história?</h3><p>"A tempestade no barco" vai para o fim da fila sem XP. As 8 palavras novas viram Cards não vistos e a próxima Unidade abre com um bloco de 4 exercícios sobre elas. Você pode reabrir quando quiser.</p><div class="acts"><button class="btn btn-ghost" type="button">Voltar</button><button class="btn btn-primary" type="button">Pular esta história</button></div></div></div>
+          <div class="scrimbox"><div class="modal-static"><h3 style="color:var(--error-text)">Excluir conta?</h3><p>Enviamos um link de confirmação para ana@email.com. A exclusão apaga tudo em cascata em até 7 dias.</p><div class="acts"><button class="btn btn-ghost" type="button">Cancelar</button><button class="btn btn-danger" type="button">Enviar link</button></div></div></div>
+          <div class="scrimbox"><div class="modal-static"><h3>Sair do Grupo?</h3><p>Você deixa de aparecer em Comunidade Viva e de ver o XP da semana dos outros. Seu progresso não muda.</p><div class="acts"><button class="btn btn-ghost" type="button">Ficar</button><button class="btn btn-danger" type="button">Sair</button></div></div></div>
+        </div>
+      </section>
+
+      <section class="sec" id="sheets">
+        <h2>Bottom sheets</h2>
+        <p class="lead">Folha <code>.sheet-s</code> do 3.4: sobe do rodapé no celular, centraliza no desktop. Card de palavra, feedback e confirmações.</p>
+        <div class="gal">
+          <div class="scrimbox end"><div class="sheet-s"><div class="grip"></div>
+            <div class="wordcard">
+              <div class="head"><div><div class="word" lang="en">mat</div><div class="ph">/mæt/ · substantivo</div></div><button class="speak-slow" type="button" aria-label="Ouvir" style="margin-left:auto"><svg class="ic"><use href="#i-speaker"/></svg></button></div>
+              <div class="tr">esteira, colchão fino</div>
+              <div class="gr">Palavra nova nesta Unidade. Aparece 4 vezes em Marcos 2.</div>
+              <div class="ex"><i lang="en">"Arise, take up your mat, and go to your house."</i><span>Marcos 2:11 · WEB</span></div>
+              <div class="acts"><button class="btn btn-secondary btn-sm" type="button"><svg class="ic sm"><use href="#i-plus"/></svg> Adicionar aos estudos</button><a class="btn btn-ghost btn-sm" href="../learner/tutor.html?origin=verse_explanation">Explicar este versículo</a></div>
+            </div></div></div>
+          <div class="scrimbox end"><div class="sheet-s"><div class="grip"></div><h3>Trocar de Curso</h3>
+            <div class="sheet-kv"><div class="sheet-row"><span class="k">Ativo</span><span class="v">Novo Testamento · A1 · Unidade 5</span></div><div class="sheet-row"><span class="k">Outro</span><span class="v">Antigo Testamento · não começado</span></div><div class="sheet-row"><span class="k">O que fica</span><span class="v">Cards, Revisão, Streak, XP</span></div></div>
+            <div class="sheet-acts"><button class="btn btn-ghost" type="button">Cancelar</button><button class="btn btn-primary" type="button">Começar o Antigo Testamento</button></div></div></div>
+        </div>
+      </section>
+
+      <section class="sec" id="banners">
+        <h2>Banners</h2>
+        <p class="lead">Ícone 36 px, texto flexível, uma ação opcional. Sem fundo escuro, sem faixa lateral colorida.</p>
+        <div class="gal">
+          <div class="banner warn"><div class="bic"><svg class="ic"><use href="#i-refresh"/></svg></div><div class="btx"><b>Bloco obrigatório</b><br>11 Cards vencidos: 4 deles abrem a próxima Lição. Contam na Meta diária.</div><a class="btn btn-sm btn-primary" href="../learner/review.html">Revisar 4</a></div>
+          <div class="banner info"><div class="bic"><svg class="ic"><use href="#i-flame"/></svg></div><div class="btx"><b>Streak em risco</b><br>Faltam 2 h. Uma Lição ou uma Revisão segura os seus 14 dias.</div><a class="btn btn-sm btn-secondary" href="../learner/lesson.html">Estudar</a></div>
+          <div class="banner ok"><div class="bic"><svg class="ic"><use href="#i-freeze"/></svg></div><div class="btx"><b>Freeze usado ontem</b><br>Seu Streak de 14 dias continua. Resta 1 Freeze; ganha outro a cada 7 dias.</div></div>
+          <div class="banner offline"><div class="bic"><svg class="ic"><use href="#i-wifi-off"/></svg></div><div class="btx"><b>Sem conexão</b><br>Você pode continuar lendo; a Lição e a Revisão esperam.</div></div>
+        </div>
+      </section>
+
+      <section class="sec" id="consent">
+        <h2>Gerenciador de consentimento</h2>
+        <p class="lead">Consentimento por finalidade, cada um com data e versão da política. Funcional sempre ligado. Registro só cresce: revogar cria uma linha nova, nunca apaga.</p>
+        <div class="gal">
+          <div class="panel" style="max-width:520px">
+            <div class="cb-group">
+              <label class="cb-switch row-line" style="cursor:not-allowed"><input type="checkbox" checked disabled><span class="cb-track"></span><span class="cb-tx">Funcional<small>Conta, progresso e Cards. Sempre ativo.</small></span></label>
+              <label class="cb-switch row-line"><input type="checkbox" checked><span class="cb-track"></span><span class="cb-tx">Análise<small>GA4 no site público e eventos do produto · <span style="font-family:var(--f-mono);font-size:11.5px">21/09/2026 · Política v1.2</span></small></span></label>
+              <label class="cb-switch row-line"><input type="checkbox"><span class="cb-track"></span><span class="cb-tx">Marketing<small>Novidades e ofertas, no máximo 2 e-mails por mês · <span style="font-family:var(--f-mono);font-size:11.5px">não dado</span></small></span></label>
+              <label class="cb-switch row-line"><input type="checkbox" checked><span class="cb-track"></span><span class="cb-tx">Visibilidade no Grupo<small>Membros do Grupo veem o seu XP da semana · <span style="font-family:var(--f-mono);font-size:11.5px">01/09/2026 · Política v1.2</span></small></span></label>
+            </div>
+            <button class="btn btn-primary btn-block" type="button">Salvar</button>
+          </div>
+          <div class="panel">
+            <div class="lbl">Banner de cookies (site público)</div>
+            <div class="card flat" style="display:grid;gap:10px"><b style="font-family:var(--f-display);font-size:16px">Cookies</b><p style="font-size:13.5px;color:var(--ink-2)">Usamos cookies funcionais sempre e, se você deixar, análise (GA4). Nada de anúncios.</p><div class="row"><button class="btn btn-primary btn-sm" type="button">Aceitar análise</button><button class="btn btn-ghost btn-sm" type="button">Só o necessário</button><a class="btn btn-link btn-sm" href="../public/cookies.html">Detalhes</a></div></div>
+            <div class="lbl">Registro (append-only)</div>
+            <div class="timeline">
+              <div class="tl-item"><div class="tl-line"></div><div class="tl-dot s"><svg class="ic sm"><use href="#i-check"/></svg></div><div class="tl-content"><div class="tl-card"><span class="tl-time">21/09/2026 19:02</span><div class="tl-desc"><strong>análise</strong> dado · Política v1.2 · app</div></div></div></div>
+              <div class="tl-item"><div class="tl-line"></div><div class="tl-dot s"><svg class="ic sm"><use href="#i-check"/></svg></div><div class="tl-content"><div class="tl-card"><span class="tl-time">01/09/2026 20:40</span><div class="tl-desc"><strong>visibilidade no Grupo</strong> dado · Política v1.2 · criar Grupo</div></div></div></div>
+              <div class="tl-item"><div class="tl-line"></div><div class="tl-dot n"><svg class="ic sm"><use href="#i-x"/></svg></div><div class="tl-content"><div class="tl-card"><span class="tl-time">28/08/2026 08:15</span><div class="tl-desc"><strong>análise</strong> recusado · Política v1.1 · banner do site</div></div></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="slots">
+        <h2>Substitutos neutros por Slot</h2>
+        <p class="lead">AL-10 / AL-11: cada Slot de ilustração tem um substituto neutro desenhado, embarcado no app. Nenhuma tela quebra sem imagem: o Placeholder mostra a chave estável e o Ativo visual entra quando aprovado.</p>
+        <div class="slots">
+<div class="slot"><div class="slot-ph" data-slot="unit_cover"><svg class="ic lg"><use href="#i-book"/></svg><span class="key">unit_cover.mrk-02</span></div><b>unit_cover</b><span>Capa do reconto</span></div>
+<div class="slot"><div class="slot-ph" data-slot="map_node"><svg class="ic lg"><use href="#i-compass"/></svg><span class="key">map_node.mrk-02</span></div><b>map_node</b><span>Nó do mapa</span></div>
+<div class="slot"><div class="slot-ph" data-slot="scene"><svg class="ic lg"><use href="#i-mount"/></svg><span class="key">scene.mrk-02.roof</span></div><b>scene</b><span>Cena de exercício / Missão</span></div>
+<div class="slot"><div class="slot-ph" data-slot="vocab_card"><svg class="ic lg"><use href="#i-text"/></svg><span class="key">vocab_card.mat</span></div><b>vocab_card</b><span>Card de vocabulário</span></div>
+<div class="slot"><div class="slot-ph" data-slot="scene"><svg class="ic lg"><use href="#i-user"/></svg><span class="key">character.jesus</span></div><b>scene</b><span>Personagem em diálogo</span></div>
+<div class="slot"><div class="slot-ph" data-slot="mascot"><svg class="ic lg"><use href="#i-sheep"/></svg><span class="key">mascot.lana_wave</span></div><b>mascot</b><span>Mascote (Lana)</span></div>
+<div class="slot"><div class="slot-ph" data-slot="achievement_badge"><svg class="ic lg"><use href="#i-freeze"/></svg><span class="key">game_icon.freeze</span></div><b>achievement_badge</b><span>Ícone do jogo</span></div>
+<div class="slot"><div class="slot-ph" data-slot="achievement_badge"><svg class="ic lg"><use href="#i-trophy"/></svg><span class="key">achievement_badge.first_verse</span></div><b>achievement_badge</b><span>Medalha de Conquista</span></div>
+<div class="slot"><div class="slot-ph" data-slot="next_story"><svg class="ic lg"><use href="#i-arrow-r"/></svg><span class="key">next_story.mrk-04</span></div><b>next_story</b><span>Card "Próxima história"</span></div>
+<div class="slot"><div class="slot-ph" data-slot="empty_state"><svg class="ic lg"><use href="#i-refresh"/></svg><span class="key">empty_state.review</span></div><b>empty_state</b><span>Estado vazio</span></div>
+<div class="slot"><div class="slot-ph" data-slot="unit_cover"><svg class="ic lg"><use href="#i-sun"/></svg><span class="key">landing.hero</span></div><b>unit_cover</b><span>Landing / Página de unidade</span></div>
+        </div>
+      </section>
+
+      <section class="sec" id="shortcuts">
+        <h2>Atalhos de teclado</h2>
+        <p class="lead">Overlay com <span class="kbd">?</span>. Só no desktop; no celular tudo é toque.</p>
+        <div class="shortcuts">
+          <div class="shortcut"><div class="keys"><span class="kbd">?</span></div>Abrir esta ajuda</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">/</span></div>Buscar palavra ou versículo</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">1</span><span class="kbd">2</span><span class="kbd">3</span><span class="kbd">4</span></div>Escolher a opção</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">Enter</span></div>Verificar / Continuar</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">H</span></div>Ver dica (2 por Lição)</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">R</span></div>Ouvir de novo</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">S</span></div>Ouvir devagar</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">P</span></div>Mostrar o Texto paralelo da frase</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">←</span><span class="kbd">→</span></div>Capítulo anterior / próximo (Read Mode)</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">Esc</span></div>Fechar folha ou modal</div>
+          <div class="shortcut"><div class="keys"><span class="kbd">D</span></div>Alternar tema</div>
+        </div>
+      </section>
+
+      <section class="sec" id="typography">
+        <h2>Tipografia</h2>
+        <p class="lead">Três vozes: Baloo 2 celebra, Figtree guia, Source Serif 4 ensina (todo texto em inglês).</p>
+        <div class="panel" style="gap:0">
+          <div class="type-row"><span class="spec">display-l · Baloo 2 700 28</span><span style="font:700 28px/1.15 var(--f-display);letter-spacing:-.02em">Nível A1: entender e repetir</span></div>
+          <div class="type-row"><span class="spec">title · Baloo 2 600 22</span><span style="font:600 22px/1.25 var(--f-display)">Pelo telhado</span></div>
+          <div class="type-row"><span class="spec">heading · Baloo 2 600 18</span><span style="font:600 18px/1.3 var(--f-display)">Revisão devida</span></div>
+          <div class="type-row"><span class="spec">read · Source Serif 4 400 19</span><span class="tg" lang="en" style="font-size:19px;line-height:1.6">Four men carried a man who could not walk.</span></div>
+          <div class="type-row"><span class="spec">body · Figtree 400 15</span><span>Toque na palavra para ver o verbete. O Texto paralelo fica escondido até você pedir.</span></div>
+          <div class="type-row"><span class="spec">body-s · Figtree 600 13</span><span style="font:600 13px/1.45 var(--f-ui)">8 exercícios · 5 min · +35 XP</span></div>
+          <div class="type-row"><span class="spec">caption · Figtree 600 12</span><span style="font:600 12px/1.33 var(--f-ui);color:var(--ink-3)">Marcos 2:11 · WEB</span></div>
+          <div class="type-row" style="border:0"><span class="spec">eyebrow · Figtree 700 11</span><span class="caps" style="font-size:11px;color:var(--ink-3)">Barra bíblica</span></div>
+        </div>
+      </section>
+
+      <section class="sec" id="buttons">
+        <h2>Botões</h2>
+        <p class="lead">Tudo o que é tocável pressiona: sombra sólida de 3 a 6 px que some no <code>:active</code>.</p>
+        <div class="panel">
+          <div class="row"><button class="btn btn-primary" type="button">Continuar</button><button class="btn btn-secondary" type="button">Ver dica</button><button class="btn btn-ghost" type="button">Pular</button><button class="btn btn-outline" type="button">Test-out</button><button class="btn btn-accent" type="button"><svg class="ic sm"><use href="#i-flame"/></svg> Proteger Streak</button><button class="btn btn-danger" type="button">Excluir</button><button class="btn btn-link" type="button">Agora não</button></div>
+          <div class="row"><button class="btn btn-primary btn-sm" type="button">Primário P</button><button class="btn btn-secondary btn-sm" type="button">Secundário P</button><button class="btn btn-ghost btn-sm" type="button">Fantasma P</button><button class="btn btn-primary btn-lg" type="button">Grande</button><button class="btn btn-primary btn-icon" type="button" aria-label="Ouvir"><svg class="ic"><use href="#i-speaker"/></svg></button><button class="btn btn-ghost btn-icon btn-sm" type="button" aria-label="Fechar"><svg class="ic sm"><use href="#i-x"/></svg></button></div>
+          <div class="row"><button class="btn btn-primary is-loading" type="button">Salvando</button><button class="btn btn-primary" type="button" disabled>Desabilitado</button><button class="btn btn-secondary" type="button" disabled>Desabilitado</button><span style="width:100%"></span><button class="btn btn-primary btn-block" type="button">Bloco: Começar a Lição</button></div>
+        </div>
+      </section>
+
+      <section class="sec" id="badges">
+        <h2>Badges e chips</h2>
+        <div class="panel">
+          <div class="row"><span class="badge neutral">Neutro</span><span class="badge primary">A1</span><span class="badge accent">+35 XP</span><span class="badge success">Concluída</span><span class="badge error">Erro</span><span class="badge warning">Em revisão</span><span class="badge info">Dica</span><span class="badge secondary">Líder</span><span class="badge hearts">3 Corações</span><span class="badge solid">Novo</span><span class="count">11</span></div>
+          <div class="row"><span class="badge status ok"><span class="dot"></span>Publicado</span><span class="badge status warn"><span class="dot"></span>Em revisão</span><span class="badge status err"><span class="dot"></span>Offline</span><span class="badge status busy"><span class="dot"></span>Sincronizando</span><span class="badge status live"><span class="dot"></span>Atual</span><span class="badge status xp"><span class="dot"></span>Meta batida</span></div>
+          <div class="row"><button class="chip" type="button">Palavra</button><button class="chip on" type="button">Padrão</button><button class="chip" type="button">Frase pra levar</button><button class="chip lang-pill" type="button"><svg class="ic sm"><use href="#i-globe"/></svg> EN <svg class="ic sm"><use href="#i-chev-d"/></svg></button></div>
+        </div>
+      </section>
+
+      <section class="sec" id="stats">
+        <h2>Stat pills</h2>
+        <p class="lead">Streak, XP, Corações e Freeze são globais (por conta), nunca por Curso.</p>
+        <div class="panel"><div class="row"><span class="stat streak"><svg class="ic fill"><use href="#i-flame"/></svg> 14</span><span class="stat xp"><svg class="ic fill"><use href="#i-bolt"/></svg> 2.450</span><span class="stat hearts"><svg class="ic fill"><use href="#i-heart"/></svg> 3</span><span class="stat freeze"><svg class="ic"><use href="#i-freeze"/></svg> 1</span><span class="badge primary">A1</span></div>
+        <div class="hearts-row"><svg class="ic"><use href="#i-heart"/></svg><svg class="ic"><use href="#i-heart"/></svg><svg class="ic"><use href="#i-heart"/></svg><svg class="ic off"><use href="#i-heart"/></svg><svg class="ic off"><use href="#i-heart"/></svg></div>
+        <p style="font-size:12.5px;color:var(--ink-3);text-align:center">3 de 5 Corações · o próximo volta em 12 min · só descontam em Test-out e Level test</p></div>
+      </section>
+
+      <section class="sec" id="progress">
+        <h2>Progresso</h2>
+        <p class="lead">Barra de exercício, barra com marcas, anel da Meta diária e as duas barras do Mapa e do dashboard (G9-31).</p>
+        <div class="gal">
+          <div class="panel"><div class="lbl">Barra da Lição · 5 de 9</div><div class="pbar" role="progressbar" aria-valuenow="55"><i style="--p:0.55"></i></div><div class="lbl">Com marcas · Test-out 10 itens</div><div class="pbar ticks" style="--n:10"><i style="--p:0.6"></i></div><div class="lbl">Anel da Meta diária</div><div class="goal"><div class="ring" style="--p:.64"><svg viewBox="0 0 64 64"><circle class="track" cx="32" cy="32" r="28"/><circle class="val" cx="32" cy="32" r="28"/></svg><b>35</b></div><div class="txt"><b>35 de 55 XP</b><span>Regular · uma Revisão fecha o dia</span></div></div></div>
+          <div class="panel"><div class="lbl">Duas barras (G9-31)</div><div class="bars2">
+            <div class="bar-row bib"><div class="h"><span class="nm"><svg class="ic sm"><use href="#i-book"/></svg> Barra bíblica</span><small>Unidade 5 de 17 · Marcos</small></div><div class="pbar lima sm"><i style="--p:0.26"></i></div><div class="sub">Onde você está na história do Novo Testamento</div></div>
+            <div class="bar-row lin"><div class="h"><span class="nm"><svg class="ic sm"><use href="#i-layers"/></svg> Barra linguística</span><small>41 de 175 headwords</small></div><div class="pbar sm"><i style="--p:0.23"></i></div><div class="sub">41 headwords · 6 padrões · 3 funções · 4 h 10 min</div></div>
+          </div></div>
+        </div>
+      </section>
+
+      <section class="sec" id="exercise">
+        <h2>Exercício</h2>
+        <p class="lead">Estados da opção, lacuna, pares e banco de fichas. Erro em Lição e Revisão não custa nada: "Ver dica" e 2 hints por Lição.</p>
+        <div class="gal">
+          <div class="panel"><div class="prompt">Qual é a tradução de <span class="tg" lang="en">roof</span>?</div><div class="opts"><button class="opt" type="button"><span class="n">1</span>porta</button><button class="opt sel" type="button"><span class="n">2</span>telhado</button><button class="opt ok" type="button"><span class="n">3</span>telhado (certa)</button><button class="opt bad" type="button"><span class="n">4</span>casa (errada)</button></div></div>
+          <div class="panel"><div class="sentence" lang="en">They made a hole in the <span class="blank">roof</span>.</div><div class="bank"><button class="chip used" type="button">roof</button><button class="chip" type="button">house</button><button class="chip" type="button">mat</button></div><div class="pairs"><button class="pair tg" type="button" lang="en">forgive</button><button class="pair" type="button">perdoar</button><button class="pair tg matched" type="button" lang="en">walk</button><button class="pair matched" type="button">andar</button></div><div class="cb-tf"><button class="cb-t" type="button"><svg class="ic"><use href="#i-check"/></svg> Verdadeiro</button><button class="cb-f" type="button"><svg class="ic"><use href="#i-x"/></svg> Falso</button></div></div>
+          <div class="panel"><div class="lbl">Dica (Gramática ou Dica de uso, sempre grátis)</div><div class="dica"><div class="dica-ico"><svg class="ic"><use href="#i-lightbulb"/></svg></div><div class="dica-body"><b>Dica · Verbos do passado são palavras prontas</b>No A1 você não conjuga: <i>went</i>, <i>made</i>, <i>saw</i> são palavras inteiras que você reconhece, como qualquer outra.<em lang="en">They went up on the roof.</em></div></div>
+            <div class="lbl">Pista (o começo da resposta · 2 por Lição · mesmo card, corpo curto)</div><div class="dica"><div class="dica-ico"><svg class="ic"><use href="#i-lightbulb"/></svg></div><div class="dica-body">Começa com: roof</div></div></div>
+          <div class="panel"><div class="lbl">Legenda de passo (step-k · opcional, só quando agrega: progresso + XP; nunca jargão pedagógico solto)</div><div class="step-k"><span>Exercício 1 de 8 · Ouça e escolha</span><span>+3 XP</span></div></div>
+        </div>
+      </section>
+
+      <section class="sec" id="cards">
+        <h2>Cards</h2>
+        <div class="gal">
+          <div class="card"><h3>Card plano</h3><p class="sub-t">Borda 1 px, sombra sh-1. Conteúdo que não se toca.</p></div>
+          <div class="card interactive"><h3>Card interativo</h3><p class="sub-t">Borda 2 px, sombra sólida, pressiona.</p></div>
+          <div class="card tint"><h3>Card tint</h3><p class="sub-t" style="color:var(--ink-2)">Destaque: próxima Lição, Conquista nova.</p></div>
+          <div class="next-card"><div class="k">Continuar · Pelo telhado · Lição 3 de 5</div><h3>A porta aberta</h3><div class="verse" lang="en">"Arise, take up your mat" — Marcos 2:11</div><span class="btn" style="justify-self:start">Continuar <svg class="ic"><use href="#i-arrow-r"/></svg></span></div>
+          <div class="card-tint"><div class="ct-icon"><svg class="ic"><use href="#i-refresh"/></svg></div><div class="ct-text"><b>11 Cards devidos</b><span>4 deles abrem a próxima Lição</span></div><svg class="ic chev"><use href="#i-chev-r"/></svg></div>
+          <div class="line"><div class="ico a"><svg class="ic"><use href="#i-flame"/></svg></div><div class="tx"><b>Linha</b><span>Ícone 40 px, título, legenda, seta</span></div><svg class="ic chev"><use href="#i-chev-r"/></svg></div>
+        </div>
+      </section>
+
+      <section class="sec" id="map">
+        <h2>Mapa</h2>
+        <p class="lead">Nó 66 px com borda 3 px e sombra 5 px: concluído, atual (pulsa), trancado. Nó pequeno para Leitura de Salmo (G9-71), nó de Missão (G9-58) e nó de Level test.</p>
+        <div class="panel"><div class="node-demo">
+          <div class="node done"><span class="ic"><svg class="ic"><use href="#i-check"/></svg></span><span class="lab">Concluída</span></div>
+          <div class="node cur"><svg class="ic"><use href="#i-star"/></svg><span class="lab">Atual</span></div>
+          <div class="node lock"><svg class="ic"><use href="#i-lock"/></svg><span class="lab">Trancada</span></div>
+          <div class="node small psalm"><svg class="ic sm"><use href="#i-music"/></svg><span class="lab">Leitura de Salmo</span></div>
+          <div class="node small psalm done"><svg class="ic sm"><use href="#i-music"/></svg><span class="lab">Salmo lido</span></div>
+          <div class="node mission"><svg class="ic"><use href="#i-target"/></svg><span class="lab">Missão</span></div>
+          <div class="node test"><svg class="ic"><use href="#i-flag"/></svg><span class="lab">Level test</span></div>
+        </div>
+        <div class="unit-h"><div class="glyph t2"><svg class="ic"><use href="#i-book"/></svg></div><div class="tx"><b>Pelo telhado</b><span>Marcos 2:1-12 · Lição 3 de 5 · Bloco Marcos</span></div><button class="btn btn-outline btn-sm" type="button">Test-out</button></div>
+        <div class="unit-h locked"><div class="glyph"><svg class="ic"><use href="#i-lock"/></svg></div><div class="tx"><b>A2 · em breve</b><span>Unidades nomeadas e ilustradas, trancadas até o A2 abrir</span></div><button class="btn btn-secondary btn-sm" type="button">Avise-me</button></div></div>
+      </section>
+
+      <section class="sec" id="medals">
+        <h2>Medalhas e Conquistas</h2>
+        <div class="panel"><div class="medals"><div class="medal bronze"><svg class="ic"><use href="#i-trophy"/></svg></div><div class="medal silver"><svg class="ic"><use href="#i-trophy"/></svg></div><div class="medal gold"><svg class="ic"><use href="#i-trophy"/></svg></div><div class="medal locked"><svg class="ic"><use href="#i-lock"/></svg></div><div class="medal sm bronze"><svg class="ic"><use href="#i-flame"/></svg></div></div>
+        <div class="ach-row new"><div class="medal sm gold"><svg class="ic"><use href="#i-book"/></svg></div><div class="tx"><b>Li meu primeiro Versículo original</b><span>Unidade 1 · ouro</span></div><span class="ach-xp">+50 XP</span></div>
+        <div class="ach-row"><div class="medal sm silver"><svg class="ic"><use href="#i-flame"/></svg></div><div class="tx"><b>14 dias seguidos</b><span>Prata · próximo tier em 30 dias</span><div class="pbar"><i style="--p:0.47"></i></div></div><span class="ach-xp">+30 XP</span></div>
+        <div class="ach-row locked"><div class="medal sm locked"><svg class="ic"><use href="#i-target"/></svg></div><div class="tx"><b>Contei uma história inteira</b><span>Missão depois da Unidade 11</span></div></div></div>
+      </section>
+
+      <section class="sec" id="forms">
+        <h2>Formulários</h2>
+        <div class="gal">
+          <div class="panel"><div class="field"><label for="f1">E-mail</label><div class="input"><svg class="ic"><use href="#i-mail"/></svg><input id="f1" type="email" value="ana@email.com"></div><div class="help">Só para o link de acesso.</div></div><div class="field err"><label for="f2">Link de convite</label><div class="input"><svg class="ic"><use href="#i-link"/></svg><input id="f2" type="text" value="biblup.com/g/xyz"></div><div class="help">Link não encontrado. Peça outro a quem convidou.</div></div><div class="field"><label for="f3">Idioma nativo</label><div class="input"><svg class="ic"><use href="#i-globe"/></svg><select id="f3"><option>Português (Brasil)</option><option>Español</option></select><svg class="ic"><use href="#i-chev-d"/></svg></div></div></div>
+          <div class="panel"><div class="cb-group"><label class="cb-switch"><input type="checkbox" checked><span class="cb-track"></span><span class="cb-tx">Interruptor<small>Ligado</small></span></label><label class="cb-check"><input type="checkbox" checked><span class="cb-box"><svg class="ic sm"><use href="#i-check"/></svg></span><span class="cb-tx">Caixa de seleção<small>Aceito os Termos v1.2</small></span></label><label class="cb-radio"><input type="radio" name="r" checked><span class="cb-dot"></span><span class="cb-tx">Opção de rádio</span></label><label class="cb-radio"><input type="radio" name="r"><span class="cb-dot"></span><span class="cb-tx">Outra opção</span></label></div><div class="seg seg3"><button type="button" aria-pressed="false">Casual<small>35 XP</small></button><button type="button" aria-pressed="true">Regular<small>55 XP</small></button><button type="button" aria-pressed="false">Intenso<small>110 XP</small></button></div></div>
+        </div>
+      </section>
+
+      <section class="sec" id="new34">
+        <h2>Novos do 3.4</h2>
+        <p class="lead">Key-value, timeline, slide-over, sparkline, edição inline, indicador de conexão e zona de perigo. Onde cabem no Aprendiz: Grupo (membro), Indicação (quem entrou), Configurações (excluir conta), perfil (nome).</p>
+        <div class="gal">
+          <div class="panel"><div class="lbl">Key-value</div><div class="kv"><div class="kv-item"><span class="kv-label">Curso</span><span class="kv-value">Novo Testamento</span></div><div class="kv-item"><span class="kv-label">Nível · Degrau</span><span class="kv-value">A1 · A1.1</span></div><div class="kv-item"><span class="kv-label">Headwords</span><span class="kv-value mono">41 / 175</span></div><div class="kv-item"><span class="kv-label">Horas</span><span class="kv-value mono">4 h 10 min</span></div></div>
+            <div class="lbl">Sparkline · XP dos últimos 7 dias</div><div class="row"><span class="spark"><i style="height:8px"></i><i style="height:14px"></i><i class="z" style="height:3px"></i><i style="height:14px"></i><i style="height:20px"></i><i style="height:14px"></i><i style="height:10px"></i></span><span style="font-size:13px;color:var(--ink-3)">310 XP · 6 de 7 dias</span></div>
+            <div class="lbl">Edição inline</div><div class="inline-edit" id="ieDemo"><div class="inline-edit-display" role="button" tabindex="0" onclick="this.parentNode.classList.add('editing')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.parentNode.classList.add('editing')}">ana_s <svg class="ic sm edit-icon"><use href="#i-pen"/></svg></div><div class="inline-edit-form"><div class="input"><input type="text" value="ana_s" aria-label="Nome de exibição"></div><button class="ie-btn ie-save" type="button" aria-label="Salvar" onclick="document.getElementById('ieDemo').classList.remove('editing')"><svg class="ic sm"><use href="#i-check"/></svg></button><button class="ie-btn ie-cancel" type="button" aria-label="Cancelar" onclick="document.getElementById('ieDemo').classList.remove('editing')"><svg class="ic sm"><use href="#i-x"/></svg></button></div></div>
+            <div class="lbl">Indicador de conexão</div><div class="row"><div class="conn"><span class="cdot ok"></span>Conectado</div><div class="conn"><span class="cdot sync"></span>Sincronizando</div><div class="conn"><span class="cdot err"></span>Offline</div></div></div>
+          <div class="panel"><div class="lbl">Timeline</div><div class="timeline"><div class="tl-item"><div class="tl-line"></div><div class="tl-dot a"><svg class="ic sm"><use href="#i-flame"/></svg></div><div class="tl-content"><div class="tl-card"><span class="tl-time">hoje 07:40</span><span class="tl-ago">Lição 3</span><div class="tl-desc"><strong>+35 XP</strong> · A porta aberta</div></div></div></div><div class="tl-item"><div class="tl-line"></div><div class="tl-dot p"><svg class="ic sm"><use href="#i-refresh"/></svg></div><div class="tl-content"><div class="tl-card"><span class="tl-time">ontem 21:10</span><div class="tl-desc">Revisão · 9 Cards · <strong>+18 XP</strong></div></div></div></div><div class="tl-item"><div class="tl-line"></div><div class="tl-dot s"><svg class="ic sm"><use href="#i-trophy"/></svg></div><div class="tl-content"><div class="tl-card"><span class="tl-time">22 set</span><div class="tl-desc">Conquista <strong>14 dias seguidos</strong></div></div></div></div></div>
+            <div class="lbl">Slide-over (estático)</div><div class="so-static"><div class="so-backdrop"></div><div class="so-panel"><div class="so-head">luz_do_dia <svg class="ic sm"><use href="#i-x"/></svg></div><div class="so-body"><div class="row"><span class="avatar a3">LD</span><div><b>luz_do_dia</b><div style="font-size:12px;color:var(--ink-3)">Comunidade Viva</div></div></div><div class="kv" style="grid-template-columns:1fr"><div class="kv-item"><span class="kv-label">XP da semana</span><span class="kv-value mono">980</span></div><div class="kv-item"><span class="kv-label">Streak</span><span class="kv-value">21 dias</span></div></div></div><div class="so-foot"><button class="btn btn-outline btn-sm" type="button" style="color:var(--error-text)">Remover</button><button class="btn btn-primary btn-sm" type="button">Fechar</button></div></div></div>
+            <div class="lbl">Zona de perigo</div><div class="danger-zone"><div class="danger-zone-inner"><div class="danger-zone-icon"><svg class="ic"><use href="#i-trash"/></svg></div><div><div class="danger-zone-title">Excluir conta</div><div class="danger-zone-desc">Apaga tudo em cascata. Não dá para desfazer.</div><button class="btn btn-danger btn-sm" type="button">Excluir minha conta</button></div></div></div></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+</main>
+<script src="dialog.js"></script>
+<script>
+
+// Tema em três estados: sistema (sem atributo) / claro / escuro — chave biblup-theme
+(function(){try{var s=localStorage.getItem('biblup-theme');if(s==='dark'||s==='light')document.documentElement.setAttribute('data-theme',s)}catch(e){}})();
+function cycleTheme(){var r=document.documentElement,c=r.getAttribute('data-theme'),n=c==='dark'?'light':(c==='light'?null:'dark');
+  if(n)r.setAttribute('data-theme',n);else r.removeAttribute('data-theme');
+  try{if(n)localStorage.setItem('biblup-theme',n);else localStorage.removeItem('biblup-theme')}catch(e){}
+  var l=document.getElementById('themeLbl');if(l)l.textContent=n==='dark'?'Escuro':(n==='light'?'Claro':'Sistema');}
+(function(){var l=document.getElementById('themeLbl');if(l){var c=document.documentElement.getAttribute('data-theme');l.textContent=c==='dark'?'Escuro':(c==='light'?'Claro':'Sistema')}})();
+function toggleSidebar(){var s=document.querySelector('.sidebar');if(s)s.classList.toggle('collapsed')}
+function toast(title,desc,kind){var h=document.getElementById('toastHost');if(!h){h=document.createElement('div');h.className='toast-host';h.setAttribute('role','status');h.setAttribute('aria-live','polite');h.id='toastHost';document.body.appendChild(h)}
+  var t=document.createElement('div');t.className='toast '+(kind||'success');t.innerHTML='<div class="t-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t-body"><div class="t-title"></div><div class="t-desc"></div></div><button class="x" type="button" aria-label="Fechar" onclick="this.closest(\'.toast\').remove()"><svg class="ic sm" aria-hidden="true"><use href="#i-x"/></svg></button>';
+  t.querySelector('.t-title').textContent=title;t.querySelector('.t-desc').textContent=desc||'';if(!desc)t.querySelector('.t-desc').remove();h.appendChild(t);setTimeout(function(){t.remove()},3200)}
+
+document.addEventListener('keydown',function(e){if(e.key==='d'||e.key==='D'){if(document.activeElement&&/input|textarea|select/i.test(document.activeElement.tagName))return;cycleTheme()}});
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+Recebemos sua mensagem
+
+RECEBEMOS SUA MENSAGEM, ANA
+
+Sua mensagem sobre {subject_label} chegou até nós. O time do Biblup normalmente responde em até 2 dias úteis, direto neste e-mail.
+
+Enquanto espera, sua dúvida já pode estar respondida na Central de Ajuda.
+
+Ver a Central de Ajuda: {app_url}/ajuda
+
+Se você não enviou esta mensagem, pode ignorar este e-mail com segurança.
+
+Com carinho,
+Time do Biblup
+
+--
+Biblup <conta@biblup.com> · Categoria: Transacional

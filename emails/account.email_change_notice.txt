@@ -1,0 +1,15 @@
+O e-mail da sua conta foi alterado
+
+SEU E-MAIL DE ACESSO MUDOU
+
+Ana, em 25 de setembro de 2026, 14:32, o e-mail de acesso da sua conta passou de ana@email.com para <b>a***@email.com</b>.
+
+Se foi você, não precisa fazer nada. Se não reconhece essa mudança, toque abaixo em até 7 dias para desfazer e proteger sua conta.
+
+Não fui eu, reverter: {revert_url}
+
+Com carinho,
+Time do Biblup
+
+--
+Biblup <conta@biblup.com> · Categoria: Transacional

@@ -1,0 +1,82 @@
+<!--
+  chave:      group.member_joined
+  Categoria:  Operacional
+  gatilho:    group_member_joined (resumo: no máximo 1 por dia)
+  variáveis:  Ana, {group_name}, {member_names}, {new_member_count}, {member_count}, {invite_url}, {app_url}
+  fonte:      content/emails/group.member_joined/pt-BR.md; molde único: tools/emails/build_emails.py (não editar este HTML à mão)
+-->
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
+<meta name="x-apple-disable-message-reformatting">
+<title>Júlia entrou no Grupo Jovens IBC</title>
+<!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
+<style>
+  /* Único bloco de estilo; tudo que importa está inline (DESIGN.md §5 E-mail). Sem fontes externas. */
+  body { margin:0; padding:0; background:#F4F7FC; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+  table { border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; }
+  img { border:0; line-height:100%; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; }
+  a { color:#154194; }
+  .preheader { display:none !important; visibility:hidden; opacity:0; color:transparent; height:0; width:0; overflow:hidden; mso-hide:all; }
+  @media only screen and (max-width: 620px) {
+    .container { width:100% !important; }
+    .card { padding:24px 20px !important; }
+    .h1 { font-size:22px !important; }
+    .btn { width:100% !important; }
+    .btn-td { display:block !important; text-align:center !important; }
+    .btn-td a { display:block !important; }
+    .stat-v { font-size:22px !important; }
+  }
+  /* Dark mode: o cartão permanece branco com tinta escura (cores sólidas); só o fundo externo e o rodapé escurecem. */
+  @media (prefers-color-scheme: dark) {
+    body, .outer { background:#0B1426 !important; }
+    .footer-text { color:#AEBCD6 !important; }
+    .footer-text a { color:#8CC8F2 !important; }
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#F4F7FC;">
+<div class="preheader">Agora são 13 membros. Veja o XP da semana de cada um.&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
+<table role="presentation" class="outer" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F4F7FC" style="background:#F4F7FC;">
+<tr><td align="center" style="padding:24px 12px;">
+
+  <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+  <table role="presentation" class="container" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;border-collapse:separate;border-spacing:0;">
+
+    <!-- Cabeçalho: logo sobre superfície branca (funciona em dark mode porque a cor é sólida) -->
+    <tr><td align="center" bgcolor="#FFFFFF" style="background:#FFFFFF;border-radius:20px 20px 0 0;border-bottom:4px solid #40ABE4;padding:22px 32px;">
+      <a href="{app_url}" style="text-decoration:none;"><img src="../../design-system/logo/biblup-logo.png" width="132" height="67" alt="Biblup" style="display:block;width:132px;height:auto;margin:0 auto;font-family:'Baloo 2', Figtree, 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;font-size:22px;font-weight:800;color:#154194;text-align:center;"></a>
+    </td></tr>
+
+    <!-- Corpo -->
+    <tr><td class="card" bgcolor="#FFFFFF" style="background:#FFFFFF;padding:32px 36px 16px 36px;border-radius:0 0 20px 20px;text-align:left;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 14px 0;"><tr><td bgcolor="#E4F5CF" style="background:#E4F5CF;color:#3E6B0F;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:5px 10px;border-radius:999px;">Grupo</td></tr></table>
+            <h1 class="h1" style="margin:0 0 16px 0;font-family:'Baloo 2', Figtree, 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;font-size:28px;line-height:1.15;font-weight:700;letter-spacing:-0.02em;color:#154194;">Marcos, o Grupo cresceu</h1>
+      <p style="margin:0 0 16px 0;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:15px;line-height:1.55;color:#101C33;"><b>Júlia</b> entrou hoje no Grupo <b>Jovens IBC</b> pelo seu link. Agora são <b>13 membros</b> caminhando pelas mesmas histórias.</p>
+      <p style="margin:0 0 16px 0;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:15px;line-height:1.55;color:#101C33;">Na tela do Grupo você vê o XP da semana de cada membro que aceitou aparecer. Um incentivo no domingo costuma render uma segunda-feira cheia.</p>
+      <table role="presentation" class="btn" cellpadding="0" cellspacing="0" border="0" style="margin:4px 0 24px 0;"><tr><td class="btn-td" bgcolor="#40ABE4" style="background:#40ABE4;border-radius:20px;"><a href="{app_url}" style="display:inline-block;padding:14px 26px;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:15px;font-weight:800;line-height:1.15;color:#071A3A;text-decoration:none;">Ver o Grupo</a></td></tr></table>
+      <p style="margin:0 0 16px 0;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:13px;line-height:1.55;color:#586A88;">Se várias pessoas entrarem no mesmo dia, você recebe um único resumo.</p>
+      <p style="margin:0 0 16px 0;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:15px;line-height:1.55;color:#3D4D6B;">Com carinho,<br><b>Lana e o time do Biblup</b></p>
+    </td></tr>
+
+    <!-- Rodapé -->
+    <tr><td style="padding:22px 20px 8px 20px;text-align:left;">
+      <p class="footer-text" style="margin:0 0 8px 0;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:12px;line-height:1.5;color:#586A88;">Você recebe este e-mail <b>operacional</b> porque os avisos de <b>Grupo</b> estão ativos na sua conta. Pode desligar só este tipo ou todos os avisos a qualquer momento.</p>
+      <p class="footer-text" style="margin:0 0 8px 0;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:12px;line-height:1.55;color:#586A88;line-height:1.5;"><a href="{preferences_url}" style="color:#154194;font-weight:700;">Gerenciar preferências</a> &nbsp;&middot;&nbsp; <a href="{unsubscribe_url}" style="color:#154194;font-weight:700;">Cancelar inscrição</a></p>
+      <p class="footer-text" style="margin:0 0 4px 0;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:12px;line-height:1.5;color:#586A88;">Enviado por Biblup <span dir="ltr" style="unicode-bidi:isolate;">&lt;ola@biblup.com&gt;</span><br>Biblup · [endereço postal da entidade legal, a definir] · Brasil</p>
+      <p class="footer-text" style="margin:0;font-family:Figtree, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:12px;line-height:1.5;color:#586A88;">
+        <span style="display:inline-block;background:#E4F5CF;color:#3E6B0F;font-weight:700;padding:2px 8px;border-radius:999px;">Categoria: Operacional</span>
+        &nbsp; Idioma do destinatário: <span dir="ltr" style="unicode-bidi:isolate;">pt-BR</span> &nbsp;&middot;&nbsp; <a href="{privacy_url}" style="color:#586A88;">Privacidade</a>
+      </p>
+    </td></tr>
+
+  </table>
+  <!--[if mso]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+</body>
+</html>

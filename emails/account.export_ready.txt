@@ -1,0 +1,17 @@
+Seus dados estão prontos para baixar
+
+SUA EXPORTAÇÃO ESTÁ PRONTA
+
+Ana, o arquivo com os dados da sua conta está pronto: perfil, progresso, Cards de Revisão, XP, Streak, Conquistas e consentimentos, em JSON e CSV (1,2 MB).
+
+O link vale por 7 dias e só abre com a sua conta.
+
+Baixar meus dados: {export_url}
+
+Se não foi você quem pediu, troque seu e-mail de acesso em Configurações e escreva para privacidade@biblup.com.
+
+Com carinho,
+Time do Biblup
+
+--
+Biblup <conta@biblup.com> · Categoria: Transacional

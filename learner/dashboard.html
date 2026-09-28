@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Biblup — Aprender</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg"><link rel="icon" type="image/x-icon" href="../favicon.ico"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+
+<link rel="stylesheet" href="../shared/app.css">
+<style>
+/* ═══ PÁGINA ═══ */
+
+.course-opt{display:flex;align-items:center;gap:12px;padding:12px;border:2px solid var(--border);border-radius:var(--r-lg);background:var(--surface);box-shadow:0 3px 0 var(--border);margin-bottom:10px}
+.course-opt.sel{border-color:var(--primary-bright);background:var(--primary-soft);box-shadow:0 3px 0 var(--primary-shadow)}
+.course-opt .co-glyph{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;flex:none}
+.co-glyph.nt{background:var(--primary-bright);color:var(--on-primary)}.co-glyph.at{background:var(--accent-soft);color:var(--accent-text)}
+.course-opt .co-tx{flex:1;min-width:0}
+.course-opt .co-tx b{display:flex;align-items:center;gap:6px;font-family:var(--f-display);font-size:16px;font-weight:600}
+.course-opt .co-tx span{font-size:12.5px;color:var(--ink-3)}
+.course-opt .co-tx em{font-style:normal;font-weight:700;color:var(--ink-2)}
+.co-note{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--ink-3);line-height:1.45;padding:6px 2px 0}
+.co-note .ic{color:var(--primary);margin-top:2px}
+.bar-row .pbar{height:10px}
+.spark-row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:var(--ink-3);margin-top:4px}
+
+.next-card .slot-ph{height:84px!important;padding-bottom:16px;gap:2px}
+.pills .hint{font-size:11.5px;color:var(--ink-3);font-weight:600;width:100%}
+.members{display:grid;gap:6px}
+.mem{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:600;padding:4px 0}
+.mem .pos{width:18px;text-align:center;font-family:var(--f-display);font-weight:800;color:var(--ink-3)}
+.mem .xp{margin-inline-start:auto;font-family:var(--f-display);font-weight:700;color:var(--accent-text);font-size:13px;white-space:nowrap}
+.mem.me{background:var(--primary-soft);border-radius:var(--r-sm);padding:4px 8px;margin:0 -8px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="logo" viewBox="0 0 925 471"><path fill="var(--logo-text)" fill-rule="evenodd" d="M760 244q0 .2-.3 0c-.8.3-5.4 6-6.4 7-9.6 10.2-21.9 18.3-36.4 17.9a30 30 0 0 1-19.8-8 39 39 0 0 1-8.3-11.8c-.3-.7-1.7-4-2.1-4.4l-.5-.2-.4.2-5.2 7.3a96 96 0 0 1-15 14.6c-18 14.3-44.8 18.6-63.4 3-6.6-5.4-8.2-9.3-13-15.5q-.3 0-.5.2s-6.5 10.2-8 12c-13.3 17.2-32.1 33.2-55.6 26.8-14.3-3.9-23.5-15.5-27.9-29.3q-2.8-9.1-3.7-18.5c-1.5-18.8-.5-37.7.7-56.5q2-29.1 4.9-58.2 4.1-42 8.5-84c.8-7 2.4-26.7 4.6-32.1 8.4-21 41-17.1 39.3 10.5q-.6 6.9-1.6 13.9l-2.2 18.8-4 36.3q-1.8 18.6-3.4 37.3c-1 11-2.3 21.9-2.9 32.8-1 18.2-5.7 64.9-2.2 80.4 1 4 2.6 8.7 6.7 10.4 14 6 34.3-28.8 37.4-39.5 1.5-5.4.8-17 1.4-23.4q2.1-26.4 4.5-52.8c.7-7.8 1.1-15.7 2.4-23.4q.4-2.7 1.6-5.2a22.7 22.7 0 0 1 28.4-11.8c6 2.3 10 7.3 11.2 13.5 1.3 6.9-1 20-2 27.4q-2 16.3-3.7 32.7l-1.8 20.4c-.9 12-3 39.4 9.9 45.6a14 14 0 0 0 11.5-.3c6.8-3 12.4-8.8 17.2-14.2 23.4-26.7 26-70 29.2-103.9.7-7 .3-15 2.8-21.7 2-5.6 6.9-10 12.5-12a23 23 0 0 1 16.6.2 19 19 0 0 1 11 13.7c1.6 7-.6 18.5-1.3 25.9q-2.9 27.7-5.5 55.7c-.8 9.4-2 18.9-2 28.4q-.2 6.5 1.4 12.9 1.3 4.7 5.5 7.1c7 .2 12.2-6 16.3-11 7-8.5 13-19 15.7-29.7 1.6-6.4 1.2-13.4 1.7-19.9l3.4-53.9c.5-7.6.6-16 1.5-23.4q.3-3.5 1.6-6.8A22 22 0 0 1 795 73c7 1.6 12.4 7 13.2 14.3 0 1 0 6.5.3 7l.3.2q3-3.7 6.5-7.4a65 65 0 0 1 51.8-18.4c15 1.4 29.2 10 38.6 21.5a83 83 0 0 1 17 39.8c6.9 44.6-15.7 96-56.5 117-13.4 6.9-29 10-44 7.2q-8.3-1.4-16-5.3-2.5-1.5-5.2-2.8 0 .2-.3.4c-.3.7-1.1 24-1.2 26.9-.7 18.8-1.9 37.6-2.7 56.4l-.3 13.5q0 4.3-.2 8.5-.5 4-2 7.7a21 21 0 0 1-20 12.2 20 20 0 0 1-18-13.4q-1.1-3.9-1.2-7.9 0-6.5.3-13 .7-19.5 1.8-39c1-18 1.5-36.2 2.9-54.3m-399.3-98.3.4.1c.4-.1 5.5-4.8 6.3-5.5a77 77 0 0 1 32.2-16 64 64 0 0 1 37.8 2.4 59 59 0 0 1 33.2 36.3 99 99 0 0 1 5 36.9c-1.6 41-24.3 82.9-60.2 103.8a98 98 0 0 1-40.7 13.8c-24 2-45.5-5.8-55.8-29.2a74 74 0 0 1-5.1-26.7q-.4-12.7.4-25.5 1.1-21.4 2.8-43 2.8-42.7 7-85.6l1.6-17.4 2.5-25.4c.8-8.5 1.4-19 3-27.3q.5-3.5 2.1-6.6c7-13.3 28.1-15.3 35.9-1.5 2.1 3.8 2.5 8.2 2.1 12.5q-1.6 16.2-3.5 32.3l-3 30.9q-1.2 10.6-2.2 21.3-.8 9.8-1.8 19.4M30.6 105.7c-1.5.2.5-.5-1 0-6 2-11.3 10.9-19 9.8-4-.6-6.7-4.3-8-7.9C-6.9 83.8 31 53.2 56.8 65.3a27 27 0 0 1 10.4 8.4c2.6 3.5 3.8 7.7 5.2 11.7h.5c.5-.2 1-1.5 1.5-2L81 76a126 126 0 0 1 34-24.8 92 92 0 0 1 31.3-9.7c17.4-1.7 36.8 3.7 48.3 17.5a53 53 0 0 1 10.6 22.8c3.2 14.9.3 30.5-6.2 44.1a161 161 0 0 1-33 44.8c-3.6 3.6-7.8 6.7-11.2 10.5l.3.2c.5.2 6.2.9 7.4 1.2a76 76 0 0 1 20.9 7.9 57 57 0 0 1 30 43.3 82 82 0 0 1-.3 26.3c-7 37.9-41.3 72.6-72.8 92.3a187 187 0 0 1-61.7 25.3c-17.1 3.4-45.3 6-57.3-9.6-4.2-5.4-6-12.2-6.6-19-.4-4.8.2-9.6.4-14.5l2-28.9 4-52.3q2.1-29.7 4.5-59.3 2.8-29.7 4.9-59.3c.4-6.8 1.2-13.6 1.3-20.5 0-2.5 0-5.4-.8-7.8-.4-1.5.2.5-.5-.8m238 14.7c-4.8.3-9.7-.9-13.8-3.4-20.7-13-9.4-49.3 16.4-48 30.3 1.3 27.7 49.6-2.6 51.4m-199 69.4c3.4-1 6.9-3 10.3-4.5a181 181 0 0 0 24-12c21.4-13.5 57.7-45.3 60.6-71.8.6-6-.2-12.8-5-17-5.4-4.4-13.4-4-19.6-2.1a68 68 0 0 0-21 11 125 125 0 0 0-47.2 76.2c-.6 2.7-2.8 18-2.4 19.8zM830.3 218a42 42 0 0 0 18.9-5.7c27.1-15.2 42-57.8 30.2-86.5-3.4-8.3-8.8-15-17.7-17.5a29 29 0 0 0-20.8 2.3c-7.1 3.5-12.6 9-17.3 15.4a107 107 0 0 0-18.3 53 49 49 0 0 0 1.7 25.2c4 9.3 13.4 14 23.3 13.8m-561 115.2a27 27 0 0 1-26.3-11.8q-4.2-5.3-6.4-11.7c-3-8.7-3.7-18.4-3.8-27.6-.4-25.6 3.1-51.3 5.5-76.7q1.2-14.5 2.7-28.9.4-5.3 1-10.4.7-4.5 2.6-8.6c3.5-7.2 11-11.4 19-11.6 4-.1 8.4.9 11.8 3.2 4.2 2.9 7 7.9 7.8 12.9q.5 3.4.3 7c-.3 6.3-1.3 12.6-1.8 18.8l-5.2 57.8c-1 11.2-4 33.2-1.2 43.3 3.7 13.6 15.1 2.4 19.4 15.8q1.6 5.1.6 10.4c-2.1 11.2-15.7 17.2-26 18.1M374.8 279a53 53 0 0 0 31.3-17.2 104 104 0 0 0 20.4-28.1c8.1-16.7 11.8-38.6 4.9-56.2a26 26 0 0 0-14.3-15.7 30 30 0 0 0-24.5 3.1c-27.5 16-36.3 53-38 82.3-.6 8.6-1.8 19.4 3.8 26.7 3.8 4.8 10.7 5.6 16.4 5m-310-39.4c-1.8 14.4-2.5 29-3.6 43.4-1.2 16.4-3.9 38.9-2.8 54.8 0 1.6 0-.5.4.9 9.3 1.6 26-3.7 34.7-7.3q13-5.2 24.8-12.7c23.7-15 53.9-43 52.7-73.5-.4-11-4.9-18-14.9-22.6a56 56 0 0 0-26.2-4.8q-8.5.6-16.8 2.7c-10.5 2.7-40.5 13-48.4 19"/><path fill="var(--logo-stroke)" fill-rule="evenodd" d="M213.3 469.7q-4.3.6-8.3-.6a19 19 0 0 1-12.7-14.2 19 19 0 0 1 6.4-17q2.4-2.1 5.3-3.6c7.2-3.8 16.2-7.1 23.8-10.2l20.4-8.3c47-18.1 95.4-32.5 144.3-44.6q29-7.3 58.4-13.5a1402 1402 0 0 1 213.5-27.1c10-.5 48-3 55.4-1a18 18 0 0 1 11.7 12.6 18.3 18.3 0 0 1-17.4 22.9c-4.6.4-9.3.2-14 .3l-25.5.8a1403 1403 0 0 0-363.6 66q-32.8 10.7-64.5 23.9c-6.2 2.6-28.5 13-33.2 13.6"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3c1.2 3.2 4.5 5 4.5 9.2A4.5 4.5 0 0 1 7.5 12c0-1.6.6-2.7 1.3-3.5.1 1.6.9 2.4 1.7 2.7C10 9 10.5 6 12 3z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-7.5-10.3A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 7.5 2.6c0 5.7-7.5 10.3-7.5 10.3z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V5.5M8 7h7"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M17.5 13.5a6.5 6.5 0 0 1 4 6.5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L13 19V5L7.5 9.5z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></symbol>
+  <symbol id="i-snail" viewBox="0 0 24 24"><path d="M8 17a5 5 0 1 1 5-5c0 2-1.5 3-3 3s-2-1-2-2"/><path d="M3 17h13c2 0 3-1 3-3V9M19 9l2-3M19 9l-2-3"/></symbol>
+  <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-l" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15zM10 21h4"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6h-6v6H4z"/></symbol>
+  <symbol id="i-freeze" viewBox="0 0 24 24"><path d="M12 3v18M4.5 7.5l15 9M4.5 16.5l15-9"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M4 18h16l1-10-5 3-4-6-4 6-5-3z"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 3 10l7 3 3 7z"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 4h10v4a5 5 0 0 1-10 0zM7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3M12 13v4M8 21h8M9 17h6"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4-1L19 8l-3-3L5 16z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19c3-4 6-7 10-9"/></symbol>
+  <symbol id="i-boat" viewBox="0 0 24 24"><path d="M3 15l2 4h14l2-4zM5 15V9h14v6M12 9V4M9 6h6"/></symbol>
+  <symbol id="i-tent" viewBox="0 0 24 24"><path d="M12 4 2 20h20zM12 4v16M8 20l4-7 4 7"/></symbol>
+  <symbol id="i-mount" viewBox="0 0 24 24"><path d="M3 20 10 7l4 7 3-4 4 10z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5zM3 13l9 5 9-5M3 17.5l9 5 9-5"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 6.3A10 10 0 0 1 12 6c6.5 0 10 6 10 6a17 17 0 0 1-3.2 3.7M6.6 6.6A16 16 0 0 0 2 12s3.5 6 10 6a10 10 0 0 0 4.4-1M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+  <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0M12 19h.01M3 3l18 18"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M4 19h16"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-collapse" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M17 10l-2 2 2 2"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H5v16h5M14 8l4 4-4 4M8 12h10"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20h18M6 16v-5M11 16V7M16 16v-3M21 16V9"/></symbol>
+  <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M17 10h.01M7 14h10"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="14" r="4"/><path d="M11 11l9-7M16 6l2 2M13 9l2 2"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="11" rx="2"/><path d="M3 14h18M12 10v11M12 10c-3 0-5-1.5-5-3.5S9 3 12 6c3-3 5 .5 5 .5S15 10 12 10z"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-sheep" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><circle cx="9.5" cy="11" r=".8" fill="currentColor"/><circle cx="14.5" cy="11" r=".8" fill="currentColor"/><path d="M6 12a3 3 0 0 1 0-6 3 3 0 0 1 4-2 3 3 0 0 1 4 0 3 3 0 0 1 4 2 3 3 0 0 1 0 6M9 18v3M15 18v3"/></symbol>
+  <symbol id="i-scroll" viewBox="0 0 24 24"><path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h8M8 17h5"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V6l11-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></symbol>
+  <symbol id="i-zap-off" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8zM3 3l18 18"/></symbol>
+  <symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.6 1 1.4 1 2.5h6c0-1.1.3-1.9 1-2.5A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-volume-x" viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L13 19V5L7.5 9.5z"/><path d="M17 9l4 6M21 9l-4 6"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 12h2l2-5 3 10 3-14 3 12 2-5h3"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 6-4 2 2-6z"/></symbol>
+  <symbol id="i-cross-out" viewBox="0 0 24 24"><path d="M12 5v14M8 9h8"/></symbol>
+  <symbol id="i-star-off" viewBox="0 0 24 24"><path d="M8.5 8.6 3.2 9.5l4.4 4.3-1 6.1L12 17l5.4 2.9-.4-2.4M14.7 8.6 12 3l-1.3 2.7M3 3l18 18"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-meh" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 15h8M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-frown" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M16 16s-1.5-2-4-2-4 2-4 2M9 9h.01M15 9h.01"/></symbol>
+  <symbol id="i-text" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+  <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></symbol>
+  <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V6a1.5 1.5 0 0 1 3 0v6M11 6V4a1.5 1.5 0 0 1 3 0v8M14 6a1.5 1.5 0 0 1 3 0v7M17 9a1.5 1.5 0 0 1 3 0v5a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.5L4 13a1.5 1.5 0 0 1 2.6-1.5L8 13"/></symbol>
+  <symbol id="i-stars" viewBox="0 0 24 24"><path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5zM5 16l.8 2.2L8 19l-2.2.8L5 22l-.8-2.2L2 19l2.2-.8zM19 15l.6 1.4L21 17l-1.4.6L19 19l-.6-1.4L17 17l1.4-.6z"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 13h5l1.5 3h3L15 13h5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+  <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h2l6 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M7 14l1 6h3"/></symbol>
+  <symbol id="i-externo" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 13v6H5V6h6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2zM12 10v4M12 17h.01"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0M12 19h.01"/></symbol>
+</svg>
+<a href="#main" class="skip">Pular para o conteúdo</a>
+<div class="app">
+  <nav class="sidebar" aria-label="Principal">
+    <div class="brand"><svg class="logo" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></div>
+    <a href="dashboard.html" class="on" aria-current="page"><svg class="ic"><use href="#i-map"/></svg>Aprender</a>
+    <a href="map.html"><svg class="ic"><use href="#i-compass"/></svg>Mapa</a>
+    <a href="read.html"><svg class="ic"><use href="#i-book"/></svg>Ler</a>
+    <a href="review.html"><svg class="ic"><use href="#i-refresh"/></svg>Revisão<span class="count" style="margin-left:auto">11</span></a>
+    <a href="tutor.html"><svg class="ic"><use href="#i-sparkle"/></svg>Tutor</a>
+    <a href="groups.html"><svg class="ic"><use href="#i-users"/></svg>Grupos</a>
+    <a href="gamification.html"><svg class="ic"><use href="#i-trophy"/></svg>Conquistas</a>
+    <a href="referral.html"><svg class="ic"><use href="#i-gift"/></svg>Indique e ganhe</a>
+    <div class="sp"></div>
+    <button class="dk-collapse" type="button" aria-label="Recolher a barra lateral" onclick="toggleSidebar()"><svg class="ic"><use href="#i-collapse"/></svg>Recolher</button>
+    <button class="me" type="button" onclick="toggleMenu()"><span class="avatar sm">AS</span><div>Ana Souza<small>A1 · Novo Testamento</small></div></button>
+  </nav>
+  <nav class="rail" aria-label="Principal">
+    <div class="brand"><svg class="logo" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></div>
+    <a href="dashboard.html" class="on" aria-current="page" title="Aprender" aria-label="Aprender"><svg class="ic"><use href="#i-map"/></svg></a>
+    <a href="map.html" title="Mapa" aria-label="Mapa"><svg class="ic"><use href="#i-compass"/></svg></a>
+    <a href="read.html" title="Ler" aria-label="Ler"><svg class="ic"><use href="#i-book"/></svg></a>
+    <a href="review.html" title="Revisão" aria-label="Revisão"><svg class="ic"><use href="#i-refresh"/></svg></a>
+    <a href="tutor.html" title="Tutor" aria-label="Tutor"><svg class="ic"><use href="#i-sparkle"/></svg></a>
+    <a href="groups.html" title="Grupos" aria-label="Grupos"><svg class="ic"><use href="#i-users"/></svg></a>
+    <a href="gamification.html" title="Conquistas" aria-label="Conquistas"><svg class="ic"><use href="#i-trophy"/></svg></a>
+    <a href="referral.html" title="Indique e ganhe" aria-label="Indique e ganhe"><svg class="ic"><use href="#i-gift"/></svg></a>
+    <div class="sp"></div>
+    <a href="settings.html" title="Configurações" aria-label="Configurações"><svg class="ic"><use href="#i-settings"/></svg></a>
+  </nav>
+  <div class="main-area">
+    <header class="apph">
+      <div><div class="sub">dom, 27 set</div><h1 class="t">Aprender</h1></div>
+      <div class="acts">
+        <span class="av"><a class="btn btn-ghost btn-icon btn-sm" href="notifications.html" aria-label="Notificações, 2 não lidas"><svg class="ic"><use href="#i-bell"/></svg></a><span class="n-count">2</span></span>
+        <button class="avatar sm ring" type="button" aria-label="Perfil e conta" onclick="toggleMenu()" style="width:32px;height:32px;font-size:12px">AS</button>
+      </div>
+    </header>
+    <div class="dk-top">
+      <div class="dk-title">Aprender<span class="badge neutral">dom, 27 set</span></div>
+      <div class="dk-right">
+        <span class="stat streak" aria-label="14 dias de Streak"><svg class="ic fill"><use href="#i-flame"/></svg>14</span><span class="stat xp" aria-label="2.450 XP"><svg class="ic fill"><use href="#i-bolt"/></svg>2.450</span><span class="stat hearts" aria-label="3 de 5 Corações" title="Próximo Coração em 12 min"><svg class="ic fill"><use href="#i-heart"/></svg>3</span>
+        <span class="badge primary" title="Nível do Caminho de aprendizado">A1</span>
+        <a class="dk-bell" href="notifications.html" aria-label="Notificações, 2 não lidas"><svg class="ic"><use href="#i-bell"/></svg><span class="count">2</span></a>
+        <button class="avatar sm ring" type="button" aria-label="Menu da conta" onclick="toggleMenu()">AS</button>
+      </div>
+    </div>
+    <div class="dk-body">
+      <main class="dk-main" id="main">
+
+<div class="pills mob" aria-label="Seu estado hoje">
+  <span class="stat streak" aria-label="14 dias de Streak"><svg class="ic fill"><use href="#i-flame"/></svg>14</span>
+  <span class="stat xp" aria-label="2.450 XP"><svg class="ic fill"><use href="#i-bolt"/></svg>2.450</span>
+  <span class="stat hearts" aria-label="3 de 5 Corações"><svg class="ic fill"><use href="#i-heart"/></svg>3</span>
+  <span class="stat freeze" aria-label="1 Freeze guardado"><svg class="ic"><use href="#i-freeze"/></svg>1</span>
+  <span class="hint">Próximo Coração em 12 min · Corações contam só no Test-out e no Level test</span>
+</div>
+
+<button class="line" type="button" onclick="openOverlay('courseSheet')" aria-haspopup="dialog">
+  <div class="ico p"><svg class="ic"><use href="#i-book"/></svg></div>
+  <div class="tx"><b>Curso: Novo Testamento · A1</b><span>Unidade 5 de 17 · Bloco Marcos · Degrau A1.1</span></div>
+  <span class="btn btn-secondary btn-sm">Trocar</span>
+</button>
+
+<a class="next-card" href="lesson.html" aria-label="Continuar a Lição 3 de Pelo telhado">
+  <div class="slot-ph" data-slot="unit_cover" style="height:72px"><span class="key">unit_cover.nt-05</span><svg class="ic lg"><use href="#i-home"/></svg><span style="font:700 14px var(--f-display)">Pelo telhado · Marcos 2:1-12</span></div>
+  <div class="k">Continuar · Pelo telhado · Lição 3 de 5</div>
+  <h2>Fatia 2: quatro amigos e um buraco no telhado</h2>
+  <div class="verse" lang="en">"Arise, take up your mat, and go to your house." — Marcos 2:11, WEB</div>
+  <div class="row" style="justify-content:space-between;gap:8px;font-size:12.5px;opacity:.9"><span>10 exercícios · ~7 min</span><span class="badge accent"><svg class="ic sm fill"><use href="#i-bolt"/></svg>+35 XP</span></div>
+  <span class="btn" style="justify-self:start">Continuar aprendendo<svg class="ic"><use href="#i-arrow-r"/></svg></span>
+</a>
+
+
+<div class="card bars2" aria-label="Duas barras de progresso">
+  <div class="bar-row bib">
+    <div class="h"><span class="nm"><svg class="ic"><use href="#i-book"/></svg>Barra bíblica</span><small>Unidade 5 de 17</small></div>
+    <div class="pbar lima" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100"><i style="--p:0.26"></i></div>
+    <div class="sub">Onde você está na história · Marcos 2 · Bloco Marcos</div>
+  </div>
+  <div class="bar-row lin">
+    <div class="h"><span class="nm"><svg class="ic"><use href="#i-layers"/></svg>Barra linguística</span><small>62 de 175 palavras</small></div>
+    <div class="pbar" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"><i style="--p:0.35"></i></div>
+    <div class="sub">62 palavras · 4 padrões · 3 funções · 2 h 40 consolidados</div>
+    <div class="spark-row"><span>XP dos últimos 7 dias</span><span class="spark acc" aria-label="XP por dia: 55, 40, 0 (Freeze), 70, 55, 110, 35"><i style="height:11px"></i><i style="height:8px"></i><i class="z" style="height:4px"></i><i style="height:14px"></i><i style="height:11px"></i><i style="height:22px"></i><i style="height:7px"></i></span></div>
+  </div>
+</div>
+
+<div class="banner review" role="status">
+  <div class="bic"><svg class="ic"><use href="#i-refresh"/></svg></div>
+  <div class="btx"><b>11 Cards vencidos.</b> A próxima Lição nova abre com um Bloco obrigatório de 4 Cards.</div>
+  <a class="btn btn-primary btn-sm" href="review.html">Revisar agora (~3 min)</a>
+</div>
+<!-- variante quando há menos de 8 Cards vencidos (sem Bloco obrigatório):
+<a class="line" href="review.html">
+  <div class="ico p"><svg class="ic"><use href="#i-refresh"/></svg></div>
+  <div class="tx"><b>Revisão</b><span>5 Cards devidos · ~2 min · conta para o Streak</span></div>
+  <span class="badge primary">5</span><svg class="ic chev"><use href="#i-chev-r"/></svg>
+</a> -->
+
+<div class="card flat" style="background:var(--accent-soft);border-color:transparent">
+  <div class="goal">
+    <div class="ring" style="--p:.64" role="img" aria-label="35 de 55 XP"><svg viewBox="0 0 64 64"><circle class="track" cx="32" cy="32" r="28"/><circle class="val" cx="32" cy="32" r="28"/></svg><b>35</b></div>
+    <div class="txt"><b>Meta diária: 35 de 55 XP</b><span>Regular · mais 1 Lição fecha o dia · a Revisão conta primeiro</span></div>
+  </div>
+</div>
+
+<div class="card" style="display:grid;gap:12px">
+  <div class="dk-h">Streak de 14 dias<a href="gamification.html">Ver tudo</a></div>
+  <div class="md-week" aria-label="Semana atual">
+    <div class="md-day ok"><i><svg class="ic sm"><use href="#i-check"/></svg></i>seg</div>
+    <div class="md-day ok"><i><svg class="ic sm"><use href="#i-check"/></svg></i>ter</div>
+    <div class="md-day frz"><i><svg class="ic sm"><use href="#i-freeze"/></svg></i>qua</div>
+    <div class="md-day ok"><i><svg class="ic sm"><use href="#i-check"/></svg></i>qui</div>
+    <div class="md-day ok"><i><svg class="ic sm"><use href="#i-check"/></svg></i>sex</div>
+    <div class="md-day ok"><i><svg class="ic sm"><use href="#i-check"/></svg></i>sáb</div>
+    <div class="md-day today"><i></i>dom</div>
+  </div>
+  <div class="line static">
+    <div class="ico i"><svg class="ic"><use href="#i-freeze"/></svg></div>
+    <div class="tx"><b>1 Freeze guardado</b><span>1 por semana + 1 a cada 7 dias de Streak · máx. 2 · usa sozinho se você faltar</span></div>
+  </div>
+</div>
+
+<a class="ach-row new" href="gamification.html">
+  <div class="slot-ph" data-slot="achievement_badge" style="width:56px;height:56px;min-height:0;flex:none"><span class="key">badge.streak-7</span><svg class="ic"><use href="#i-flame"/></svg></div>
+  <div class="tx"><b>Conquista: 7 dias seguidos</b><span>Bronze · desbloqueada ontem · +30 XP · 6 de 24</span></div>
+  <span class="badge accent">Nova</span>
+</a>
+
+<div class="card" style="display:grid;gap:8px">
+  <div class="dk-h">Comunidade Viva<a href="groups.html">Ver Grupo</a></div>
+  <div style="font-size:12.5px;color:var(--ink-3)">14 membros · XP da semana</div>
+  <div class="members">
+    <div class="mem"><span class="pos">1</span><span class="avatar sm a3">JP</span>João Pedro<span class="xp">640 XP</span></div>
+    <div class="mem"><span class="pos">2</span><span class="avatar sm a5">MR</span>Marta R.<span class="xp">520 XP</span></div>
+    <div class="mem me"><span class="pos">3</span><span class="avatar sm ring">AS</span>Você<span class="xp">365 XP</span></div>
+  </div>
+</div>
+
+<a class="line" href="tutor.html">
+  <div class="ico i"><svg class="ic"><use href="#i-sparkle"/></svg></div>
+  <div class="tx"><b>Tutor</b><span>Conversa e correções em inglês · entrar na Lista de interesse</span></div>
+  <svg class="ic chev"><use href="#i-chev-r"/></svg>
+</a>
+
+<a class="line" href="referral.html">
+  <div class="ico a"><svg class="ic"><use href="#i-gift"/></svg></div>
+  <div class="tx"><b>Indique e ganhe</b><span>Seu link pessoal · XP, Streak ou Freeze por cada cadastro</span></div>
+  <svg class="ic chev"><use href="#i-chev-r"/></svg>
+</a>
+
+<div class="overlay sheet" id="courseSheet" onclick="if(event.target===this)closeOverlay('courseSheet')">
+  <div class="sheet-s" role="dialog" aria-modal="true" aria-label="Seus Cursos">
+    <div class="grip"></div>
+    <h2>Seus Cursos</h2>
+    <div class="course-opt sel">
+      <div class="co-glyph nt"><svg class="ic"><use href="#i-book"/></svg></div>
+      <div class="co-tx"><b>Novo Testamento <span class="badge success">ativo</span></b><span>A1 · Unidade 5 de 17 · Bloco Marcos</span>
+        <div class="pbar sm lima" role="progressbar" aria-valuenow="26" aria-valuemin="0" aria-valuemax="100" style="margin-top:8px"><i style="--p:0.26"></i></div></div>
+      <span class="badge primary">A1</span>
+    </div>
+    <div class="course-opt">
+      <div class="co-glyph at"><svg class="ic"><use href="#i-scroll"/></svg></div>
+      <div class="co-tx"><b>Antigo Testamento</b><span>não começado · começa em <em>No começo</em> · Gênesis 1</span></div>
+      <button class="btn btn-secondary btn-sm" type="button" onclick="closeOverlay('courseSheet');toast('Antigo Testamento começa da Lição 1','Mapa, Nível e Missões próprios; seus Cards continuam os mesmos')">Começar da Lição 1</button>
+    </div>
+    <p class="co-note"><svg class="ic sm"><use href="#i-info"/></svg> Cards e Revisão são compartilhados entre os Cursos; Mapa, Nível, Degrau e Missões são por Curso. O segundo Curso começa da Lição 1 e pode ser encurtado pelos Level tests.</p>
+  </div>
+</div>
+
+
+      </main>
+      <aside class="dk-aside" aria-label="Como estou">
+
+<div class="card" style="display:grid;gap:10px">
+  <div class="dk-h">Meta diária</div>
+  <div class="goal">
+    <div class="ring" style="--p:.64"><svg viewBox="0 0 64 64"><circle class="track" cx="32" cy="32" r="28"/><circle class="val" cx="32" cy="32" r="28"/></svg><b>35</b></div>
+    <div class="txt"><b>35 de 55 XP</b><span>Regular · a Revisão conta primeiro</span></div>
+  </div>
+</div>
+<div class="card" style="display:grid;gap:8px">
+  <div class="dk-h">Revisão devida<a href="review.html">Revisar</a></div>
+  <div style="font-size:13.5px"><b>11 Cards vencidos</b> · ~4 min</div>
+  <div style="font-size:12.5px;color:var(--ink-3)">Bloco obrigatório de 4 Cards antes da próxima Lição nova</div>
+</div>
+<div class="card" style="display:grid;gap:8px">
+  <div class="dk-h">Comunidade Viva<a href="groups.html">Ver</a></div>
+  <div class="members">
+    <div class="mem"><span class="pos">1</span><span class="avatar sm a3">JP</span>João Pedro<span class="xp">640</span></div>
+    <div class="mem"><span class="pos">2</span><span class="avatar sm a5">MR</span>Marta R.<span class="xp">520</span></div>
+    <div class="mem me"><span class="pos">3</span><span class="avatar sm ring">AS</span>Você<span class="xp">365</span></div>
+  </div>
+  <div style="font-size:12px;color:var(--ink-3)">XP da semana · 14 membros</div>
+</div>
+<div class="card" style="display:grid;gap:6px">
+  <div class="dk-h">Freeze</div>
+  <div style="display:flex;align-items:center;gap:10px"><span class="stat freeze"><svg class="ic"><use href="#i-freeze"/></svg>1</span><span style="font-size:12.5px;color:var(--ink-3)">guardado · máx. 2 · próximo em 4 dias</span></div>
+</div>
+
+      </aside>
+    </div>
+  </div>
+</div>
+<nav class="bnav" aria-label="Principal">
+  <a href="dashboard.html" class="on" aria-current="page"><svg class="ic"><use href="#i-map"/></svg>Aprender</a>
+  <a href="map.html"><svg class="ic"><use href="#i-compass"/></svg>Mapa</a>
+  <a href="read.html"><svg class="ic"><use href="#i-book"/></svg>Ler</a>
+  <a href="tutor.html"><svg class="ic"><use href="#i-sparkle"/></svg>Tutor</a>
+</nav>
+
+<div class="scrim" id="scrim" onclick="closeMenu()"></div>
+<aside class="av-menu" id="avMenu" aria-label="Conta">
+  <div class="who-me"><span class="avatar">AS</span><div>Ana Souza<small>ana@email.com · A1 · Novo Testamento</small></div><button class="btn btn-ghost btn-icon btn-sm" type="button" aria-label="Fechar" onclick="closeMenu()" style="margin-left:auto"><svg class="ic"><use href="#i-x"/></svg></button></div>
+  <a class="menu-item" href="profile.html"><svg class="ic"><use href="#i-user"/></svg> Meu perfil</a>
+  <a class="menu-item" href="gamification.html"><svg class="ic"><use href="#i-trophy"/></svg> Conquistas</a>
+  <a class="menu-item" href="referral.html"><svg class="ic"><use href="#i-gift"/></svg> Indique e ganhe</a>
+  <a class="menu-item" href="minhas-dicas.html"><svg class="ic"><use href="#i-lightbulb"/></svg> Minhas Dicas</a>
+  <a class="menu-item" href="settings.html"><svg class="ic"><use href="#i-settings"/></svg> Configurações</a>
+  <div class="sep"></div>
+  <button class="menu-item" type="button" onclick="cycleTheme()"><svg class="ic"><use href="#i-moon"/></svg> Tema<span class="tail" id="themeLbl">Sistema</span></button>
+  <a class="menu-item" href="settings.html"><svg class="ic"><use href="#i-globe"/></svg> Idioma: Português (Brasil)</a>
+  <div class="sep"></div>
+  <a class="menu-item danger" href="../public/landing.html"><svg class="ic"><use href="#i-logout"/></svg> Sair</a>
+</aside>
+
+<script src="../shared/dialog.js"></script>
+<script>
+
+// Tema em três estados: sistema (sem atributo) / claro / escuro — chave biblup-theme
+(function(){try{var s=localStorage.getItem('biblup-theme');if(s==='dark'||s==='light')document.documentElement.setAttribute('data-theme',s)}catch(e){}})();
+function cycleTheme(){var r=document.documentElement,c=r.getAttribute('data-theme'),n=c==='dark'?'light':(c==='light'?null:'dark');
+  if(n)r.setAttribute('data-theme',n);else r.removeAttribute('data-theme');
+  try{if(n)localStorage.setItem('biblup-theme',n);else localStorage.removeItem('biblup-theme')}catch(e){}
+  var l=document.getElementById('themeLbl');if(l)l.textContent=n==='dark'?'Escuro':(n==='light'?'Claro':'Sistema');}
+(function(){var l=document.getElementById('themeLbl');if(l){var c=document.documentElement.getAttribute('data-theme');l.textContent=c==='dark'?'Escuro':(c==='light'?'Claro':'Sistema')}})();
+function toggleSidebar(){var s=document.querySelector('.sidebar');if(s)s.classList.toggle('collapsed')}
+function toast(title,desc,kind){var h=document.getElementById('toastHost');if(!h){h=document.createElement('div');h.className='toast-host';h.setAttribute('role','status');h.setAttribute('aria-live','polite');h.id='toastHost';document.body.appendChild(h)}
+  var t=document.createElement('div');t.className='toast '+(kind||'success');t.innerHTML='<div class="t-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t-body"><div class="t-title"></div><div class="t-desc"></div></div><button class="x" type="button" aria-label="Fechar" onclick="this.closest(\'.toast\').remove()"><svg class="ic sm" aria-hidden="true"><use href="#i-x"/></svg></button>';
+  t.querySelector('.t-title').textContent=title;t.querySelector('.t-desc').textContent=desc||'';if(!desc)t.querySelector('.t-desc').remove();h.appendChild(t);setTimeout(function(){t.remove()},3200)}
+
+
+</script>
+</body>
+</html>
