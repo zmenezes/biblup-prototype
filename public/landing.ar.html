@@ -105,12 +105,12 @@
 </svg>
 <div class="devbar" aria-label="Nota do protótipo"><b>Protótipo</b><span>URL pública: biblup.com<b style="color:#fff">/ar/</b></span><span>hreflang: 40 locales + x-default na raiz (G9-05)</span><span class="sp"></span><a href="../index.html">Índice dos protótipos</a></div>
 <nav class="md-nav" aria-label="القائمة الرئيسية">
-  <a href="landing.ar.html" aria-label="Biblup، الرئيسية"><svg style="height:34px;width:auto;display:block" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></a>
+  <div class="md-nav-in">
+  <a href="landing.ar.html" aria-label="Biblup، الرئيسية"><svg class="brand-logo" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></a>
   <div class="lk">
     <a href="landing.ar.html#como-funciona">كيف يعمل</a>
-    <a href="landing.ar.html#idiomas">بلغتك</a>
     <a href="landing.ar.html#igreja">تعلّم مع كنيستك</a>
-    <a href="historias.html">القصص</a>
+    <a href="central-de-ajuda.html">مساعدة</a>
     <a href="contato.html">تواصل معنا</a>
   </div>
   <div class="acts">
@@ -118,16 +118,17 @@
     <a class="btn btn-link btn-sm" href="login.html">لديّ حساب بالفعل</a>
     <a class="btn btn-primary btn-sm" href="../onboarding/flow.html">جرّب درسًا</a>
   </div>
+  </div>
 </nav>
 <div class="overlay sheet" id="mobileNav" onclick="if(event.target===this)closeOverlay('mobileNav')">
   <div class="sheet-s" role="dialog" aria-label="القائمة">
     <div class="grip"></div>
     <nav class="mobile-lk" aria-label="القائمة الرئيسية (الهاتف)">
       <a href="landing.ar.html#como-funciona" onclick="closeOverlay('mobileNav')">كيف يعمل</a>
-      <a href="landing.ar.html#idiomas" onclick="closeOverlay('mobileNav')">بلغتك</a>
       <a href="landing.ar.html#igreja" onclick="closeOverlay('mobileNav')">تعلّم مع كنيستك</a>
-      <a href="historias.html">القصص</a>
+      <a href="central-de-ajuda.html">مساعدة</a>
       <a href="contato.html">تواصل معنا</a>
+      <a href="login.html">لديّ حساب بالفعل</a>
     </nav>
     <div style="border-top:1px solid var(--border);margin:8px 0;padding-top:8px;display:grid;gap:8px">
       <a class="btn btn-primary btn-sm" href="../onboarding/flow.html">جرّب درسًا</a>
@@ -253,7 +254,7 @@
 <footer class="md-foot">
   <div class="md-wrap">
     <div class="cols">
-      <div><svg style="height:32px;width:auto;display:block;margin-bottom:10px" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg><p style="max-width:30ch">الكتاب المقدس كجسر لتعلّم لغة جديدة، مع عناصر التحفيز والممارسة اليومية.</p><p style="margin-top:8px">نص الكتاب المقدس: World English Bible، ملكية عامة.</p></div>
+      <div><svg style="height:40px;width:auto;display:block;margin-bottom:10px" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg><p style="max-width:30ch">الكتاب المقدس كجسر لتعلّم لغة جديدة، مع عناصر التحفيز والممارسة اليومية.</p></div>
       <div><b>Biblup</b><a href="landing.ar.html#como-funciona">كيف يعمل</a><a href="landing.ar.html#original">النص الأصلي</a><a href="landing.ar.html#igreja">تعلّم مع كنيستك</a><a href="historias.html">القصص</a><a href="login.html">تسجيل الدخول</a></div>
       <div><b>قانوني</b><a href="termos.html">شروط الاستخدام</a><a href="privacidade.html">سياسة الخصوصية</a><a href="cookies.html">ملفات تعريف الارتباط والموافقة</a><a href="mailto:legal@biblup.com">legal@biblup.com</a></div>
       <div><b>موارد الكتاب المقدس</b><a href="#versiculo-aleatorio" onclick="event.preventDefault();toast('قريبًا','آية اليوم غير متاحة بعد')">آية اليوم</a><a href="#proverbio-aleatorio" onclick="event.preventDefault();toast('قريبًا','مَثَل اليوم غير متاح بعد')">مَثَل اليوم</a><a href="#salmo-aleatorio" onclick="event.preventDefault();toast('قريبًا','مزمور اليوم غير متاح بعد')">مزمور اليوم</a><a href="#devocional" onclick="event.preventDefault();toast('قريبًا','التأمّل اليومي غير متاح بعد')">تأمّل يومي</a><a href="#outros-recursos" onclick="event.preventDefault();toast('قريبًا','المزيد من الموارد قريبًا')">موارد أخرى</a></div>

@@ -25,12 +25,12 @@
 </svg>
 <div class="devbar" aria-label="Nota do protótipo"><b>Protótipo</b><span>URL pública: biblup.com<b style="color:#fff">/pt/historias/novo-testamento/a1</b></span><span class="sp"></span><a href="../index.html">Índice dos protótipos</a></div>
 <nav class="md-nav" aria-label="Menu principal">
-  <a href="landing.html" aria-label="Biblup, início"><svg style="height:34px;width:auto;display:block" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></a>
+  <div class="md-nav-in">
+  <a href="landing.html" aria-label="Biblup, início"><svg class="brand-logo" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></a>
   <div class="lk">
     <a href="landing.html#como-funciona">Como funciona</a>
-    <a href="landing.html#idiomas">No seu idioma</a>
     <a href="landing.html#igreja">Estude com sua igreja</a>
-    <a href="historias.html">Histórias</a>
+    <a href="central-de-ajuda.html">Ajuda</a>
     <a href="contato.html">Contato</a>
   </div>
   <div class="acts">
@@ -38,16 +38,17 @@
     <a class="btn btn-link btn-sm" href="login.html">Já tenho conta</a>
     <a class="btn btn-primary btn-sm" href="../onboarding/flow.html">Experimente uma lição</a>
   </div>
+  </div>
 </nav>
 <div class="overlay sheet" id="mobileNav" onclick="if(event.target===this)closeOverlay('mobileNav')">
   <div class="sheet-s" role="dialog" aria-label="Menu">
     <div class="grip"></div>
     <nav class="mobile-lk" aria-label="Menu principal (mobile)">
       <a href="landing.html#como-funciona">Como funciona</a>
-      <a href="landing.html#idiomas">No seu idioma</a>
       <a href="landing.html#igreja">Estude com sua igreja</a>
-      <a href="historias.html">Histórias</a>
+      <a href="central-de-ajuda.html">Ajuda</a>
       <a href="contato.html">Contato</a>
+      <a href="login.html">Já tenho conta</a>
     </nav>
   </div>
 </div>
@@ -86,7 +87,7 @@
 <footer class="md-foot">
   <div class="md-wrap">
     <div class="cols">
-      <div><svg style="height:32px;width:auto;display:block;margin-bottom:10px" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg><p style="max-width:30ch">A Bíblia como ponte para aprender um novo idioma, com gamificação e prática diária.</p><p style="margin-top:8px">Texto bíblico: World English Bible, domínio público.</p></div>
+      <div><svg style="height:40px;width:auto;display:block;margin-bottom:10px" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg><p style="max-width:30ch">A Bíblia como ponte para aprender um novo idioma, com gamificação e prática diária.</p></div>
       <div><b>Biblup</b><a href="landing.html#como-funciona">Como funciona</a><a href="landing.html#original">Versículo original</a><a href="landing.html#igreja">Estude com sua igreja</a><a href="historias.html">Histórias</a><a href="login.html">Entrar</a></div>
       <div><b>Legal</b><a href="termos.html">Termos de uso</a><a href="privacidade.html">Política de privacidade</a><a href="cookies.html">Cookies e consentimento</a><a href="mailto:legal@biblup.com">legal@biblup.com</a></div>
       <div><b>Recursos da Bíblia</b><a href="#versiculo-aleatorio" onclick="event.preventDefault();toast('Em breve','Versículo do Dia ainda não disponível')">Versículo do Dia</a><a href="#proverbio-aleatorio" onclick="event.preventDefault();toast('Em breve','Provérbio do Dia ainda não disponível')">Provérbio do Dia</a><a href="#salmo-aleatorio" onclick="event.preventDefault();toast('Em breve','Salmo do Dia ainda não disponível')">Salmo do Dia</a><a href="#devocional" onclick="event.preventDefault();toast('Em breve','Devocional Diário ainda não disponível')">Devocional Diário</a><a href="#outros-recursos" onclick="event.preventDefault();toast('Em breve','Mais recursos a caminho')">Outros recursos</a></div>

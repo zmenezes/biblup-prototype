@@ -11,6 +11,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
 <link rel="stylesheet" href="../shared/site.css">
 <link rel="stylesheet" href="../shared/public.css">
+<style>
+#main .md-band{padding:140px 24px;scroll-snap-align:start}
+@media(max-width:900px){#main .md-band{padding:100px 20px}}
+@media(max-width:600px){#main .md-band{padding:80px 16px}}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity;scroll-padding-top:84px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;scroll-snap-type:none}}
+</style>
 <script>try{if(localStorage.getItem('biblup-theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 </head>
 <body>
@@ -105,12 +112,12 @@
 </svg>
 <div class="devbar" aria-label="Nota do protótipo"><b>Protótipo</b><span>URL pública: biblup.com<b style="color:#fff">/pt/</b></span><span>hreflang: 40 locales + x-default na raiz (G9-05)</span><span class="sp"></span><a href="../index.html">Índice dos protótipos</a></div>
 <nav class="md-nav" aria-label="Menu principal">
-  <a href="landing.html" aria-label="Biblup, início"><svg style="height:34px;width:auto;display:block" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></a>
+  <div class="md-nav-in">
+  <a href="landing.html" aria-label="Biblup, início"><svg class="brand-logo" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></a>
   <div class="lk">
     <a href="landing.html#como-funciona">Como funciona</a>
-    <a href="landing.html#idiomas">No seu idioma</a>
     <a href="landing.html#igreja">Estude com sua igreja</a>
-    <a href="historias.html">Histórias</a>
+    <a href="central-de-ajuda.html">Ajuda</a>
     <a href="contato.html">Contato</a>
   </div>
   <div class="acts">
@@ -118,16 +125,17 @@
     <a class="btn btn-link btn-sm" href="login.html">Já tenho conta</a>
     <a class="btn btn-primary btn-sm" href="../onboarding/flow.html">Experimente uma lição</a>
   </div>
+  </div>
 </nav>
 <div class="overlay sheet" id="mobileNav" onclick="if(event.target===this)closeOverlay('mobileNav')">
   <div class="sheet-s" role="dialog" aria-label="Menu">
     <div class="grip"></div>
     <nav class="mobile-lk" aria-label="Menu principal (mobile)">
       <a href="landing.html#como-funciona">Como funciona</a>
-      <a href="landing.html#idiomas">No seu idioma</a>
       <a href="landing.html#igreja">Estude com sua igreja</a>
-      <a href="historias.html">Histórias</a>
+      <a href="central-de-ajuda.html">Ajuda</a>
       <a href="contato.html">Contato</a>
+      <a href="login.html">Já tenho conta</a>
     </nav>
   </div>
 </div>
@@ -137,7 +145,7 @@
   <div class="md-wrap md-hero">
     <div>
       <div class="kick">Inglês · 5 minutos por dia · a primeira lição sem cadastro</div>
-      <h1>Aprenda inglês com <em>as histórias da Bíblia</em></h1>
+      <h1>Aprenda inglês com <span class="sr-only">as histórias da Bíblia</span><br><span class="hero-type" id="heroType" aria-hidden="true" data-terms='["as histórias da Bíblia","a vida de Jesus","os Salmos e Provérbios","o Antigo Testamento","o Novo Testamento","os Evangelhos","os personagens bíblicos"]'><span class="hero-type-tx" id="heroTypeTx"></span></span></h1>
       <p class="strap"><b>Grátis. Sem cartão.</b> Você já conhece a história; o Biblup ensina o inglês por cima dela, uma frase de cada vez, até você ler o versículo no original.</p>
       <div class="course-pick" role="group" aria-label="Escolha o Curso">
         <div class="lbl">Por onde você quer começar?</div>
@@ -150,7 +158,7 @@
         <a class="btn btn-primary btn-lg" id="ctaDemo" href="../onboarding/flow.html?course=nt">Experimente uma lição<svg class="ic"><use href="#i-arrow-r"/></svg></a>
         <a class="btn btn-link" href="login.html">Já tenho conta</a>
       </div>
-      <p class="fine">4 frases da história, 1 Dica, 4 exercícios e o versículo original. Menos de 3 minutos, sem cadastro.</p>
+      <p class="fine">Em menos de 3 minutos você faz, sem cadastro.</p>
     </div>
     <div class="phone" aria-hidden="true">
       <div class="screen">
@@ -200,15 +208,7 @@
   </div>
 </section>
 
-<section class="md-band" id="idiomas">
-  <div class="md-wrap">
-    <div class="md-sec-h"><h2>Disponível no seu idioma</h2><p>Interface, instruções, Dicas e verbetes em 3 idiomas no lançamento — português, espanhol e inglês (G9-164; eram 40 no escopo anterior) — e mais idiomas chegam depois. A história você lê em inglês; a explicação chega na sua língua.</p></div>
-    <div class="langs-grid"><a href="#" onclick="event.preventDefault();toast('/pt/','Mesma página em Português; a demo abre no idioma escolhido')" class="on">Português<small>/pt/</small></a><a href="#" onclick="event.preventDefault();toast('/es/','Mesma página em Español; a demo abre no idioma escolhido')">Español<small>/es/</small></a><a href="#" onclick="event.preventDefault();toast('/en/','Mesma página em English; a demo abre no idioma escolhido')">English<small>/en/</small></a><a href="#" onclick="event.preventDefault();toast('/fr/','Mesma página em Français; a demo abre no idioma escolhido')">Français<small>/fr/</small></a><a href="#" onclick="event.preventDefault();toast('/de/','Mesma página em Deutsch; a demo abre no idioma escolhido')">Deutsch<small>/de/</small></a><a href="#" onclick="event.preventDefault();toast('/it/','Mesma página em Italiano; a demo abre no idioma escolhido')">Italiano<small>/it/</small></a><a href="#" onclick="event.preventDefault();toast('/nl/','Mesma página em Nederlands; a demo abre no idioma escolhido')">Nederlands<small>/nl/</small></a><a href="#" onclick="event.preventDefault();toast('/pl/','Mesma página em Polski; a demo abre no idioma escolhido')">Polski<small>/pl/</small></a><a href="#" onclick="event.preventDefault();toast('/ro/','Mesma página em Română; a demo abre no idioma escolhido')">Română<small>/ro/</small></a><a href="#" onclick="event.preventDefault();toast('/hu/','Mesma página em Magyar; a demo abre no idioma escolhido')">Magyar<small>/hu/</small></a><a href="#" onclick="event.preventDefault();toast('/cs/','Mesma página em Čeština; a demo abre no idioma escolhido')">Čeština<small>/cs/</small></a><a href="#" onclick="event.preventDefault();toast('/sv/','Mesma página em Svenska; a demo abre no idioma escolhido')">Svenska<small>/sv/</small></a><a href="#" onclick="event.preventDefault();toast('/tr/','Mesma página em Türkçe; a demo abre no idioma escolhido')">Türkçe<small>/tr/</small></a><a href="#" onclick="event.preventDefault();toast('/id/','Mesma página em Bahasa Indonesia; a demo abre no idioma escolhido')">Bahasa Indonesia<small>/id/</small></a><a href="#" onclick="event.preventDefault();toast('/ms/','Mesma página em Bahasa Melayu; a demo abre no idioma escolhido')">Bahasa Melayu<small>/ms/</small></a><a href="#" onclick="event.preventDefault();toast('/tl/','Mesma página em Filipino; a demo abre no idioma escolhido')">Filipino<small>/tl/</small></a><a href="#" onclick="event.preventDefault();toast('/vi/','Mesma página em Tiếng Việt; a demo abre no idioma escolhido')">Tiếng Việt<small>/vi/</small></a><a href="#" onclick="event.preventDefault();toast('/sw/','Mesma página em Kiswahili; a demo abre no idioma escolhido')">Kiswahili<small>/sw/</small></a><a href="#" onclick="event.preventDefault();toast('/ru/','Mesma página em Русский; a demo abre no idioma escolhido')">Русский<small>/ru/</small></a><a href="#" onclick="event.preventDefault();toast('/uk/','Mesma página em Українська; a demo abre no idioma escolhido')">Українська<small>/uk/</small></a><a href="#" onclick="event.preventDefault();toast('/el/','Mesma página em Ελληνικά; a demo abre no idioma escolhido')">Ελληνικά<small>/el/</small></a><a href="#" onclick="event.preventDefault();toast('/ar/','Mesma página em العربية; a demo abre no idioma escolhido')">العربية<small>/ar/</small></a><a href="#" onclick="event.preventDefault();toast('/fa/','Mesma página em فارسی; a demo abre no idioma escolhido')">فارسی<small>/fa/</small></a><a href="#" onclick="event.preventDefault();toast('/ur/','Mesma página em اردو; a demo abre no idioma escolhido')">اردو<small>/ur/</small></a><a href="#" onclick="event.preventDefault();toast('/hi/','Mesma página em हिन्दी; a demo abre no idioma escolhido')">हिन्दी<small>/hi/</small></a><a href="#" onclick="event.preventDefault();toast('/bn/','Mesma página em বাংলা; a demo abre no idioma escolhido')">বাংলা<small>/bn/</small></a><a href="#" onclick="event.preventDefault();toast('/ta/','Mesma página em தமிழ்; a demo abre no idioma escolhido')">தமிழ்<small>/ta/</small></a><a href="#" onclick="event.preventDefault();toast('/te/','Mesma página em తెలుగు; a demo abre no idioma escolhido')">తెలుగు<small>/te/</small></a><a href="#" onclick="event.preventDefault();toast('/ml/','Mesma página em മലയാളം; a demo abre no idioma escolhido')">മലയാളം<small>/ml/</small></a><a href="#" onclick="event.preventDefault();toast('/mr/','Mesma página em मराठी; a demo abre no idioma escolhido')">मराठी<small>/mr/</small></a><a href="#" onclick="event.preventDefault();toast('/ne/','Mesma página em नेपाली; a demo abre no idioma escolhido')">नेपाली<small>/ne/</small></a><a href="#" onclick="event.preventDefault();toast('/th/','Mesma página em ไทย; a demo abre no idioma escolhido')">ไทย<small>/th/</small></a><a href="#" onclick="event.preventDefault();toast('/my/','Mesma página em မြန်မာ; a demo abre no idioma escolhido')">မြန်မာ<small>/my/</small></a><a href="#" onclick="event.preventDefault();toast('/km/','Mesma página em ខ្មែរ; a demo abre no idioma escolhido')">ខ្មែរ<small>/km/</small></a><a href="#" onclick="event.preventDefault();toast('/zh-hans/','Mesma página em 中文（简体）; a demo abre no idioma escolhido')">中文（简体）<small>/zh-hans/</small></a><a href="#" onclick="event.preventDefault();toast('/zh-hant/','Mesma página em 中文（繁體）; a demo abre no idioma escolhido')">中文（繁體）<small>/zh-hant/</small></a><a href="#" onclick="event.preventDefault();toast('/ja/','Mesma página em 日本語; a demo abre no idioma escolhido')">日本語<small>/ja/</small></a><a href="#" onclick="event.preventDefault();toast('/ko/','Mesma página em 한국어; a demo abre no idioma escolhido')">한국어<small>/ko/</small></a><a href="#" onclick="event.preventDefault();toast('/am/','Mesma página em አማርኛ; a demo abre no idioma escolhido')">አማርኛ<small>/am/</small></a><a href="#" onclick="event.preventDefault();toast('/yo/','Mesma página em Yorùbá; a demo abre no idioma escolhido')">Yorùbá<small>/yo/</small></a><a href="#" onclick="event.preventDefault();toast('/ha/','Mesma página em Hausa; a demo abre no idioma escolhido')">Hausa<small>/ha/</small></a></div>
-    <p class="note" style="text-align:center;margin-top:14px">Escolher um idioma troca esta página e a lição demo. Onde há uma Bíblia livre no seu idioma, o Read Mode mostra o texto paralelo.</p>
-  </div>
-</section>
-
-<section class="md-band alt" id="igreja">
+<section class="md-band" id="igreja">
   <div class="md-wrap two-col">
     <div class="cover" style="aspect-ratio:4/3;max-width:460px"><svg class="standin" viewBox="0 0 400 300" aria-hidden="true" preserveAspectRatio="xMidYMid slice" ><rect width="400" height="300" rx="28" fill="#154194"/><path d="M300 60l12 30 30 12-30 12-12 30-12-30-30-12 30-12z" fill="#FFB020"/><path d="M0 210c50-30 100-30 150 0s100 30 150 0 60-20 100-10v100H0z" fill="#40ABE4" opacity=".9"/><path d="M0 240c50-30 100-30 150 0s100 30 150 0 60-20 100-10v70H0z" fill="#2B95D0"/></svg></div>
     <div>
@@ -225,6 +225,43 @@
   </div>
 </section>
 
+<section class="md-band alt bl-reveal" id="leitura-livre">
+  <div class="md-wrap two-col">
+    <div>
+      <div class="md-sec-h" style="text-align:start;margin-bottom:0"><h2>Leia livre, no seu ritmo, no Read Mode</h2></div>
+      <p>Fora das Lições do dia, o Read Mode deixa o Aprendiz ler a Fonte das lições — a WEB, World English Bible, a única fonte usada nos exercícios, verbetes e áudios em inglês — livremente, por livro e capítulo. Toque em qualquer palavra para ver o significado.</p>
+      <p style="margin-top:10px">Onde já existe uma Bíblia importada para o seu Idioma nativo, o mesmo versículo aparece em Texto paralelo, na sua língua. Com franqueza: o Texto paralelo ainda não existe para todo Idioma nativo.</p>
+    </div>
+    <div class="original" style="margin:0">
+      <div class="ref">Read Mode · Gênesis 1:1 · WEB</div>
+      <p class="verse" lang="en">In the <span class="w">beginning</span>, God <span class="w">created</span> the <span class="w">heavens</span> and the <span class="w">earth</span>.</p>
+      <p class="tr">No princípio, Deus criou os céus e a terra. <span class="note">(Texto paralelo — disponível onde já importado.)</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="md-band bl-reveal" id="perguntas">
+  <div class="md-wrap">
+    <div class="md-sec-h"><h2>Perguntas antes de começar</h2><p>O essencial, sem enrolação.</p></div>
+    <div class="md-faq">
+      <details><summary>É grátis mesmo?<svg class="ic"><use href="#i-chev-d"/></svg></summary><div class="a">O A1 é grátis hoje, sem cartão e sem anúncio. Não é promessa de grátis para sempre: é a postura atual.</div></details>
+      <details><summary>Preciso de conta pra experimentar?<svg class="ic"><use href="#i-chev-d"/></svg></summary><div class="a">Não. A Lição demo roda como Convidado, e o progresso fica no aparelho até você criar conta.</div></details>
+      <details><summary>Funciona no meu idioma?<svg class="ic"><use href="#i-chev-d"/></svg></summary><div class="a">A interface hoje fala português, espanhol e inglês. Mais idiomas vêm depois do lançamento.</div></details>
+      <details><summary>Posso trocar de Curso?<svg class="ic"><use href="#i-chev-d"/></svg></summary><div class="a">Sim. O segundo Curso pode começar a qualquer hora, sem perder o progresso do primeiro.</div></details>
+      <details><summary>Meus dados ficam seguros?<svg class="ic"><use href="#i-chev-d"/></svg></summary><div class="a">Leia os detalhes na nossa <a href="privacidade.html">Política de privacidade</a>.</div></details>
+      <details><summary>Preciso saber inglês pra começar?<svg class="ic"><use href="#i-chev-d"/></svg></summary><div class="a">Não. O Curso começa do zero: todo mundo entra hoje pela Unidade 1.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="md-band soft bl-reveal" id="indicacao">
+  <div class="md-wrap" style="max-width:720px">
+    <div class="md-sec-h"><h2>Indique, ganhe XP</h2><p>Cada Aprendiz tem um link de Indicação pessoal. Quando ele traz um novo cadastro, quem indicou — e, quando couber, quem foi convidado — ganha XP, Streak ou Freeze, o item que protege a sequência. Nunca dinheiro.</p></div>
+    <div class="card"><h4>Indicação não é Grupo</h4><p class="sub-t">O Grupo é estudar junto: ver o XP da semana uns dos outros. A Indicação é outro mecanismo — o link pessoal que espalha o Biblup e recompensa os dois lados.</p></div>
+  </div>
+</section>
+
+
 <section class="md-band deep">
   <div class="md-wrap"><h3>Comece hoje à noite</h3><p>Quatro frases, uma Dica, quatro exercícios e o versículo original. Sem cadastro, sem cartão.</p><a class="btn btn-lg" href="../onboarding/flow.html?course=nt" id="ctaDemo2">Experimente uma lição<svg class="ic"><use href="#i-arrow-r"/></svg></a></div>
 </section>
@@ -233,7 +270,7 @@
 <footer class="md-foot">
   <div class="md-wrap">
     <div class="cols">
-      <div><svg style="height:32px;width:auto;display:block;margin-bottom:10px" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg><p style="max-width:30ch">A Bíblia como ponte para aprender um novo idioma, com gamificação e prática diária.</p><p style="margin-top:8px">Texto bíblico: World English Bible, domínio público.</p></div>
+      <div><svg style="height:40px;width:auto;display:block;margin-bottom:10px" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg><p style="max-width:30ch">A Bíblia como ponte para aprender um novo idioma, com gamificação e prática diária.</p></div>
       <div><b>Biblup</b><a href="landing.html#como-funciona">Como funciona</a><a href="landing.html#original">Versículo original</a><a href="landing.html#igreja">Estude com sua igreja</a><a href="historias.html">Histórias</a><a href="login.html">Entrar</a></div>
       <div><b>Legal</b><a href="termos.html">Termos de uso</a><a href="privacidade.html">Política de privacidade</a><a href="cookies.html">Cookies e consentimento</a><a href="mailto:legal@biblup.com">legal@biblup.com</a></div>
       <div><b>Recursos da Bíblia</b><a href="#versiculo-aleatorio" onclick="event.preventDefault();toast('Em breve','Versículo do Dia ainda não disponível')">Versículo do Dia</a><a href="#proverbio-aleatorio" onclick="event.preventDefault();toast('Em breve','Provérbio do Dia ainda não disponível')">Provérbio do Dia</a><a href="#salmo-aleatorio" onclick="event.preventDefault();toast('Em breve','Salmo do Dia ainda não disponível')">Salmo do Dia</a><a href="#devocional" onclick="event.preventDefault();toast('Em breve','Devocional Diário ainda não disponível')">Devocional Diário</a><a href="#outros-recursos" onclick="event.preventDefault();toast('Em breve','Mais recursos a caminho')">Outros recursos</a></div>
@@ -263,10 +300,42 @@ function toast(title,desc,kind){const h=document.getElementById('toastHost')||((
 function showTab(group,name,el){document.querySelectorAll('[data-tabgroup="'+group+'"]').forEach(p=>p.hidden=p.dataset.tab!==name);if(el){el.parentElement.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected','false'));el.setAttribute('aria-selected','true')}}
 function selChip(el){el.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on')}
 
+(function(){
+  var el=document.getElementById('heroType'),tx=document.getElementById('heroTypeTx');
+  if(!el||!tx)return;
+  var terms;
+  try{terms=JSON.parse(el.getAttribute('data-terms'))}catch(e){return}
+  if(!terms||!terms.length)return;
+  // reserved height for the typed line(s) is pure CSS (.md-hero h1{min-height:3.1em}),
+  // sized in em so it always matches the current clamp()'d font-size at any viewport
+  // with no JS measurement: nothing to desync on resize, nothing to race against
+  // web-font load timing (both were real bugs in an earlier JS-measured version).
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced){tx.textContent=terms[0];return}
+  var i=0,TYPE_MS=85,DEL_MS=40,HOLD_MS=2200,GAP_MS=400;
+  function loop(){
+    var term=terms[i%terms.length],pos=0;tx.textContent='';el.classList.add('is-typing');
+    (function type(){pos++;tx.textContent=term.slice(0,pos);if(pos<term.length){setTimeout(type,TYPE_MS)}else{setTimeout(erase,HOLD_MS)}})();
+    function erase(){el.classList.remove('is-typing');(function del(){pos--;tx.textContent=term.slice(0,pos);if(pos>0){setTimeout(del,DEL_MS)}else{i++;setTimeout(loop,GAP_MS)}})()}
+  }
+  loop();
+})();
+
 function pickCourse(el,c){document.querySelectorAll('.course-opt').forEach(b=>b.setAttribute('aria-pressed','false'));el.setAttribute('aria-pressed','true');
  const nt=c==='nt';document.getElementById('ctaDemo').href='../onboarding/flow.html?course='+c;document.getElementById('ctaDemo2').href='../onboarding/flow.html?course='+c;
  document.getElementById('demoK').textContent=nt?'Novo Testamento · A estrela do oriente':'Antigo Testamento · No começo';
  document.getElementById('demoTx').innerHTML=nt?'A <span class="w">star</span>. Men <span class="w">came</span> from the <span class="g">east</span>. They <span class="w">saw</span> the star.':'In the <span class="g">beginning</span>: no <span class="w">light</span>. God <span class="w">said</span>, "Let there be light."';}
+
+(function(){
+  document.documentElement.classList.add('bl-js');
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var syncDark=function(){var on=document.documentElement.getAttribute('data-theme')==='dark';var i=document.getElementById('darkToggleInput');if(i)i.checked=on};
+  document.addEventListener('DOMContentLoaded',syncDark);syncDark();
+  var secs=[].slice.call(document.querySelectorAll('.bl-reveal'));
+  if(!secs.length||reduced||!('IntersectionObserver' in window)){document.documentElement.classList.remove('bl-js');return}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  secs.forEach(function(s){io.observe(s)});
+})();
 
 </script>
 </body>

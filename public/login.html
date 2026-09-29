@@ -12,7 +12,9 @@
 <link rel="stylesheet" href="../shared/site.css">
 <link rel="stylesheet" href="../shared/public.css">
 <style>
-.auth-section{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 280px);padding:48px 16px;background:var(--surface-2)}
+.auth-section{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;min-height:100vh;padding:48px 16px;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-soft) 50%,var(--surface-3) 100%)}
+.auth-logo{display:flex}
+.auth-logo svg{height:48px;width:auto;display:block}
 .auth-card{width:100%;max-width:420px;display:grid;gap:18px;background:var(--surface);border:2px solid var(--border);border-radius:var(--r-xl);padding:32px 28px;box-shadow:var(--sh-2)}
 .auth-card h1{font-size:26px;font-weight:700;letter-spacing:-.02em;margin:0;color:var(--ink)}
 .auth-card .sub{font-size:14px;color:var(--ink-2);margin:0;line-height:1.45}
@@ -128,36 +130,10 @@
 
 </svg>
 <div class="devbar" aria-label="Nota do protótipo"><b>Protótipo</b><span>URL pública: biblup.com<b style="color:#fff">/pt/entrar</b></span><span class="sp"></span><a href="../index.html">Índice dos protótipos</a></div>
-<nav class="md-nav" aria-label="Menu principal">
-  <a href="landing.html" aria-label="Biblup, início"><svg style="height:34px;width:auto;display:block" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></a>
-  <div class="lk">
-    <a href="landing.html#como-funciona">Como funciona</a>
-    <a href="landing.html#idiomas">No seu idioma</a>
-    <a href="landing.html#igreja">Estude com sua igreja</a>
-    <a href="historias.html">Histórias</a>
-    <a href="contato.html">Contato</a>
-  </div>
-  <div class="acts">
-    <button class="menu-btn" type="button" aria-label="Abrir menu" onclick="openOverlay('mobileNav')"><svg class="ic"><use href="#i-menu"/></svg></button>
-    <a class="btn btn-link btn-sm" href="login.html">Já tenho conta</a>
-    <a class="btn btn-primary btn-sm" href="../onboarding/flow.html">Experimente uma lição</a>
-  </div>
-</nav>
-<div class="overlay sheet" id="mobileNav" onclick="if(event.target===this)closeOverlay('mobileNav')">
-  <div class="sheet-s" role="dialog" aria-label="Menu">
-    <div class="grip"></div>
-    <nav class="mobile-lk" aria-label="Menu principal (mobile)">
-      <a href="landing.html#como-funciona">Como funciona</a>
-      <a href="landing.html#idiomas">No seu idioma</a>
-      <a href="landing.html#igreja">Estude com sua igreja</a>
-      <a href="historias.html">Histórias</a>
-      <a href="contato.html">Contato</a>
-    </nav>
-  </div>
-</div>
 <main id="main">
 
 <section class="auth-section">
+  <a class="auth-logo" href="landing.html" aria-label="Biblup, início"><svg viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg></a>
   <div class="auth-card card" id="loginCard">
     <h1>Entrar</h1>
     <p class="sub">Continue de onde você parou nas histórias da Bíblia.</p>
@@ -202,33 +178,14 @@
   </div>
 </section>
 </main>
-<footer class="md-foot">
-  <div class="md-wrap">
-    <div class="cols">
-      <div><svg style="height:32px;width:auto;display:block;margin-bottom:10px" viewBox="0 0 925 471" role="img" aria-label="Biblup"><use href="#logo"/></svg><p style="max-width:30ch">A Bíblia como ponte para aprender um novo idioma, com gamificação e prática diária.</p><p style="margin-top:8px">Texto bíblico: World English Bible, domínio público.</p></div>
-      <div><b>Biblup</b><a href="landing.html#como-funciona">Como funciona</a><a href="landing.html#original">Versículo original</a><a href="landing.html#igreja">Estude com sua igreja</a><a href="historias.html">Histórias</a><a href="login.html">Entrar</a></div>
-      <div><b>Legal</b><a href="termos.html">Termos de uso</a><a href="privacidade.html">Política de privacidade</a><a href="cookies.html">Cookies e consentimento</a><a href="mailto:legal@biblup.com">legal@biblup.com</a></div>
-      <div><b>Recursos da Bíblia</b><a href="#versiculo-aleatorio" onclick="event.preventDefault();toast('Em breve','Versículo do Dia ainda não disponível')">Versículo do Dia</a><a href="#proverbio-aleatorio" onclick="event.preventDefault();toast('Em breve','Provérbio do Dia ainda não disponível')">Provérbio do Dia</a><a href="#salmo-aleatorio" onclick="event.preventDefault();toast('Em breve','Salmo do Dia ainda não disponível')">Salmo do Dia</a><a href="#devocional" onclick="event.preventDefault();toast('Em breve','Devocional Diário ainda não disponível')">Devocional Diário</a><a href="#outros-recursos" onclick="event.preventDefault();toast('Em breve','Mais recursos a caminho')">Outros recursos</a></div>
-    <div><b>Suporte</b><a href="central-de-ajuda.html">Central de Ajuda</a><a href="contato.html">Contato</a></div>
-    </div>
-    <div style="border-top:1px solid var(--border);margin:20px 0 16px;padding-top:16px">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-        <b style="font-size:13px;margin:0">Idioma do site</b>
-        <nav class="lang-links" aria-label="Idioma do site"><a href="#" hreflang="pt-br" aria-current="true" onclick="event.preventDefault()">Português</a><span aria-hidden="true">·</span><a href="#" hreflang="es" onclick="event.preventDefault();toast('Idioma do site','Mesma página em Español; /es/ (hreflang)')">Español</a><span aria-hidden="true">·</span><a href="#" hreflang="en" onclick="event.preventDefault();toast('Idioma do site','Mesma página em English; /en/ (hreflang)')">English</a></nav>
-      </div>
-    </div>
-    <div class="bottom"><span>© 2026 Biblup · biblup.com/pt/entrar</span><span>Aprenda inglês com as histórias da Bíblia.</span></div>
-  </div>
-</footer>
 <div class="consent" id="consent" role="region" aria-label="Cookies">
   <span class="bic"><svg class="ic"><use href="#i-shield"/></svg></span>
   <div class="tx"><b>Cookies só do necessário, por enquanto.</b> Se você permitir, medimos o uso do site com o Google Analytics. Nada é enviado antes da sua escolha.</div>
   <div class="cacts"><button class="btn btn-outline btn-sm" type="button" onclick="closeConsent()">Só o necessário</button><button class="btn btn-primary btn-sm" type="button" onclick="closeConsent()">Aceitar cookies</button></div>
 </div>
-<script src="../shared/dialog.js"></script>
 <script>
 function closeConsent(){var c=document.getElementById('consent');c&&c.classList.add('hidden')}
-function toast(title,desc,kind){const h=document.getElementById('toastHost')||(()=>{const x=document.createElement('div');x.id='toastHost';x.className='toast-host';x.setAttribute('role','status');x.setAttribute('aria-live','polite');document.body.appendChild(x);return x})();const t=document.createElement('div');t.className='toast '+(kind||'success');t.innerHTML='<div class="t-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t-body"><div class="t-title"></div><div class="t-desc"></div></div><button class="x" type="button" aria-label="Fechar" onclick="this.closest('.toast').remove()"><svg class="ic sm" aria-hidden="true"><use href="#i-x"/></svg></button>';t.querySelector('.t-title').textContent=title;t.querySelector('.t-desc').textContent=desc||'';h.appendChild(t);setTimeout(()=>t.remove(),3200)}
+function toast(title,desc,kind){const h=document.getElementById('toastHost')||(()=>{const x=document.createElement('div');x.id='toastHost';x.className='toast-host';x.setAttribute('role','status');x.setAttribute('aria-live','polite');document.body.appendChild(x);return x})();const t=document.createElement('div');t.className='toast '+(kind||'success');t.innerHTML='<div class="t-ic"><svg class="ic"><use href="#i-check"/></svg></div><div class="t-body"><div class="t-title"></div><div class="t-desc"></div></div><button class="x" type="button" aria-label="Fechar" onclick="this.closest(\'.toast\').remove()"><svg class="ic sm" aria-hidden="true"><use href="#i-x"/></svg></button>';t.querySelector('.t-title').textContent=title;t.querySelector('.t-desc').textContent=desc||'';h.appendChild(t);setTimeout(()=>t.remove(),3200)}
 
 function togglePassword(inputId, btn){
   var input = document.getElementById(inputId);

@@ -3,14 +3,20 @@
 .devbar b{font-family:var(--f-ui);font-weight:800;color:var(--accent)}
 .devbar a{color:var(--ink-inverse);opacity:.85}
 .devbar .sp{flex:1}
-.md-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 24px;border-bottom:1px solid var(--border);background:var(--bg);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);position:sticky;top:0;z-index:40}
+.md-nav{border-bottom:1px solid var(--border);background:var(--bg);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);position:sticky;top:0;z-index:40}
+.md-nav-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap;padding:14px 24px}
+.brand-logo{height:44px;width:auto;display:block;flex:none}
 .md-nav .lk{display:flex;gap:2px;flex-wrap:wrap}
 .md-nav .lk a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:var(--r-pill);text-decoration:none;color:var(--ink-2);font-weight:700;font-size:14px}
 .md-nav .lk a:hover{background:var(--surface-2);color:var(--ink)}
-.md-nav .acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-@media(max-width:700px){.md-nav .lk{display:none}}
-.menu-btn{display:none;width:44px;height:44px;border-radius:10px;border:0;background:transparent;color:var(--ink);align-items:center;justify-content:center;cursor:pointer}
-@media(max-width:700px){.menu-btn{display:flex}}
+.md-nav .acts{display:flex;gap:8px;align-items:center;flex-wrap:nowrap;flex:none}
+@media(max-width:860px){.md-nav .lk{display:none}}
+.menu-btn{display:none;width:44px;height:44px;border-radius:10px;border:0;background:transparent;color:var(--ink);align-items:center;justify-content:center;cursor:pointer;flex:none}
+@media(max-width:860px){.menu-btn{display:flex}}
+/* mobile nav never wraps: logo + hamburger + primary CTA always share one line;
+   the secondary "Já tenho conta" link moves into the mobile sheet below 560px */
+@media(max-width:560px){.md-nav .acts .btn-link{display:none}}
+@media(max-width:380px){.md-nav-in{padding:12px 14px}.md-nav .acts{gap:6px}.md-nav a[aria-label="Biblup, início"] svg{height:34px}}
 .mobile-lk{display:grid;gap:4px;min-width:240px}
 .mobile-lk a{display:flex;align-items:center;min-height:48px;padding:0 6px;border-radius:var(--r-md);text-decoration:none;color:var(--ink-2);font-weight:700;font-size:16px}
 .mobile-lk a:hover{background:var(--surface-2);color:var(--ink)}
@@ -31,8 +37,17 @@
 .md-hero{display:grid;gap:28px;align-items:center}
 @media (min-width:900px){.md-hero{grid-template-columns:1.1fr .9fr}}
 .md-hero .kick{color:var(--primary);font-size:13px;margin-bottom:14px;font-weight:700}
-.md-hero h1{font-size:clamp(34px,4.5vw,54px);font-weight:700;letter-spacing:-.03em;line-height:1.02;max-width:16ch}
+.md-hero h1{font-size:clamp(34px,4.5vw,54px);font-weight:700;letter-spacing:-.03em;line-height:1.02;max-width:19ch;min-height:3.15em}
+/* below ~414px the two longest phrases still need a 3rd wrapped line (real width
+   constraint on narrow phones, not a bug); from there up, 19ch keeps every phrase
+   on exactly one typed line, so only 2 lines total are ever needed */
+@media(min-width:414px){.md-hero h1{min-height:2.15em}}
 .md-hero h1 em{font-style:normal;color:var(--primary)}
+.hero-type{display:inline;color:var(--primary)}
+.hero-type::after{content:"";display:inline-block;width:3px;height:.82em;margin-inline-start:3px;vertical-align:-.08em;background:var(--primary);animation:heroCaret 1s step-end infinite}
+.hero-type.is-typing::after{animation:heroCaret .85s step-end infinite}
+@keyframes heroCaret{0%,49%{opacity:1}50%,100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.hero-type::after{animation:none;opacity:1}}
 .md-hero .strap{font-size:18px;color:var(--ink-2);max-width:44ch;margin-top:16px;line-height:1.5}
 .md-hero .strap b{color:var(--ink)}
 .md-hero .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
@@ -154,3 +169,8 @@
 [lang="ja"]{font-family:var(--f-ja)}
 [lang="ko"]{font-family:var(--f-ko)}
 [lang="ru"],[lang="uk"],[lang="bg"],[lang="sr"]{font-family:var(--f-ru)}
+
+/* one authored motion idea: single consistent reveal-on-scroll */
+.bl-js .bl-reveal{opacity:0;transform:translateY(16px);transition:opacity var(--t-slow) var(--e-pop),transform var(--t-slow) var(--e-pop)}
+.bl-js .bl-reveal.is-in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.bl-js .bl-reveal{opacity:1;transform:none;transition:none}}
