@@ -1,8 +1,4 @@
 /* Travessia Pop 3.4 · páginas públicas (landing, unit, termos, privacidade, cookies): regras próprias, idênticas nas 5 páginas. */
-.devbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:6px 16px;background:var(--ink);color:var(--ink-inverse);font-size:12px;font-family:var(--f-mono)}
-.devbar b{font-family:var(--f-ui);font-weight:800;color:var(--accent)}
-.devbar a{color:var(--ink-inverse);opacity:.85}
-.devbar .sp{flex:1}
 .md-nav{border-bottom:1px solid var(--border);background:var(--bg);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);position:sticky;top:0;z-index:40}
 .md-nav-in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:nowrap;padding:14px 24px}
 .brand-logo{height:44px;width:auto;display:block;flex:none}
@@ -158,8 +154,6 @@
 .legal h2{font-size:22px}
 @media(max-width:480px){.consent{padding:10px 12px;gap:8px}.consent .btn{flex:1 1 45%;min-height:40px;padding:0 10px}}
 
-.devbar{background:#101C33;color:#F4F7FC}
-.devbar b{color:#FFC85C}
 
 
 /* RTL e fontes por Grupo de script (G9-04; item estrutural 4 da revisão 2026-09-27) */

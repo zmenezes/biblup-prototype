@@ -391,8 +391,6 @@ tbody tr.sel td{background:var(--primary-soft)}
 .btn-sm::after{content:"";position:absolute;inset:-4px}
 .chip::after{content:"";position:absolute;inset:-3px;border-radius:inherit}
 .toast .x{min-width:44px;min-height:44px}
-.devbar{background:#101C33;color:#F4F7FC}
-.devbar b{color:#FFC85C}
 .md-band.deep p,.group-cover .k,.next-card .k{opacity:1}
 .course-opt[aria-pressed="true"] small,.lang.sel span,.member.me .nm small,.langs-grid a.on small{color:var(--ink-2)}
 @media(max-width:400px){.badge{white-space:normal;height:auto;min-height:24px;padding:2px 9px}}
